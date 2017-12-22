@@ -1,0 +1,183 @@
+body{
+	background: #F2F2F2;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.clearfix:after,
+.clearfix:before {
+    content: "";
+    line-height: 0;
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+    }
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+.fl{
+    float: left;
+}
+.fr{
+	float: right;
+}
+input{  
+   background:none;  
+   outline:none;  
+}
+/*重写mui样式*/
+.mui-bar-nav {
+    top: 0;
+    -webkit-box-shadow: 0 1px 6px #ccc;
+    box-shadow: 0 0px 0px #fff;
+    background: #fff !important;
+}
+.mui-icon-back:before, .mui-icon-left-nav:before {
+    color: #666;
+    content: '\e471';
+}
+.mui-slider-indicator.mui-segmented-control {
+    position: relative;
+    bottom: auto;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    background: #fff;
+    box-shadow: 0 0px 0px #fff ;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    color: #17c5b3;
+    font-size: 12px;
+}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+    border-top: none; 
+    border-bottom: 1px solid #c8c7cc;
+}
+.mui-control-content {
+    background-color: white;
+    min-height: 450px ;
+}
+.mui-scroll-wrapper {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+}
+.mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+	font-size: 12px;
+    display: inline-block;
+    box-sizing: border-box !important;
+    width: 32% !important;
+    padding: 0 !important;
+    text-align: center !important;
+    color: #666;
+}
+.mui-slider-indicator.mui-segmented-control {
+    background-color: #fff !important;
+}
+.mui-segmented-control.mui-scroll-wrapper {
+    height: 40px !important;
+}
+/*排序切换*/
+.custTab .px_up{
+	background: url(../img/paixu_up.png);
+	width: 8px;
+	height: 10px;
+	display: inline-block;
+	background-size: contain;
+}
+.custTab .px_dowm{
+	background:url(../img/paixu_down.png);
+	width: 8px;
+	height: 10px;
+	display: inline-block;
+	background-size: contain;
+}
+.px_normal{
+	background: url(../img/paixu.png);
+	width: 8px;
+	height: 10px;
+	display: inline-block;
+	background-size: contain;
+}
+/*顾客资料*/
+.cur_list{
+	height: 70px;
+	padding: 0 10px;
+	overflow: hidden;
+/*	border-bottom: 1px solid #ebebeb;*/
+}
+.img_head{
+	width: 50px;
+	height: 50px;
+	box-sizing: border-box;
+	border: 1px solid #e0e0e0;
+	border-radius: 2px;
+	margin-top: 10px;
+	float: left;
+}
+.cust-con{
+	float: left;
+	margin-left: 10px;
+	margin-top: 15px;
+}
+.cust-name{
+	display: flex;
+	display: -webkit-flex;
+	height: 14px;
+	line-height: 14px;
+}
+.cust-name p{
+	font-size: 12px;
+	color: #333;	
+}
+.cust-name span{
+	font-size: 12px;
+	color: #999;	
+	margin-left: 5px;
+}
+.cust-vip{
+	min-width:200px;
+	display: flex;
+	display: -webkit-flex;
+	margin-top: 5px;
+	height: 18px;
+	line-height: 18px;
+	float: left;
+	margin-left: 10px;
+}
+.vip-icon{
+	/*width: 25px;
+	height: 18px;
+	background: url(../img/vipcard.png);
+	background-size: contain;*/
+}
+.vip-numb{
+	font-size: 12px;
+	color: #ffd323;
+	/*margin-left: 5px;*/
+}
+.cust-per{
+	margin-top: 15px;
+	float: right;
+	display: flex;
+	display: -webkit-flex;
+}
+.per-text{
+	font-size: 12px;
+	line-height: 16px;
+	color: #d9d9d9;
+	margin-right: 5px;
+}
+.per-numb{
+    font-size: 12px;
+    line-height: 14px;
+    color: #fe8384;
+}

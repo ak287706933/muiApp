@@ -1,0 +1,415 @@
+/*重置样式*/
+body{
+	background: #F2F2F2;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.clearfix:after,
+.clearfix:before {
+    content: "";
+    line-height: 0;
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+    }
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+html,
+body {
+	background-color: #efeff4;
+}
+/*重写mui样式start*/
+   /*头部重写*/
+.mui-bar-nav {
+    top: 0;
+    -webkit-box-shadow: 0 1px 6px #ccc;
+    box-shadow: 0 0px 0px #fff;
+    background: #fff !important;
+}
+.mui-icon-back:before, .mui-icon-left-nav:before {
+    color: #666;
+    content: '\e471';
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    color: #13C8B2;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+    color: #999;
+    border: 0;
+}
+.mui-scroll-wrapper{
+	background: #fff;
+}
+/*重写mui样式end*/
+
+/*自己的样式*/
+.jkda_more{
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	right: 15px;
+	top: 10px;
+	background: url(../img/jkda_more.png) no-repeat;
+	background-size: cover;
+}
+.topBar_con{
+	position: relative;
+}
+#sliderSegmentedControl{
+	width: 88%;
+}
+.more_pop_con {
+	display: none;
+	position: fixed;
+	background: #fff;
+	width: 100%;
+	height: 8rem;
+	top: 0px;
+	z-index: 990;
+}
+.more_pop_con .cha{
+	position: absolute;
+	width:0.533333rem;
+	height: 0.533333rem;
+	top: 0.24rem;
+	right: 0.533333rem;
+	background: url(../img/jkda_close.png) no-repeat;
+	background-size: cover;
+}
+.more_tit{
+	font-size: 18px;
+	text-align: center;
+	height: 1.066666rem;
+	line-height: 1.066666rem;
+}
+.more_tit p{
+	margin-bottom: 0;
+}
+.more_list{
+	padding: 0.133333rem 0.133333rem 0.4rem 0.133333rem;
+}
+.more_list ul{
+	padding: 0;
+	margin: 0;
+}
+.more_list ul>li{
+	float: left;
+	width: 32%;
+	list-style: none;
+	margin-top: 0.133333rem;
+	margin-right: 0.133333rem;
+}
+.more_list ul>li:nth-child(3n){
+	margin-right: 0;
+}
+.more_list ul>li>a{
+	display: block;
+	background: #FAFAFA;
+	height: 0.933333rem;
+	line-height: 0.933333rem;
+	text-align: center;
+	color: #999;
+	border-bottom: 1px solid #E6E6E6;
+}
+.more_active{
+	color: #16C7B2 !important;
+	border-color:#16C7B2 !important;
+}
+
+/*横向导航*/
+.topBar_con{
+	background: #fff;
+	border-bottom: 1px solid #E0E0E0;
+	border-top: 1px solid #F1F1F1;
+}
+
+/*简单数据列表(无echarts)*/
+.topCon{
+	background: #fff;
+	padding: 0.4rem 0.533333rem 0 0.266666rem;
+}
+.test_num{
+	float: left;
+}
+.test_num h3{
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+	font-size: 20px;
+	height: 0.666666rem;
+	line-height: 0.666666rem;
+	color: #333;
+}
+.test_num p{
+	font-size: 12px;
+	margin: 0;
+	margin-top: 0.266666rem;
+	color: #999;
+}
+.add_btn{
+	float: right;
+	width: 1.333333rem;
+	height: 0.933333rem;
+	background: url(../img/jkda_add.png) no-repeat;
+	background-size: cover;
+	margin-top: 0.066666rem;
+}
+.his_rec{
+	padding-left: 0.266666rem;
+	background: #fff;
+	height: 0.826666rem;
+	line-height: 0.826666rem;
+	margin-top: 0.266666rem;
+}
+.his_rec p{
+	margin: 0;
+	font-size: 14px;
+	height: 0.826666rem;
+	line-height: 0.826666rem;
+	color: #666;
+}
+.list_head{
+	height: 0.666666rem;
+	line-height: 0.666666rem;
+	background: #f2f2f2;
+	padding: 0 0.533333rem 0 0.266666rem;
+}
+.list_head .cl_shijian{
+	float: left;
+	font-size: 12px;
+	color: #666;
+}
+.list_head .cl_shuju{
+	float: right;	
+	font-size: 12px;
+	color: #666;
+}
+.easy_listCon .list_body{
+	margin: 0;
+	padding: 0;
+}
+.list_body li{
+	background: #fff;
+}
+.list_body li>a{
+	display: block;
+	color: #333;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+	padding-left: 0.266666rem;
+	padding-right: 0.533333rem;
+	background: #fff;
+}
+.list_body li:nth-child(2n) a{
+	background: #FAFAFA;
+}
+.list_body li:nth-child(2n) div{
+	background: #FAFAFA;
+}
+.list_body li>a>p{
+	float: left;
+	margin: 0;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+	color: #333;
+}
+.list_body li>a>p.beizhu{
+	position: relative;
+	float: left;
+	margin: 0;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+	color: #999;
+	margin-left: 0.4rem;
+}
+.list_body li>a>p.rec_data{
+	float: right;
+	margin: 0;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+	color: #333;
+}
+.beizhu span{
+	display: block;
+	width: 0.533333rem;
+	height: 0.533333rem;
+	position: absolute;
+	top: 50%;
+	margin-top: -0.266666rem;
+	right: -0.666666rem;
+	background: url(../img/jkda_bz.png) no-repeat;
+	background-size: cover;
+	transform:rotate(-90deg);
+	-ms-transform:rotate(-90deg); 	/* IE 9 */
+	-moz-transform:rotate(-90deg); 	/* Firefox */
+	-webkit-transform:rotate(-90deg); /* Safari 和 Chrome */
+	-o-transform:rotate(-90deg); 
+}
+.easy_listCon .list_body .list_act .beizhu span{
+	transform:rotate(0deg);
+	-ms-transform:rotate(0deg); 	/* IE 9 */
+	-moz-transform:rotate(0deg); 	/* Firefox */
+	-webkit-transform:rotate(0deg); /* Safari 和 Chrome */
+	-o-transform:rotate(0deg); 
+}
+.list_toggle{
+	display: none;
+}
+.easy_listCon .list_body .list_act .list_toggle{
+	display: block;
+}
+.list_toggle p{
+	margin: 0;
+	padding: 0 0.266666rem 0.266666rem 0.266666rem;
+	color: #666;
+}
+/*体重canvas*/
+.weightCon{
+	padding: 0 0.133333rem;
+}
+.weiCanvas{
+	width: 100%;
+	height: 180px;
+	margin: 0px;
+	padding: 0px;
+}
+.selDataCon{
+	padding: 0.266666rem;
+	background: #fff;
+}
+.selDataCon ul{
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #16C7B2;
+}
+.selDataCon ul>li{
+	float: left;
+	border-left: 1px solid #16C7B2;
+}
+.selDataCon ul>li:nth-child(1){
+	border-left:none;
+}
+.selDataCon ul>li>a{
+	display: block;
+	font-size: 14px;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	background: #fff;
+	color: #17C5B3;
+	padding: 0 0.466666rem;
+}
+.selDataCon ul>li>a.date_active{
+	background: #17C6B2;
+	color: #fff;
+}
+
+/*平均值*/
+.avg_con{
+	height: 2rem;
+	margin-top: 0.2rem;
+	padding: 0 0.133333rem;
+}
+.avg_con ul{
+	margin: 0;
+	padding: 0;
+}
+.avg_con ul>li{
+	width: 33.33%;
+	float: left;
+	height: 2rem;
+}
+.avg_con ul>li>span{
+	display: block;
+	height: 0.666666rem;
+	line-height: 0.666666rem;
+	background: #FAFAFA;
+	color: #999;
+	text-align: center;
+}
+.avg_con ul>li>p{
+	margin: 0;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+	background: #fff;
+	color: #666;
+	text-align: center;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+/*血糖时段*/
+.time_piece{
+	padding: 0 0.133333rem;
+	margin-bottom: 0.133333rem;
+}
+.time_piece ul{
+	display: block;
+	margin: 0;
+	padding: 0.2rem 0.2rem;
+	background: #fafafa;
+}
+.time_piece ul>li{
+	display: block;
+	float: left;
+	margin-right: 0.266666rem;
+}
+.time_piece ul>li:nth-last-child(1){
+	margin-right: 0;
+}
+.time_piece ul>li>a{
+	display: block;
+	font-size: 12px;
+	color: #999;
+	border: 1px solid #E0E0E0;
+	height: 0.533333rem;
+	line-height: 0.533333rem;
+	width: 1.093333rem;
+	text-align: center;
+	border-radius: 0.053333rem;
+}
+/*iphone5等小屏的媒体查询*/
+@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
+	.time_piece ul{
+		display: block;
+		margin: 0;
+		padding: 0.2rem 0.133333rem;
+		background: #fafafa;
+	}
+	.time_piece ul{
+		display: block;
+		margin: 0;
+		padding: 0.2rem 0.266666rem;
+		background: #fafafa;
+	}
+	.time_piece ul>li{
+		display: block;
+		float: left;
+		margin-right:0.133333rem;
+	}
+	.time_piece ul>li:nth-last-child(1){
+		margin-right: 0;
+	}
+	.time_piece ul>li>a{
+		display: block;
+		font-size: 12px;
+		color: #999;
+		border: 1px solid #E0E0E0;
+		height: 0.533333rem;
+		line-height: 0.533333rem;
+		text-align: center;
+		width: auto;
+		border-radius: 0.053333rem;
+	}
+}
+/*血糖标签*/
+.timeLable .lableAct{
+	background: #17C6B2;
+	color: #fff;
+	border: 1px solid #17C6B2;
+}

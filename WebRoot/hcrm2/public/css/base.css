@@ -1,0 +1,36 @@
+@charset "utf-8";
+/*************************************公共样式**************************************/
+html,body,h1,h2,h3,h4,h5,h6,div,p,dl,dt,dd,ul,ol,li,form,button,input,textarea,select{ margin:0; padding:0;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+html,body {-webkit-text-size-adjust:none;background: #f2f2f2;}
+input[type='text'],input[type='number'],input[type='password'],input[type='reset'],input[type='submit'],input[type='button'],input[type='tel'],button,textarea{-webkit-appearance:none; border-radius:0; border:1px solid #ddd;} 
+ul,ol { list-style-type:none;}
+button { cursor:pointer;}
+img { max-width: 100%;border:none; vertical-align:middle;}
+a,img {  outline:none;text-decoration:none;color: #666;border:none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+button,input,textarea {outline:none;outline: none;-webkit-appearance: none;}
+textarea { resize:none; outline:none;}
+i,em{font-style:normal;}
+html {font-size:10px}
+@media screen and (min-width:320px) and (max-width:374px) {html {font-size: 10px}}
+@media screen and (min-width:375px) and (max-width:413px) {html {font-size: 11px}}
+@media screen and (min-width:414px) and (max-width:479px) {html {font-size: 13.5px}}
+@media screen and (min-width:480px) and (max-width:639px) {html {font-size: 15px}}
+@media screen and (min-width:640px) and (max-width:719px) { html {font-size: 16px}}
+@media screen and (min-width:720px) and (max-width:749px) { html {font-size: 18px}}
+@media screen and (min-width:750px) and (max-width:799px) { html {font-size: 16px}}
+@media screen and (min-width:800px) and (max-width:959px) {html {font-size: 14px}}
+@media screen and (min-width:960px) and (max-width:1079px) { html {font-size: 12px}}
+@media screen and (min-width:1080px) { html {font-size: 10px}}
+.clear{clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; width: 0;}
+.container{width: 93.75%;margin: 0 auto;}
+.left{float: left;}
+.right{float: right;}
+input.normal_gray:-moz-placeholder {color: #737373; }
+input.normal_gray::-moz-placeholder {color: #737373; }
+input.normal_gray::-webkit-input-placeholder{color: #737373;}
+input.normal_gray:-ms-input-placeholder {color: #737373;}
+textarea.normal_gray:-moz-placeholder {color: #737373; }
+textarea.normal_gray::-moz-placeholder {color: #737373; }
+textarea.normal_gray::-webkit-input-placeholder{color: #737373;}
+textarea.normal_gray:-ms-input-placeholder {color: #737373;}

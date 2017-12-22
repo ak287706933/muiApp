@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="js/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="js/layer_mobile/layer.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	<link rel="stylesheet" href="css/mui.min.css">
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.layui-m-layercont{padding:0}
+	</style>
+	<title>基本信息修改</title>
+	<body>
+		<!--header-->
+		<div class="page_common_fixed">
+			<header class="header_fixed">
+				<a href="javascript:history.back(-1)" class="return_pre iconfont">	</a>
+				<div class="header_title">基本信息</div>
+				<a class="add_record add_finish">&nbsp;</a>
+			</header>
+		</div>
+		<div class="header_fixed_div"></div>
+		<!--header end-->
+		<!--content-->
+		<div class="content medicine_record_content">
+			<div class="member_details_list">
+				<section class="member_detail_info">
+					<div class="info_section">
+						<div class="list_group">
+							<div class="container">
+								<div class="left">会员卡号</div>
+								<div class="right"><a href="#" id="MEMCARDNO" class="modify_search"></a></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">姓名</div>
+								<div class="right info_input"><input type="text" class="form_control"/><div class="input_result"  id="CARDHOLDER"></div></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">性别</div>
+								<div class="right user_sex"  id="SEX"></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">年龄</div>
+								<div class="right info_input"><input type="text" id="AGE" class="form_control" /><span class="unit">岁</span><div class="input_result"></div></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">出生日期</div>
+								<div class="right" class="birth_time" id="BIRTHDAY">
+								<input type="button" style="border: none" value="请选择" data-options='{}' id="datePicker1"/>
+							
+								</div>
+								
+								<script type="text/javascript">
+									//记录日期选择
+									(function($) {
+										$.init();
+										var pickBtn = document.querySelector("#datePicker1");
+										pickBtn.addEventListener("tap",function(){
+											var optionsJson = this.getAttribute('data-options') || '{}';
+											var options = JSON.parse(optionsJson);
+											var picker = new mui.DtPicker({
+											　　　　"type":"date"
+											　　　});
+											picker.show(function(rs) {
+												pickBtn.value = rs.text;
+												picker.dispose();
+											});
+										},false);
+										
+									})(mui);
+									
+					 </script>
+								
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">身份证号</div>
+								<div class="right info_input"><input  type="number" class="form_control"/><div id="IDCARD" class="input_result"></div></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">家庭身份</div>
+								<div class="right family_identity"  id="family_identity"></div>
+							</div>
+						</div>
+					</div>
+					<div class="info_section">
+						<div class="list_group">
+							<div class="container">
+								<div class="left">制卡机构</div>
+								<div class="right" id="madecard"></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">医保信息</div>
+								<div class="right safeguard_info" id="MEDICAL"></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">档案类型</div>
+								<div class="right archives_sort" id="FILETYPE"></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">档案号</div>
+								<div class="right" id="FILENUM"></div>
+							</div>
+						</div>
+					</div>
+					<div class="info_section">
+						<div class="list_group">
+							<div class="container">
+								<div class="left">手机号码</div>
+								<div class="right info_input"  id="tel" ><input type="tel" class="form_control"/><div class="input_result"></div></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">家庭住址</div>
+								<div class="right info_input"  id="ADDRESS" ><input type="text" class="form_control"/><div class="input_result"></div></div>
+							</div>
+						</div>
+					</div>
+					<div class="info_section">
+						<div class="list_group">
+							<div class="container">
+								<div class="left">紧急联系人</div>
+								<div class="right info_input" id="EMECONTACT"><input  type="text" class="form_control"/><div class="input_result"></div></div>
+							</div>
+						</div>
+						<div class="list_group">
+							<div class="container">
+								<div class="left">联系号码</div>
+								<div class="right info_input" id="mobile"><input    type="tel" class="form_control" /><div class="input_result"></div></div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="fixed_btn">
+			<button class="next_btn" onclick="saveMember()">保存</button>
+		</div>
+		<div class="fixed_btn_kong"></div>
+		<!--content end-->
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			//修改信息
+			var temp = '';
+			$('.info_input').click(function(){
+				$(this).children('input.form_control').show().focus().siblings('.input_result').hide();
+				temp = $(this).children('.input_result').html();
+			});
+			$('input.form_control').blur(function(){
+				var $this = $(this);
+				var result = $this.val();
+				if(  ( result == '' ) && ( temp == '' )  ) {
+					result = '未填写';
+				}else if( ( result == '' ) && ( temp != '' ) ){
+					result = temp;
+				}
+				$(this).hide().siblings('.input_result').html( result ).show()
+			});
+			//性别选择
+			$('.user_sex').click(function(){
+				layer.open({
+					content : `
+							  <div class="select_section left_options">
+							  		<ul class="select_options">
+							  			<li val="0">男</li>
+							  			<li val="1">女</li>
+							  		</ul>
+							  </div>
+					        `
+				});
+				select( 'user_sex' ) ;
+			})
+			//家庭身份选择
+			$('.family_identity').click(function(){
+				layer.open({
+					content : `
+							  <div class="select_section left_options">
+							  		<ul class="select_options">
+							  			<li val="0">丈夫</li>
+							  			<li val="1">妻子</li>
+							  			<li val="2">父亲</li>
+							  			<li val="3">母亲</li>
+							  		</ul>
+							  </div>
+					        `
+				});
+				select( 'family_identity' ) ;
+				
+			});
+			
+			//医保信息
+			$('.safeguard_info').click(function(){
+				layer.open({
+					content : `
+							  <div class="select_section left_options">
+							  		<ul class="select_options">
+							  			<li val="01">市医保</li>
+							  			<li val="02">省医保</li>
+							  			<li val="03">无医保</li>
+							  		</ul>
+							  </div>
+					          `
+				});
+				select( 'safeguard_info' ) ;  
+			});
+			
+			//档案类型选择
+			$('.archives_sort').click(function(){
+				layer.open({
+					content : `
+							  <div class="select_section left_options">
+							  		<ul class="select_options">
+							  			<li val="0">普通</li>
+							  			<li val="1">慢病</li>
+							  		</ul>
+							  </div>
+					          `
+				});
+				select( 'archives_sort' ) ;
+			});
+			
+			function select(target){
+				$('ul.select_options li').click(function(){
+					var $this = $(this);
+					var html = $this.html();
+					var val = $this.attr('val');
+					$this.addClass('on');
+					$('.'+target ).html( html ).attr('val' ,val);
+					setTimeout(function(){layer.closeAll()},800)
+				})
+			}
+		})
+		
+	var memcardno;//会员卡号
+	var compid;//企业编码
+	var fileno;
+	var type;
+	//接收页面传过来的会员号
+    function UrlSearch(){
+       var name,value; 
+       var str=location.href;
+       var num=str.indexOf("?");
+       str=str.substr(num+1);
+       var arr=str.split("&");
+       for(var i=0;i < arr.length;i++){ 
+         num=arr[i].indexOf("="); 
+          if(num>0){ 
+          name=arr[i].substring(0,num);
+          value=arr[i].substr(num+1);
+          this[name]=value;
+         } 
+       } 
+     } 
+    var LocString=String(window.document.location.href);
+    function GetQueryString(str){
+    var rs=new RegExp("(^|)"+str+"=([^&]*)(&|$)","gi").exec(LocString),tmp;
+    if(tmp=rs)return tmp[2];
+    return " ";
+    }
+	
+     var Request=new UrlSearch(); 
+     memcardno=Request.memcardno;
+     compid=Request.compid;
+     fileno=Request.fileno;
+     type=encodeURI(Request.type);
+     
+     
+   //获取会员基本信息
+ 	$.ajax({
+ 		url:"getHealthModilis.do?memcardno="+memcardno+"&compid="+compid+"&fileno="+fileno+"&type="+type,
+ 		type:"get",
+ 		dataType:"json",
+ 		success:function(data){
+         var json = eval(data);
+       //  var mobile;
+         var idcard;
+ 		//if(json.MOBILE==null){
+ 		//	mobile='';
+ 		//}else{
+ 		//var phone=json.MOBILE;
+ 		//mobile=phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+ 		//}
+ 		if(json.IDCARD==null){
+ 			idcard='';
+ 		}else{
+ 		var cid=json.IDCARD;
+ 		idcard=cid.replace(/(\d{6})\d{8}(\d{4})/, '$1*******$2');
+ 		}
+ 		var fileTypeTag;
+ 		if(json.FILETYPE==1){
+ 			fileTypeTag='慢病';
+ 		}else{
+ 			fileTypeTag='普通';
+ 		}
+ 		var mcal;
+ 		if(json.MEDICAL=="01"){
+ 			mcal="省医保";
+ 		}else if(json.MEDICAL=="02"){
+ 			mcal="市医保";
+ 		}else if(json.MEDICAL=="03"){
+ 			mcal="新农合";
+ 		}else{
+ 			mcal="无医保";
+ 		}
+         //基本信息
+ 		$("#MEMCARDNO").html(json.MEMCARDNO);
+ 		$("#CARDHOLDER").html(json.CARDHOLDER);
+ 		$("#SEX").html(json.SEX);
+ 		//$("#AGE").html(json.AGE+"岁");
+ 		$("#BIRTHDAY").html(json.BIRTHDAY);
+ 		$("#IDCARD").html(idcard);//json.IDCARD
+ 		$("#tel").val(json.TEL);
+ 		$("#ADDRESS").html(json.CARDADDRESS);
+ 		$("#family_identity").html(json.TYPE);
+ 		$("#MEDICAL").html(mcal);
+ 		$("#FILETYPE").html(fileTypeTag);
+ 		$("#FILENUM").html(fileno);
+ 		$("#EMECONTACT").html(json.EMECONTACT);
+ 		$("#mobile").html(json.MOBILE);
+ 		$("#madecard").html(json.MODBUSNO);
+ 		 
+ 		},
+ 		error:function(data){
+ 			//alert('失败' + data);
+ 		}
+ 	 });
+   
+   function saveMember(){
+	    var CARDHOLDER=$("#CARDHOLDER").html();
+	    var SEX=$("#SEX").html();
+	    var BIRTHDAY=$("#BIRTHDAY").html();
+	    var IDCARD=$("#IDCARD").html();//json.IDCARD
+	    var TEL=$("#tel").val();
+	    var ADDRESS=$("#ADDRESS").html();
+	    var family_identity=$("#family_identity").html();
+	    var MEDICAL=$("#MEDICAL").html();
+	    var FILETYPE=$("#FILETYPE").html();
+	    var FILENUM=$("#FILENUM").html();
+	    var EMECONTACT=$("#EMECONTACT").html();
+	    var mobile=$("#mobile").html();
+	    var modbusno=$("#madecard").html();
+	    //alert(CARDHOLDER);
+	    $.ajax({
+			url:"updateMembers.do?memcardno="+memcardno+"&compid="+compid+"&modbusno="+modbusno+"&fileno="+fileno+"&CARDHOLDER="+CARDHOLDER+"&SEX="+SEX+"&IDCARD="+IDCARD+"&family_identity="+family_identity+"&MEDICAL="+MEDICAL+"&FILETYPE="+FILETYPE+"&EMECONTACT="+EMECONTACT+"&mobile="+mobile,
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				   location.href="member-relatives-info.html?memcardno="+memcardno+"&compid="+compid+"&fileno="+fileno+"&type="+Request.type;
+       	}
+       });
+	   
+	   }
+	</script>
+</html>

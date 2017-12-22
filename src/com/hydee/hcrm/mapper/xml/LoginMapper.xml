@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hydee.hcrm.mapper.LoginMapper">
+	<!-- 用户登录 -->
+	<select id="getLoginUser" resultMap="login" parameterType="s_user_base">
+	select username,userid,tel,userpass from s_user_base
+	where userpass=#{USERPASS}
+    <if test="USERID != null">  
+        AND USERID=#{USERID} 
+    </if>
+    <if test="TEL != null">  
+        AND TEL=#{TEL} 
+    </if>
+	</select>
+	<resultMap type="s_user_base" id="login">
+	<result property="USERNAME" column="USERNAME"/>
+	<result property="USERID" column="USERID"/>
+	<result property="TEL" column="TEL"/>
+	<result property="USERPASS" column="USERPASS"/>
+	</resultMap>
+	
+	<!-- 修改密码 -->
+	<update id="updatepwd" parameterType="s_user_base">
+	update s_user_base set USERPASS=#{USERPASS} where USERID=#{USERID}
+	</update>
+	
+	<!-- 获取用户信息 -->
+	<select id="getuser" resultMap="user" parameterType="s_user_base">
+	select username,userid,gender from s_user_base where userid=#{USERID}
+	</select>
+	<resultMap type="s_user_base" id="user">
+	<result property="USERNAME" column="USERNAME"/>
+	<result property="USERID" column="USERID"/>
+	<result property="GENDER" column="GENDER"/>
+	</resultMap>
+	
+	<!-- 获取门店 
+	<select id="getorgname" resultMap="orgname" parameterType="s_user_base">
+	select nvl(b.orgname,'未知') as orgname from v_user a
+	left join s_crm_busi b on a.compid = b.compid and a.busno = b.busno
+	where a.userid = #{USERID} and a.compid = 2 and a.status = 1
+	</select>
+	<resultMap type="s_crm_busi" id="orgname">
+	<result property="ORGNAME" column="orgname"/>
+	</resultMap> -->
+	
+	<select id="getorgname" resultMap="orgname" parameterType="s_user_base">
+	select username,userid,tel,userpass,orgname from V_CRM_WECHAT_USER where userid = #{USERID}
+	</select>
+	<resultMap type="s_crm_busi" id="orgname">
+	<result property="ORGNAME" column="orgname"/>
+	</resultMap>
+	
+	<!-- 获取权限 -->
+	<select id="getrolename" resultMap="rolename" parameterType="s_user_base">
+	select nvl(s.rolename,'未知') as rolename from s_user_role u inner join s_role s on u.roleid=s.roleid where u.userid=#{USERID}
+	</select>
+	<resultMap type="s_role" id="rolename">
+	<result property="ROLENAME" column="rolename"/>
+	</resultMap>
+	
+	
+</mapper>

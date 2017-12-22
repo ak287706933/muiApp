@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/font.css">
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+	<script type="text/javascript" src="js/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="js/layer_mobile/layer.js" ></script>
+	<style type="text/css">
+		.layui-m-layercont{padding:0}
+	</style>
+	<title>商品检索</title>
+	<body>
+		<!--header-->
+		<div class="page_common_fixed">
+			<header class="header_fixed">
+				<a href="javascript:history.back(-1)" class="return_pre iconfont"></a>
+				<div class="header_title">商品检索</div>
+				<a class="add_record add_finish">&nbsp;</a>
+			</header>
+		</div>
+		<div class="header_fixed_div"></div>
+		<!--header end-->
+		<!--content-->
+		<div class="content medicine_searching_content">
+			<div class="searching_section">
+				<div class="container">
+					<div class="searching_form">
+							<button class="searching_btn" onclick="findWare()">检索</button>
+							<div class="searching_input_group">
+								<div class="searching_input">
+									<i class="icon_search iconfont">&#xe601</i>	<input type="text" id="ware" class="form_control" placeholder="输入商品编码"/>
+								</div>
+								
+							</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="searching_result" id="searching_result1">
+				
+			</div>
+			
+		</div>
+		<!--content end-->
+	</body>
+	<script type="text/javascript">
+	$(function(){
+			//计算结果输出区域的高度值；
+			var winH = $(window).height();
+			var offsetY = $('.searching_result').offset().top;
+			var hei = winH - offsetY-12 ;
+			$('.searching_result').css('min-height',hei+'px');
+	})
+	
+	var memcardno;//会员卡号
+	var compid;//企业编码
+	var fileno;
+	var type;
+	
+	//接收页面传过来的会员号
+    function UrlSearch(){
+       var name,value; 
+       var str=location.href;
+       var num=str.indexOf("?");
+       str=str.substr(num+1);
+       var arr=str.split("&");
+       for(var i=0;i < arr.length;i++){ 
+         num=arr[i].indexOf("="); 
+          if(num>0){ 
+          name=arr[i].substring(0,num);
+          value=arr[i].substr(num+1);
+          this[name]=value;
+         } 
+       } 
+     }
+	
+    var Request=new UrlSearch(); 
+    memcardno=Request.memcardno;
+    compid=Request.compid;
+    fileno=Request.fileno;
+    type=Request.type;
+	function findWare(){
+		var ware=$("#ware").val();
+		
+		$.ajax({
+			url:"getWare.do?ware="+ware+'&compid='+compid,
+			type:"get",
+			dataType:"json",
+			success:function(data){
+		        var json = eval(data);
+		        var list=[];
+		        $("#searching_result1").empty();
+		        
+		        $(json).each(function(i){
+		        list[i]=json[i];
+		        $("#searching_result1").append('<div class="medicine_record_item">'+
+					'<a href="add-medicine-record.html?warename='+list[i].WARENAME+'&warecode='+list[i].WARECODE+'&compid='+compid+'&type='+type+'&fileno='+fileno+'&memcardno='+memcardno+'&wareid='+list[i].WAREID+'&factoryname='+list[i].FACTORYNAME+'&warespec='+list[i].WARESPEC+'&notes='+list[i].NOTES+'"><div class="container">'+
+						'<div class="medicine_info">'+
+							'<div class="medicine_info_name">药品名称:'+list[i].WARENAME+'</div>'+
+							'<div class="medicine_info_usage">'+
+								'<span class="usage_item">药物规格:'+list[i].WARESPEC+'</span>'+
+								'<span class="usage_item">用法用量:'+list[i].NOTES+'</span>'+
+							'</div>'+
+							'<div class="medicine_info_code">商品编码:'+list[i].WARECODE+'</div>'+
+						'</div>'+
+					'</div>'+
+				'</div></a>');
+				});
+			}
+       });
+		
+	}
+	
+	
+	</script>
+</html>

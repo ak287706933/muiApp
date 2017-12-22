@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="js/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="js/layer_mobile/layer.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<style type="text/css">
+		.layui-m-layercont{padding:0}
+	</style>
+	<title>会员信息</title>
+	<body>
+		<!--header-->
+		<div class="page_common_fixed">
+			<header class="header_fixed">
+				<a href="javascript:history.back(-1)" class="return_pre iconfont"></a>
+				<div class="header_title" id="h1"></div>
+				<a class="add_record add_finish">&nbsp;</a>
+			</header>
+			<div class="options_fixed">
+				<div class="medicine_record_header">
+					<div class="medicine_item">
+						<p class="medicine_item_val" style="text-align: center;font-size: 2rem;line-height: 2rem;color: #000">0</p>
+						<p class="medicine_item_name">购买次数</p>
+					</div>
+					<div class="medicine_item">
+						<p class="medicine_item_val" style="text-align: center;font-size: 2rem;line-height: 2rem;color: #000">0</p>
+						<p class="medicine_item_name">购买均价</p>
+					</div>
+					<div class="medicine_item">
+						<p class="medicine_item_val" style="text-align: center;font-size: 2rem;line-height: 2rem;color: #000">0</p>
+						<p class="medicine_item_name">消费总额</p>
+					</div>
+				</div>
+				<div class="table_header">
+					<ul>
+						<li class="header_basic on"><a href="javascript:tabShow('header_basic','member_details_list')" >会员基本信息</a></li>
+						<li class="header_medicine"><a href="javascript:tabShow('header_medicine','member_list_section')" >家庭健康信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="fixed_common_div"></div>
+		<!--header end-->
+		<!--content-->
+		<div class="content medicine_record_content">
+			<div class="medicine_record_section">
+				<div class="tabel_content">
+					<div class="member_list_section" style="display: none;">
+						<!--卡主信息-->
+						<div class="member_list_box member_master">
+							<div class="member_list_header">
+								<div class="container">
+									<a onclick="addMembers()" class="add_member"><i class="add_new_red"></i>新增</a>
+									<div>会员卡主</div>
+								</div>
+							</div>
+							<div class="member_list_content" id="member_list_content1">
+								
+							</div>
+							<div class="member_info_absence" style="display: none;">请添加会员信息</div>
+						</div>
+						<!--卡主信息 end-->
+						<!--卡主家庭信息-->
+						<div class="member_list_box member_family">
+							<div class="member_list_header">
+								<div class="container">
+									<div>家庭成员：<span id="num"></span> </div>
+								</div>
+							</div>
+							<div class="member_show" id="member_show1">
+								
+							</div>
+							<div class="member_info_absence" style="display: none;">暂无成员信息</div>	
+						</div>
+						<!--卡主家庭信息 end-->
+					</div>
+					<div class="member_details_list">
+						<div class="member_details_header">
+							<div class="container">基本信息</div>
+						</div>
+						<section class="member_detail_info">
+							<div class="info_section">
+								<div class="list_group">
+									<div class="container">
+										<div class="left">会员卡号</div>
+										<div class="right" id="MEMCARDNO"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">姓名</div>
+										<div class="right" id="CARDHOLDER"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">性别</div>
+										<div class="right" id="SEX"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">年龄</div>
+										<div class="right" id="AGE"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">出生日期</div>
+										<div class="right" id="BIRTHDAY"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">身份证号</div>
+										<div class="right" id="IDCARD"></div>
+									</div>
+								</div>
+							</div>
+							<div class="info_section">
+								<div class="list_group">
+									<div class="container">
+										<div class="left">手机号码</div>
+										<div class="right" id="MOBILE"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">家庭住址</div>
+										<div class="right" id="ADDRESS"></div>
+									</div>
+								</div>
+							</div>
+							
+								<div class="list_group">
+									<div class="container">
+										<div class="left">年龄标签</div>
+										<div class="right"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">职业</div>
+										<div class="right"></div>
+									</div>
+								</div>
+							
+								<div class="list_group">
+									<div class="container">
+										<div class="left">购物性格</div>
+										<div class="right"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">生活属性</div>
+										<div class="right"></div>
+									</div>
+								</div>
+							
+								<div class="list_group">
+									<div class="container">
+										<div class="left">体型</div>
+										<div class="right"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">会员积分</div>
+										<div class="right" id="integralsum"></div>
+									</div>
+								</div>
+							
+								<div class="list_group">
+									<div class="container">
+										<div class="left">微信会员</div>
+										<div class="right" id="wechataccount"></div>
+									</div>
+								</div>
+								<div class="list_group">
+									<div class="container">
+										<div class="left">注册时间</div>
+										<div class="right" id="applytime"></div>
+									</div>
+								</div>
+							
+								<div class="list_group">
+									<div class="container">
+										<div class="left">注册来源</div>
+										<div class="right"></div>
+									</div>
+								</div>
+						</section>
+					</div>
+				</div>
+			</div>
+				
+		</div>
+		<!--content end-->
+	</body>
+	<script type="text/javascript">
+	var memcardno;//会员卡号
+	var compid;//企业编码
+	//接收页面传过来的会员号
+    function UrlSearch(){
+       var name,value; 
+       var str=location.href;
+       var num=str.indexOf("?");
+       str=str.substr(num+1);
+       var arr=str.split("&");
+       for(var i=0;i < arr.length;i++){ 
+         num=arr[i].indexOf("="); 
+          if(num>0){ 
+          name=arr[i].substring(0,num);
+          value=arr[i].substr(num+1);
+          this[name]=value;
+         } 
+       } 
+     } 
+     var Request=new UrlSearch(); 
+     memcardno=Request.memcardno;
+     compid=Request.compid;
+     //mui.toast(compid);
+     
+    //获取会员基本信息
+	$.ajax({
+		url:"accountinfo.do?memcardno="+memcardno+"&compid="+compid,
+		type:"get",
+		dataType:"json",
+		success:function(data){
+        var json = eval(data);
+        var mobile;
+        var idcard;
+		if(json.MOBILE==null){
+			mobile='';
+		}else{
+		var phone=json.MOBILE;
+		mobile=phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+		}
+		if(json.IDCARD==null){
+			idcard='';
+		}else{
+		var cid=json.IDCARD;
+		idcard=cid.replace(/(\d{6})\d{8}(\d{4})/, '$1*******$2');
+		}
+        //基本信息
+        $(".medicine_item_val:eq(0)").html(json.BUYTIMES);
+        $(".medicine_item_val:eq(1)").html(json.AVGPRICE);
+        $(".medicine_item_val:eq(2)").html(json.REALAMOUNT);
+		$("#MEMCARDNO").html(json.MEMCARDNO);
+		$("#CARDHOLDER").html(json.CARDHOLDER);
+		$("#h1").html(json.CARDHOLDER);
+		$("#SEX").html(json.SEX);
+		
+		if(json.AGE==null){
+			json.AGE=" ";
+			$("#AGE").html(json.AGE);
+		}else if(json.AGE=='117'){
+			json.AGE=" ";
+			$("#AGE").html(json.AGE);
+		}else{
+			$("#AGE").html(json.AGE+"岁");
+		}
+		
+		
+		$("#BIRTHDAY").html(json.BIRTHDAY);
+		$("#IDCARD").html(idcard);//json.IDCARD
+		$("#MOBILE").html(mobile);
+		$("#ADDRESS").html(json.CARDADDRESS);
+		//其他信息
+		$("#integralsum").html(json.INTEGRALSUM);
+		$("#wechataccount").html(json.WECHATACCOUNT);
+		$("#applytime").html(json.APPLYTIME);
+		},
+		error:function(data){
+			//alert('失败' + data);
+		}
+	 });
+    
+	//获取家庭健康档案信息(除本人以外)
+	$.ajax({
+		url:"getMemberRelationShip.do?memcardno="+memcardno+"&compid="+compid,
+		type:"get",
+		dataType:"json",
+		success:function(data){
+        var json = eval(data);
+		var num=0;
+   	    var list=[];
+   	    var BUYTIMES=$(".medicine_item_val:eq(0)").html();
+        var AVGPRICE=$(".medicine_item_val:eq(1)").html();
+        var REALAMOUNT=$(".medicine_item_val:eq(2)").html();
+	    $(json).each(function(i){
+			list[i]=json[i];
+			var filetype;
+			if(list[i].FILETYPE==0){
+				filetype="普通";
+			}else{
+				filetype="慢病";
+			}
+			
+			if(list[i].BIRTHDAY=="117"){
+				list[i].BIRTHDAY=" ";
+			}
+			if(list[i].BIRTHDAY=="0"){
+				list[i].BIRTHDAY=" ";
+			}
+			if(list[i].BIRTHDAY==undefined){
+				list[i].BIRTHDAY=" ";
+			}
+			$("#member_show1").append('<div class="member_list_content">'+
+					'<a href="member-relatives-info.html?memcardno='+list[i].MEMCARDNO+'&BUYTIMES='+BUYTIMES+'&AVGPRICE='+AVGPRICE+'&REALAMOUNT='+REALAMOUNT+'&compid='+list[i].COMPID+'&type='+list[i].TYPE+'&fileno='+list[i].FILENO+'" class="see_detail">'+
+					'<div class="member_file_number">'+
+						'<div class="container">档案号('+list[i].FILENO+')</div>'+
+					'</div>'+
+					'<div class="member_info">'+
+						'<div class="container">'+
+							'<div class="member_label" style="background: #27C4C4;">'+list[i].TYPE+'</div>'+
+							'<div class="member_info_point">'+
+								'<p class="member_name">'+list[i].CARDHOLDER+'<span>('+list[i].SEX+' / '+list[i].BIRTHDAY+'岁)</span></p>'+
+								'<p class="member_card_number">会员卡号'+list[i].MEMCARDNO+'</p>'+
+							'</div>'+
+							'<div class="file_type">档案类型：'+filetype+'</div>'+
+						'</div>'+
+					'</div>'+
+				'</a>'+
+			'</div>');
+		 num++;
+	    });
+	    $("#num").html(num);
+		},
+		error:function(data){
+
+		}
+	 });
+	
+	//获取家庭健康档案信息(本人)
+	$.ajax({
+		url:"getMemberRelationShipMe.do?memcardno="+memcardno+"&compid="+compid,
+		type:"get",
+		dataType:"json",
+		success:function(data){
+		if(data==null){
+			$("#member_list_content1").append('<a href="add-members1.html?memcardno='+memcardno+'&compid='+compid+'" class="see_detail"><div class="member_info_point">'+
+					'<p class="member_name">请添加会员信息</p>'+
+					'</div>');
+		}else{
+	        var json = eval(data);
+	        var filetype;
+	        var BUYTIMES=$(".medicine_item_val:eq(0)").html();
+	        var AVGPRICE=$(".medicine_item_val:eq(1)").html();
+	        var REALAMOUNT=$(".medicine_item_val:eq(2)").html();
+	        if(json.BIRTHDAY==null){
+				json.BIRTHDAY=" ";
+			}
+	        if(json.BIRTHDAY=="117"){
+	        	json.BIRTHDAY=" ";
+			}
+			if(json.BIRTHDAY=="0"){
+				json.BIRTHDAY=" ";
+			}
+			
+	      if(json.FILETYPE==0){
+				filetype="普通";
+				$("#member_list_content1").append('<a href="member-relatives-info.html?memcardno='+json.MEMCARDNO+'&BUYTIMES='+BUYTIMES+'&AVGPRICE='+AVGPRICE+'&REALAMOUNT='+REALAMOUNT+'&type='+json.TYPE+'&compid='+json.COMPID+'&fileno='+json.FILENO+'" class="see_detail">'+
+						'<div class="member_file_number" >'+
+						'<div class="container">档案号(<span id="tagFileNo">'+json.FILENO+'</span>)</div>'+
+					'</div>'+
+					'<div class="member_info" >'+
+						'<div class="container">'+
+							'<div class="member_label" style="background: #608BF7;">'+json.TYPE+'</div>'+
+							'<div class="member_info_point">'+
+								'<p class="member_name">'+json.CARDHOLDER+'<span>('+json.SEX+' / '+json.BIRTHDAY+'岁）</span></p>'+
+								'<p class="member_card_number">会员卡号'+json.MEMCARDNO+'</p>'+
+							'</div>'+
+							'<div class="file_type">档案类型：'+filetype+'</div>'+
+						'</div>'+
+					'</div>'+
+				'</a>');
+			}else{
+				filetype="慢病";
+				$("#member_list_content1").append('<a href="member-relatives-info.html?memcardno='+json.MEMCARDNO+'&BUYTIMES='+BUYTIMES+'&AVGPRICE='+AVGPRICE+'&REALAMOUNT='+REALAMOUNT+'&type='+json.TYPE+'&compid='+json.COMPID+'&fileno='+json.FILENO+'" class="see_detail">'+
+						'<div class="member_file_number" >'+
+						'<div class="container">档案号(<span id="tagFileNo">'+json.FILENO+'</span>)</div>'+
+					'</div>'+
+					'<div class="member_info" >'+
+						'<div class="container">'+
+							'<div class="member_label" style="background: #608BF7;">'+json.TYPE+'</div>'+
+							'<div class="member_info_point">'+
+								'<p class="member_name">'+json.CARDHOLDER+'<span>('+json.SEX+' / '+json.BIRTHDAY+'岁）</span></p>'+
+								'<p class="member_card_number">会员卡号'+json.MEMCARDNO+'</p>'+
+							'</div>'+
+							'<div class="file_type">档案类型：'+filetype+'</div>'+
+						'</div>'+
+					'</div>'+
+				'</a>');
+			}
+			
+		}
+
+		
+		},
+		error:function(data){
+
+		}
+	 });
+	 
+	 function toAdd(){
+	 	location.href="healthFileAdd/toAdd.do?memcardno="+memcardno+"&compid="+compid;
+	 }
+		
+	function addMembers(){
+		var fileno=$("#tagFileNo").html();
+		location.href="add-members1.html?memcardno="+memcardno+"&compid="+compid+"&fileno="+fileno;
+	}
+	
+	</script>
+</html>

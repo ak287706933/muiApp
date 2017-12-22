@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hydee.hcrm.mapper.HealthFileAddMapper">
+
+	<!-- 新增健康档案新增修改单 -->
+  	<insert id="addCrmHealthModilis" parameterType="com.hydee.hcrm.pojo.CrmHealthModilis">
+  		INSERT INTO t_crm_health_modilis (BILLNO,MODBUSNO,MEMCARDNO,TYPE,HEIGHT,WEIGHT,MEDICAL,
+  				HABITS,INTENSITY,SYMPTOM,ALLERGY,CONTRAINDICATIONS,HYPERTENSION,DIABETES,
+  				HYPERLIPIDEMIA,TEMPERATURE,HEARTRATE,STEPS,SYSTOLIC,DIASTOLIC,OXYGEN,BLOODSUGAR1,
+  				BLOODSUGAR2,BLOODSUGAR3,BLOODSUGAR4,GLYCOSYLATED,CHOLESTEROL,TRIGLYCERIDE,HIGHLIPOPROTEIN,
+  				LOWLIPOPROTEIN,HOMOCYSTEINE,STATUS,CREATEUSER,CREATETIME,FILENO,COMPID,LASTMODIFY,LASTTIME,
+  				MODIFYRECORD,CARDHOLDER,SEX,MOBILE,BIRTHDAY,TEL,CARDADDRESS,IDCARD,BUSNO,FILETYPE,MODIFYRECORDS,
+  				COLLECT,REMARKS,LISTSTATUS,CLERK,DIABETESTYPE,EMECONTACT,PROVINCE,CITY,COUNTY,LIVER,RENAL,ABNORMAL,
+  				FAILURE,EDEMA,REACTION,OTHER,MIDE,PENICILLIN,ERGYOTHER,CARDIOVASCULAR,YEAROTHER,BLOODSUGAR5,
+  				BLOODSUGAR6,BLOODSUGAR7,BLOODSUGAR8,DOCSTATUS)  
+  		VALUES (#{billNo,jdbcType=VARCHAR}, #{modBusno,jdbcType=INTEGER}, #{memcardNo,jdbcType=VARCHAR}, 
+  				#{type,jdbcType=VARCHAR}, #{height,jdbcType=NUMERIC}, #{weight,jdbcType=NUMERIC}, 
+  				#{medical,jdbcType=VARCHAR}, #{habits,jdbcType=VARCHAR}, #{intensity,jdbcType=VARCHAR},
+  				#{symptom,jdbcType=VARCHAR}, #{allergy,jdbcType=VARCHAR}, #{contraindications,jdbcType=VARCHAR},
+  				#{hypertension,jdbcType=VARCHAR}, #{diabetes,jdbcType=VARCHAR}, #{hyperlipidemia,jdbcType=VARCHAR},
+  				#{temperature,jdbcType=NUMERIC}, #{heartrate,jdbcType=NUMERIC}, #{steps,jdbcType=NUMERIC},
+  				#{systolic,jdbcType=NUMERIC}, #{diastolic,jdbcType=NUMERIC}, #{oxygen,jdbcType=NUMERIC},
+  				#{bloodsugar1,jdbcType=NUMERIC}, #{bloodsugar2,jdbcType=NUMERIC}, #{bloodsugar3,jdbcType=NUMERIC},
+  				#{bloodsugar4,jdbcType=NUMERIC}, #{glycosylated,jdbcType=NUMERIC}, #{cholesterol,jdbcType=NUMERIC},
+  				#{triglyceride,jdbcType=NUMERIC}, #{highLipoprotein,jdbcType=NUMERIC}, #{lowLipoprotein,jdbcType=NUMERIC},
+  				#{homocysteine,jdbcType=NUMERIC}, #{status,jdbcType=INTEGER}, #{createuser,jdbcType=INTEGER}, 
+  				#{createtime,jdbcType=TIMESTAMP}, #{fileNo,jdbcType=VARCHAR}, #{compid,jdbcType=INTEGER}, 
+  				#{lastModify,jdbcType=INTEGER}, #{lastTime,jdbcType=TIMESTAMP}, #{modifyRecord,jdbcType=VARCHAR}, 
+  				#{cardHolder,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+  				#{birthday,jdbcType=TIMESTAMP}, #{tel,jdbcType=VARCHAR}, #{cardAddress,jdbcType=VARCHAR}, 
+  				#{idcard,jdbcType=VARCHAR}, #{busno,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER}, 
+  				#{modifyRecords,jdbcType=VARCHAR}, #{collect,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+  				#{listStatus,jdbcType=INTEGER}, #{clerk,jdbcType=BIGINT}, #{diabetesType,jdbcType=BIGINT}, 
+  				#{emecontact,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+  				#{county,jdbcType=VARCHAR}, #{liver,jdbcType=INTEGER}, #{renal,jdbcType=INTEGER}, 
+  				#{abnormal,jdbcType=INTEGER}, #{failure,jdbcType=INTEGER}, #{edema,jdbcType=INTEGER}, 
+  				#{reaction,jdbcType=INTEGER}, #{other,jdbcType=INTEGER}, #{mide,jdbcType=INTEGER}, 
+  				#{penicillin,jdbcType=INTEGER}, #{ergyother,jdbcType=INTEGER}, #{cardiovascular,jdbcType=NUMERIC}, 
+  				#{yearOther,jdbcType=NUMERIC}, #{bloodsugar5,jdbcType=NUMERIC}, #{bloodsugar6,jdbcType=NUMERIC}, 
+  				#{bloodsugar7,jdbcType=NUMERIC}, #{bloodsugar8,jdbcType=NUMERIC}, #{docStatus,jdbcType=INTEGER})
+  	</insert>
+  	
+	<!-- 新增健康档案新增修改单对应病症 -->
+  	<insert id="addCrmDiseaseNoteBatch" parameterType="java.util.List">
+		INSERT INTO t_crm_disease_note (COMPID,BILLNO,MEMCARDNO,ENTITYID,DISEASEID,DISEASETYPE,DISEASENAME,
+  				SHOOTINGTIME,TREATMENTSTATE,PATHOGENY,CONCURRENT,LASTMODIFY,LASTTIME,FILENO,SYMPTOMS,ADDTYPE) VALUES
+		<foreach collection="list" item="info" separator=",">
+			   VALUES (#{info.compid,jdbcType=INTEGER}, #{info.billNo,jdbcType=VARCHAR}, 
+			    #{info.memcardNo,jdbcType=VARCHAR}, #{info.entityId,jdbcType=VARCHAR}, 
+  				#{info.diseaseId,jdbcType=VARCHAR}, #{info.diseaseType,jdbcType=VARCHAR}, 
+  				#{info.diseaseName,jdbcType=INTEGER}, #{info.shootingtime,jdbcType=TIMESTAMP}, 
+  				#{info.treatmentState,jdbcType=VARCHAR}, #{info.pathogeny,jdbcType=VARCHAR}, 
+  				#{info.concurrent,jdbcType=INTEGER}, #{info.lastModify,jdbcType=INTEGER},
+  				#{info.lastTime,jdbcType=TIMESTAMP}, #{info.fileNo,jdbcType=VARCHAR}, 
+  				#{info.symptoms,jdbcType=VARCHAR}, #{info.addType,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+  	
+	<!-- 新增 健康档案新增修改单对应用药 -->
+  	<insert id="addCrmDrugNote" parameterType="com.hydee.hcrm.pojo.CrmDrugNote">
+  		INSERT INTO t_crm_drug_note (COMPID,BILLNO,FILENO,MEMCARDNO,STARTTIME,ENDTIME,AVAILABLEDAYS,
+  			    NOTES,STILLUSE,WAREID,LASTMODIFY,LASTTIME,ADDTYPE,USAGE)  
+  		VALUES (#{compid,jdbcType=INTEGER}, #{billNo,jdbcType=VARCHAR}, #{fileNo,jdbcType=VARCHAR}, 
+  				#{memcardNo,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+  				#{availableDays,jdbcType=BIGINT}, #{notes,jdbcType=VARCHAR}, #{stillUse,jdbcType=INTEGER},
+  				#{wareid,jdbcType=BIGINT}, #{lastModify,jdbcType=INTEGER}, #{lastTime,jdbcType=TIMESTAMP},
+  				#{addType,jdbcType=INTEGER}, #{usage,jdbcType=VARCHAR})
+  	</insert>
+  	
+	<!-- 获取fileNo -->
+	<select id="findHealthFileNo" resultType="String">
+		select f_get_serial('FILENO',null) from dual
+	</select>
+  	
+</mapper>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>设置</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			/*初始化nav样式*/
+			.mui-bar-nav {
+			    top: 0;
+			    -webkit-box-shadow: 0 1px 6px #ccc;
+			    box-shadow: 0 0px 0px #fff;
+			    background: #fff !important;
+			}
+			.mui-icon-back:before, .mui-icon-left-nav:before {
+			    color: #666;
+			    content: '\e471';
+			}
+			.mui-bar-nav~.mui-content {
+			    padding-top: 50px;
+			}
+			.mui-content>.mui-table-view:first-child {
+			    margin-top: 0; 
+			}
+			/*自定义*/
+			.cfm_btn{
+				margin-top: 10px;
+			}
+			.cfm_btn a{
+				color: #16C7B2;
+				text-align: center;
+				display: block;
+				width: 100%;
+				height: 44px;
+				background: #fff;
+				line-height: 44px;
+			}
+			.version{
+				display: block;
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+			<header class="mui-bar mui-bar-nav">
+				<!-- <a href="login.html" class=" mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 id="title" class="mui-title">修改密码</h1>
+			</header>
+			<div class="mui-content">
+				<form class="mui-input-group">
+				    <div class="mui-input-row">
+				        <label>输入新密码</label>
+				    	<input type="password" name="password" class="mui-input-password" id="ped_id1">
+				    </div>
+				    <div class="mui-input-row">
+				        <label>确认新密码</label>
+				        <input type="password" name="pwd" class="mui-input-password" id="ped_id2">
+				    </div>
+				</form>
+			</div>
+					 <div class="cfm_btn" id="tj_btn">
+						<a href="#">确认</a>
+					</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		 	//mui初始化
+			mui.init();
+		 	mui("#tj_btn").on("tap","a",function(){
+		 		var userpwd = $("[name=password]").val();
+				var pwd = $("[name=pwd]").val();
+				if(userpwd==pwd && userpwd!="" && pwd!=""){
+				$.ajax({
+					url:"updatepwd.do?userpwd="+userpwd,
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						if(data!=='no'){
+						location.href="main_option.html";
+						}
+					},
+					error:function(data){
+						mui.toast("修改失败！");
+					}
+				
+				});
+				}else{
+					mui.toast("输入有误！");
+				} 
+		 		
+		 	});
+		</script>	
+	</body>
+
+</html>

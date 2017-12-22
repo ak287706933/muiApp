@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>填写反馈</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<style>
+			html,
+			body {
+				background: #F2F2F2 !important;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			h5 {
+				margin: 5px 7px;
+			}
+			.mui-bar-nav {
+			    top: 0;
+			    -webkit-box-shadow: 0 1px 6px #ccc;
+			    box-shadow: 0 0px 0px #fff;
+			    background: #fff !important;
+			}
+			.mui-icon-back:before, .mui-icon-left-nav:before {
+			    color: #666;
+			    content: '\e471';
+			}
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+			    color: #17C6B2 !important;
+			}
+			.mui-input-group .mui-input-row:after {
+			    height: 0px !important;
+			}
+			.mui-input-group:before {
+			 	height: 0px !important;
+			}
+			/*勾选圆框*/
+			.mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio] {
+    			left: 0.266666rem;
+			}
+			.mui-checkbox input[type=checkbox], .mui-radio input[type=radio] {
+			    position: absolute;
+			    top: 6px;
+			    right: 20px;
+			    display: inline-block;
+			    width: 24px;
+			    height: 24px;
+			    border: 0;
+			    outline: 0!important;
+			    background-color: transparent;
+			    -webkit-appearance: none;
+			}
+			.mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before {
+			    font-size: 24px;
+			}
+			/*文字部分*/
+			.mui-checkbox.mui-left label, .mui-radio.mui-left label {
+			    padding-right: 15px;
+			    padding-left: 50px;
+			    font-size: 14px;
+			}
+			.mui-checkbox label{
+				line-height: 14px !important;
+			}
+			.mui-input-group .mui-input-row {
+			    height: 36px !important;
+			}
+			.mui-input-group:after {
+			    height: 0px !important;
+			}
+			/*自定义*/
+			.formContain{
+				margin-top: 0.266666rem;
+				background: #fff;
+			}
+			.reason{
+				padding-left: 1.066666rem;
+				padding-right: 0.266666rem;
+				margin-top: 0.4rem;
+			}
+			.reason span{
+				font-size: 14px;
+				display: inline-block;
+				margin-right: 0.266666rem;
+				padding: 0.133333rem 0.266666rem !important;
+				background: #FAFAFA;
+				color: #CACACA;
+				border: 1px solid #E0E0E0 !important;
+			}
+			.reason .s_active{
+				font-size: 14px;
+				display: inline-block;
+				margin-right: 0.266666rem;
+				padding: 0.133333rem 0.266666rem !important;
+				background: #FFBC2A;
+				color: #fff;
+				border: 1px solid #FFBC2A !important;
+			}
+			/*ip5兼容*/
+			@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
+				.reason span{
+					font-size: 13px;
+					margin-right: 7px;
+				}
+				.reason .s_active{
+					font-size: 13px;
+					display: inline-block;
+					margin-right: 7px;
+					padding: 0.133333rem 0.266666rem !important;
+					background: #FFBC2A;
+					color: #fff;
+					border: 1px solid #FFBC2A !important;
+				}
+			}
+			.reason span:nth-last-child(1){
+				margin-right: 0;
+			}
+			.beizhu{
+				border: 1px solid #E0E0E0;
+				height: 2.4rem;
+			}
+			.beizhu textarea{
+				display: block;
+				height: 2.4rem;
+			}
+			.mui-button-row {
+				padding: 0 !important;
+			    position: relative;
+			    text-align: center;
+			    height: 83px !important;
+			    padding: 0 0.266666rem !important;
+				padding-top: 20px !important;
+				padding-bottom:30px;
+				background: #F2F2F2;
+			}
+			.fk_btn{
+				width: 100%;
+				background: #17C6B2;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!-- <a class=" mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+			<h1 id="title" class="mui-title">填写回访记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="formContain">
+				<form class="mui-input-group">
+						<div class="mui-input-row mui-radio mui-left">
+							<label>会员择日复购</label>
+							<input name="radio1" type="radio" value="1" class="ipt">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>药品未完成</label>
+							<input name="radio1" type="radio" value="2" class="ipt">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>已在医院或药店购买</label>
+							<input name="radio1" type="radio" value="3" class="ipt">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>电话空号或无人接听</label>
+							<input name="radio1" type="radio" value="4" class="ipt">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>会员不欢迎沟通</label>
+							<input name="radio1" type="radio" value="5" class="ipt">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>其他</label>
+							<input name="radio1" type="radio" value="6" class="ipt">
+						</div>
+						<p style="color: #333;padding-left: 0.266666rem;font-size: 14px;margin-top: 0.533333rem;">备注:</p>
+						<div class="beizhu" style="margin: 0.266666rem 0.266666rem 0.533333rem 0.266666rem;">
+							<textarea id="textarea" rows="5" placeholder="在此输入备注内容" style="padding: 0.133333rem;"></textarea>
+						</div>
+						<div class="mui-button-row">
+							<button type="button" class="fk_btn" onclick="tijiao();">提交</button>
+						</div>
+				</form>
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var memcardno;//会员卡号
+			var compid;//企业编号
+			var busno;//业务机构编码
+			var status;//获取状态值
+			var remark="";//备注
+			//获取页面传过来的值
+			function UrlSearch(){
+		       var name,value; 
+		       var str=location.href;
+		       var num=str.indexOf("?");
+		       str=str.substr(num+1);
+		       var arr=str.split("&");
+		       for(var i=0;i < arr.length;i++){ 
+		         num=arr[i].indexOf("="); 
+		          if(num>0){ 
+		          name=arr[i].substring(0,num);
+		          value=arr[i].substr(num+1);
+		          this[name]=value;
+		         } 
+		       } 
+		     } 
+		     var Request=new UrlSearch(); 
+		     memcardno=Request.memcardno;
+		     //页面加载获取数据
+		     $.ajax({
+					url:"getMemcrd.do?memcardno="+memcardno,
+					type:"get",
+					dataType:"json",
+					success:function(data){
+			        var json = eval(data);
+			        compid=json.COMPID;
+			        busno=json.BUSNO;
+					},
+					error:function(data){
+						
+					}
+				});
+		     //获取状态值事件
+			mui(".mui-input-group").on("tap",".ipt",function(){
+				status=$(this).attr("value");
+			});
+			//提交反馈信息
+		    function tijiao(){  
+		    	remark=$('#textarea').val();
+		        $.ajax({  
+		            type:'post',      
+		            url:'memberfk.do?memcardno='+memcardno+'&compid='+compid+'&busno='+busno+'&status='+status+'&remark='+remark,  
+		            dataType:'text',  
+		            success:function(data){
+		            	location.href="custDetail.html?memcardno="+memcardno+"&compid="+compid;
+		            }
+		        });
+		    }
+		
+		 	//mui初始化
+			mui.init();
+		</script>	
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+          <typeAlias type="com.hydee.hcrm.pojo.s_user_base" alias="s_user_base"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_health_list" alias="t_crm_health_list"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_addhealth" alias="t_crm_addhealth"/>
+          <typeAlias type="com.hydee.hcrm.pojo.Page" alias="Page"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_memcard_reg" alias="t_crm_memcard_reg"/>
+          <typeAlias type="com.hydee.hcrm.pojo.PhoneMissions" alias="PhoneMissions"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_wareid_message" alias="t_crm_wareid_message"/>
+          <typeAlias type="com.hydee.hcrm.pojo.TaskList" alias="TaskList"/>
+          <typeAlias type="com.hydee.hcrm.pojo.BuyBack" alias="BuyBack"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_activity_ware" alias="t_crm_activity_ware"/>
+          <typeAlias type="com.hydee.hcrm.pojo.MemberMessage" alias="MemberMessage"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_activity_c" alias="t_crm_activity_c"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_activity" alias="t_crm_activity"/>
+          <typeAlias type="com.hydee.hcrm.pojo.PurchaseHistory" alias="PurchaseHistory"/>
+          <typeAlias type="com.hydee.hcrm.pojo.member_sale" alias="member_sale"/>
+          <typeAlias type="com.hydee.hcrm.pojo.s_crm_busi" alias="s_crm_busi"/>
+          <typeAlias type="com.hydee.hcrm.pojo.s_role" alias="s_role"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_disease" alias="t_crm_disease"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_entity" alias="t_crm_entity"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_entity_type" alias="t_crm_entity_type"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_entity_symptom" alias="t_crm_entity_symptom"/>
+          <typeAlias type="com.hydee.hcrm.pojo.t_crm_entity_syndrome" alias="t_crm_entity_syndrome"/>
+    </typeAliases>
+</configuration>

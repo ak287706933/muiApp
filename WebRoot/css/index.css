@@ -1,0 +1,231 @@
+@charset "utf-8";
+/*患病信息列表*/
+.page_common_fixed{position: fixed;top:0;left:0;z-index:99;width: 100%;background: #f2f2f2;}
+.fixed_common_div{width: 100%;height:15.7rem;}
+.page_common_fixed .options_fixed{margin-top: 0rem;}
+.options_fixed .medicine_record_header{padding:1rem 0 0 0;display: -webkit-flex;display: flex;flex-direction: row;width: 100%;flex-wrap:nowrap;background: #fff;justify-content:center;text-align: center;font-size:2rem;line-height: 2rem;color: #000;}
+.options_fixed .table_header{margin-top: 1rem;line-height:4rem;background: #fff;}
+.table_header ul{display: -webkit-flex;display: flex;flex-direction: row;width: 100%;flex-wrap:nowrap;background: #fff;justify-content:center;text-align: center;font-size:1.2rem;}
+.table_header ul li{-webkit-flex:1;-moz-flex:1;flex:1}
+.medicine_item .medicine_item_val{font-size: 1.6rem;}
+.table_header ul li a{padding:1.3rem 10%;color: #ABA9AB;height: 100%;}
+.table_header ul li.on a{color: #1AC77E;border-bottom: 1px solid #1AC77E;}
+a.add_member i.add_new_red{float: right;width: 2.5rem;height: 2.5rem;background: url(../images/add_red.png) center center no-repeat;background-size:40% ;}
+i.icon_microphone{display: block;margin: 0 auto;width:3rem;height: 3rem;background: url(../images/microphone.png) center center no-repeat;background-size: 80%;}
+.header_fixed{position: relative;z-index: 3;display: flex;flex-direction: row;align-items: center;width: 100%;background: #fff;overflow:hidden;line-height: 4rem;font-size: 1.6rem;box-shadow: 0 0 15px rgba(0,0,0,.3);}
+.header_fixed_div{width: 100%;height: 4rem;}
+.header_fixed a.return_pre{float: left;width: 4rem;height: 4rem;text-align: center;background: url(../images/arrow_down-left.png) center center no-repeat;background-size:50%; }
+.header_fixed a.add_record{float: right;width: 4rem;height: 4rem;text-align: center;background: url(../images/add.png) center center no-repeat;background-size:50% ;}
+.header_fixed .header_title{flex-grow: 1;text-align: center;}
+.container{margin: 0 auto;width:97.2%;}
+.illness_list_content{padding-bottom: 2rem;}
+.illness_list_content section.illness_list{margin-top:.5rem;background: #fff;font-size: 1.4rem;line-height: 4rem;color: #0d0d0d;}
+.illness_list_content section.illness_list header{margin: 0 auto;width: 96%;}
+.illness_list_content section.illness_list header a.see_more{float: right;width: 4rem;height: 4rem;background: url(../images/arrow-down.png) right center no-repeat;background-size:50%;}
+.illness_list_content section.illness_list header a.see_more.hide{background: url(../images/arrow_down-top.png) right center no-repeat;background-size:50%;}
+section.illness_list .list_show{border-top: 1px solid #ccc;padding-bottom: 1rem;background: #fff;overflow: hidden;}
+section.illness_list .list_show{display: none;}
+section.illness_list .info_list{margin: 0 auto;width: 96%;height: 4rem;border-bottom: 1px dotted #ccc;}
+.info_list .right{width: 75%;color: #737373;text-align: right;height: 100%;line-height: 4rem;}
+.info_list ul.illness_label{padding-bottom: 1rem;width: 100%;overflow: hidden;}
+.info_list ul.illness_label li{float: left;margin: 1rem .5rem 0 .5rem;padding: 0 1.8rem;background: #ff9800;color: #fff;line-height: 3rem;border-radius: 1.5rem;}
+section.illness_list .ill_reason{margin: .5rem auto 0;width:96%;overflow: hidden;}
+.ill_reason .right{width: 85%;color: #737373;text-align: left;line-height: 2rem;}
+.ill_reason .reason_box{padding:.2rem .5rem;border:1px solid #ccc;box-sizing: border-box;}
+section.illness_list .list_deal_btn{margin-top: 1.2rem;}
+section.illness_list .list_deal_btn button{display: block;margin: 0 auto;padding: .6rem;width: 62%;background: #E51C23;color: #fff;border: none;border-radius: 1.5rem;font-size: 1.4rem;}
+section.illness_list .normal_show{display: block;}
+.list_box{padding-bottom: 1.3rem;}
+.list_box ul{margin:0 auto 0;padding-top: .5rem;width: 90%;height: 16rem;font-size: 1.4rem;color:#4a4a4a;overflow:auto;}
+.list_box ul li{float: left;padding:.2rem 1.7rem 0rem;margin: .8rem .5rem 0;line-height:1.8rem;background: #c4c2c4;border-radius: 1.2rem;}
+.list_box ul li.on{background: #259B24;color: #fff;}
+.list_box ul.child_list{border-top: 1px solid #ccc;}
+.list_box button{height: 3rem;border:none;border-radius: .8rem;color: #fff;font-size: 1.4rem;}
+.disease_box button.next_step_btn{background: #428F61;}
+.list_box button.pre_step_btn{background: #B3B0AD;}
+ul.symptoms_list li.on{color:#fff;background:  #FF9800;}
+.list_box ul.symptoms_list{min-height: 28rem;}
+.disease_box button{display: block;margin: 0 auto;width:12rem;}
+.symptoms_box button{width:10rem;}
+.symptoms_box button.pre_step_btn{float: left;}
+.symptoms_box button.next_step_btn,.complications button.save_btn{float: right;}
+.symptoms_box button.next_step_btn{background: #FF9800;}
+.complications{padding:.5rem 0 1rem;}
+.complications ul.complications_list{margin: 0 auto;width: 90%;min-height: 30rem;}
+.complications ul li{margin-top:.5rem;width: 100%;background: #C4C2C4;text-align: center;line-height: 3rem;border-radius: .8rem;font-size: 1.4rem;color: #4A4A4A;}
+.complications ul li.on{color: #fff;background: #FF9800;}
+.complications .btn_set{margin: .5rem auto 0;overflow: hidden;}
+.complications .btn_set button{width: 10rem;height: 3rem;border:none;border-radius: .8rem;color: #fff;font-size: 1.4rem;background: #ccc;}
+.complications .btn_set .save_btn{background: #FF9800;}
+.condition_box{padding-bottom: 1.5rem;}
+.condition_box ul.condition_list{margin: 0 auto;width: 70%;}
+.condition_box ul li{margin-top: 2rem;line-height: 3.4rem;background: #C4C2C4;color: #4A4A4A;text-align: center;border-radius: .8rem;}
+.condition_box ul li.on{background: #259B24;color: #fff;}
+.condition_box button.save{display: block;margin: 2rem auto 0;width: 12rem;height: 3rem;background: #428F61;border:none;border-radius: .8rem;color: #fff;}
+.tel{margin-top: 10rem;}
+.alert_illness_category .section_title{background: #3C7857;}
+.alert_illness_statue .section_title{background: #3C7857;}
+.alert_illness_basic .section_title{background: #FF9800;}
+.alert_illness_link .section_title{background: #FF9800;}
+.alert_notice .section_title{background: #FF9800;}
+.alert_content .btn_set{margin:.5rem auto;width: 90%;overflow: hidden;}
+.select_section.left_options{text-align: left;padding: 0;line-height:3.6rem;overflow: hidden;}
+.left_options ul.select_options li{padding-left: 15%;}
+.left_options ul.select_options li:first-child{border-radius: 5px 5px 0 0;}
+.left_options ul.select_options li:last-child{border-radius: 0 0 5px 5px;}
+.left_options ul.select_options li.on{background: #ccc;}
+/*新增记录*/
+.header_fixed a.add_finish{color: #24D193;text-align: left;background: none;}
+section.add_info_list {font-size: 1.4rem;color: #8C888C;}
+section.add_info_list .list_show{display: block;}
+.info_list .info_list_main{position: relative;height: 4rem;}
+.info_list .info_list_main span.must_input{position:absolute;;left:-.5rem;color: red;line-height: 4.5rem;}
+.info_list .info_list_main a.normal_a{color: #8c8c8c;}
+.info_list input.form_control{margin:0 .5rem 0 0;padding: 0;width: 90%;text-align: right;font-size: 1.4rem;background: none;height:4.4rem;border:none;}
+.ill_reason .info_list_main textarea{padding:.5rem 1rem;margin: 0;box-sizing: border-box;width: 100%;font-size: 1.4rem;line-height: 2rem;height:9.5rem;border:none;}
+.notice_tips{padding: 3rem 0;color: red;text-align: center;font-size: 1.4rem;}
+.info_list_main .ill_reason_box{border:1px solid #ccc;height:9.5rem;overflow: hidden;}
+.ill_reason .microphone_input{float: right;padding-top:1.8rem;border-left: 1px solid #ccc;width:8.7rem;height:9.5rem;text-align: center;background: #f7f7f7;}
+.ill_reason_box .input_reason{padding-right: 8.9rem;}
+.microphone_input i.iconfont{font-size: 3rem;color:#666;}
+.microphone_section{position: fixed;bottom: -18rem;left:0;width: 100%;height: 18rem;background:#F7F2F7;font-size: 1.4rem;transition: all 500ms;}
+.microphone_section.animate{bottom: 0;}
+.microphone_section .before_speak{padding-top: 7.7rem;text-align: center;color: #636363;}
+.before_speak a.hide_microphone{position: absolute;bottom: 3rem;left: 8%;width: 4rem;height: 4rem;background: url(../images/arrow-down.png) center center no-repeat;background-size:50% ;font-size: 3rem;}
+.microphone_section a.deal_microphone{position: absolute;bottom: 2rem;left: 50%;margin-left: -3rem;width: 6rem;height: 6rem;border-radius: 50%;background-color: #259B24;color: #fff;line-height: 6rem;font-size: 3rem;background-image: url(../images/microphone-white.png);background-position:center;background-size:45%;background-repeat:no-repeat;}
+.microphone_section_kong{display: none;width: 100%;height: 18.5rem;}
+.speaking_box .deal_shadow{position: absolute;left: 50%;margin-left:-3rem;width: 6rem;height: 6rem;border-radius: 50%;background: rgba(50,255,46,.56);text-align: center;}
+.speaking_box .deal_shadow a.deal_microphone{position: static;display: block;margin: 0;}
+.microphone_section .speaking_box p{position: absolute;top:1rem;left: 3%;color: #403F40;font-size: 1.6rem;}
+.ensure_box .speaking_result{margin: 1rem auto 1rem;width: 96%;font-size: 1.6rem;color: #403F40;}
+.ensure_speak .ensure_box a.deal_microphone{text-align: center;}
+.ensure_speak .ensure_box a.word_deal{display: block;position: absolute;bottom: 3rem;width: 4rem;height: 4rem;line-height: 4rem;text-align: center;font-size: 1.6rem;}
+.ensure_speak .ensure_box a.result_cancle{left: 5%;color: #000;}
+.ensure_speak .ensure_box a.result_ensure{right:5%;color: #259B24;}
+/*增加用药记录*/
+section.add_medicine_record .list_show{display: block;border: none;}
+section.add_medicine_record .info_list{border-bottom: 1px solid #ccc;}
+.illness_list_content section.add_medicine_record{margin: 0 auto 1rem;}
+section.add_medicine_record .info_list:last-child{border-bottom: none;}
+.content section.add_medicine_remark{padding: 0 0 3rem 0;}
+.add_medicine_remark .medicine_remark{margin: 0 auto;width: 96%;}
+.medicine_remark .remark_title{line-height: 2.8rem;}
+.medicine_remark .microphone_input_box{position: relative;width: 100%;height: 9.5rem;border:1px solid #ccc;overflow: hidden;}
+.microphone_input_box .microphone_label_section{float: right;width: 8.7rem;height: 100%;border-left: 1px solid #ccc;text-align: center;background: #f7f7f7;}
+.microphone_input_box .input_textarea{padding-right: 8.8rem;height: 100%;}
+.microphone_input_box .input_textarea textarea{margin: 0;padding:.5rem 1rem;;box-sizing:border-box;width: 100%;height: 100%;border:none;background: none;font-size:1.4rem;}
+.microphone_label_section .microphone_input{padding-top: 1.8rem;line-height: 2.4rem;}
+/*用药记录列表*/
+.illness_list_content .exiting_medicine_record{padding-top: .8rem;background: #fff;}
+.exiting_medicine_record .medicine_record_item{;padding: .8rem 0;margin-bottom: 1rem;border-top:1px solid #ccc;border-bottom: 1px solid #ccc;}
+.medicine_record_header .medicine_item{-webkit-flex:1;-moz-flex:1;flex:1}
+.medicine_item p.medicine_item_name{font-size: 1.2rem;color: #ABA9AB;}
+/*.medicine_record_content{margin-top: 1rem;}*/
+.medicine_record_content .medicine_record_section{margin-top: 1rem;}
+
+.medicine_record_section .tabel_content{margin-top: 1rem;}
+.tabel_content .medicine_record_box{display: none;}
+.medicine_record_box .medicine_record_sum{background: #FAFAFA;line-height: 3rem;color: #999;font-size:1.2rem;}
+.health_info_content .basic_tit{font-size: 1.2rem;}
+.fixed_bottom{width: 100%;height:40px;}
+.medicine_record_sum .container{margin: 0 auto;width: 96%;overflow: hidden;}
+.medicine_record_sum a.add_record{float: right;color: #E51C23;font-size:1.2rem;}
+.medicine_record_sum a.add_record i{margin-left: .5rem;font-size: 1rem;}
+.medicine_record_sum .medicine_qulity span{margin-left: .5rem;}
+.medicine_record_list .medicine_record_item{padding: 1rem 0 .5rem;margin-bottom: 1rem;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;background: #fff;font-size: 1.4rem;color: #999699;overflow: hidden;}
+.medicine_record_item .medicine_statue{float: right;width: 5rem;height: 5rem;text-align: center;line-height: 5rem;}
+.medicine_statue .medicine_statue_label{display: block;width: 100%;height:100%;border-radius: 50%;transition: all 1s ease-in-out;}
+.medicine_statue .medicine_statue_label.medicine_using{background: #30D42C;color: #fff;}
+.medicine_statue .medicine_statue_label.medicine_outage{border:1px solid #F73440;color: #F73440;}
+.medicine_record_item .medicine_info{padding-right: 5.5rem;}
+.medicine_info .medicine_info_name{font-size: 1.6rem;color: #19191A;}
+.medicine_info .medicine_info_usage{margin: 1rem 0;width: 100%;overflow:hidden;}
+.medicine_info .medicine_info_usage span{float: left;width: 50%;}
+.medicine_info .medicine_info_code{font-size: 1.2rem;}
+/*商品检索*/
+.medicine_searching_content .searching_section{padding: .8rem 0;background: #fff;line-height: 3.2rem;font-size: 1.4rem;}
+.searching_form .searching_btn{float: right;width:6rem;height: 3.2rem;text-align: center;background:none;border:none;color: #000;font-size: 1.4rem;}
+.searching_form .searching_input_group{padding-right: 6.5rem;}
+.searching_input_group .searching_input{padding-left: .7rem;background: #f8f8f8;border-radius: 4px;}
+.searching_input input.form_control{margin-left: .5rem;width: 88%;height: 3.2rem;border:none;background: none;}
+.searching_input i.icon_search{font-size: 1.6rem;}
+.medicine_searching_content .searching_result{padding-top: 1.2rem;background: #f8f8f8;}
+.searching_result .medicine_record_item{padding: .5rem 0;background: #fff;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;color: #999699;}
+/*家庭健康信息*/
+.member_list_box .member_list_header{background:#F7F2F7;line-height: 2.6rem;}
+.member_list_box .member_list_header a.add_member{float: right;font-size: 1.2rem;color: #E51C23;}
+.member_list_box .member_list_header i.iconfont{margin-left: .5rem;font-size: 1rem;}
+.member_list_box .member_list_content{padding-bottom: .5rem;background: #fff;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;font-size: 1.2rem;background: #fff;}
+.member_list_content a.see_detail{color: #858385;}
+.member_list_content .member_file_number{border-bottom: 1px solid #ccc;line-height: 2rem;}
+.member_list_content .file_type{text-align: right;}
+.member_list_content .member_info{margin-top: 1rem;}
+.member_info .member_label{float: left;margin-left: 1rem;width: 3.2rem;height: 3.2rem;border-radius: 50%;color: #fff;line-height: 3.2rem;text-align: center;}
+.member_info .member_info_point{padding-left:5rem;}
+.member_info_point .member_name{line-height: 2rem;font-size: 1.4rem;color: #000;}
+.member_info_point .member_name span{font-size: 1.2rem;color: #858385;}
+.member_info_point .member_card_number{font-size: 1.2rem;color: #FAD40C;}
+.member_family .member_list_content{margin-bottom: 1rem;}
+.member_list_box .member_info_absence{clear: both;width: 100%;background: #fff;text-align:center;font-size: 1.8rem;}
+.member_master .member_info_absence{line-height: 7.2rem;}
+.member_family .member_info_absence{line-height:30rem;}
+.member_list_box .member_info_absence a{display: block;width: 100%;color: #000;}
+/*会员信息*/
+.member_details_list .member_details_header{background:#FAFAFA;border-bottom: 1px solid #ccc;line-height: 2.6rem;color: #999;font-size: 1.2rem;}
+.add_member_second .member_details_header{font-size: 1.4rem;}
+.member_details_list .list_group{width: 100%;border-bottom: 1px solid #ccc;background: #fff;line-height: 4rem;font-size: 1.4rem;color: #8C888C}
+.member_details_list .list_group .container{position:relative;height: 4rem;width: 95%;}
+.member_details_list .list_group span.must_input{position: absolute;left:-.5rem;color: red;line-height: 4.5rem;}
+.member_details_list .list_group .left{width:25%;}
+.member_details_list .list_group .right{width: 70%;text-align: right;height: 4rem;}
+.member_details_list .list_group a.modify_search{display: block;height: 100%;}
+.info_list_main a.modify_search{color: #0d0d0d;}
+.member_details_list .info_section{margin-bottom: 1rem;}
+.member_details_list .info_section .input_result{float:right;text-align: left;color: #666;font-size: 1.4rem;}
+.member_details_header a.modify_info{float: right;color: #E51C23;font-size:1.2rem;}
+.info_input input.form_control{display: none;padding: 0;margin: 0;float: left;width: 70%;height:4rem;text-align: left;line-height: 4rem;border:none;font-size: 1.4rem;}
+.info_input .input_result{float: right;text-align: right;}
+.select_section{padding:1rem 0;line-height: 2.2rem;}
+.list_group span.unit{margin-left: 2px;float: right;}
+.searching_result .member_details{padding:.8rem 0;background: #fff;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;}
+.fixed_btn{position: fixed;width: 100%;bottom:0;left: 0;padding: 1rem 0;border-top: 1px solid #ccc;background: #f7f7f7;text-align: center;font-size: 1.4rem;}
+.fixed_btn button.next_btn{display: block;padding: 0;margin: 0 auto;width: 12rem;border: none;line-height: 3rem;background: #33AB71;color: #fff;border-radius: 3px;}
+.fixed_btn_kong{height: 5rem;}
+.member_detail_info .info_section:last-child{padding-bottom:1rem;background: #fff;}
+#datePicker,#datePicker1,#datePicker2{padding: 0;background: none;height: 4rem;line-height: 4rem;color:#8c8c8c;z-index:0;font-size: 1.4rem;}
+#datePicker1,#datePicker2{margin-right: .5rem;}
+/*会员*/
+.members_content .table_header{margin-top: 0;border-bottom:1px solid #ccc ;line-height: 3rem;}
+.members_content .table_header ul li a{color: #000;}
+.members_content .table_header ul li.on a{color: #11D96D;}
+.members_content .tabel_content{margin-top: 0;background: #fff;}
+.tabel_content .members_section{background: #fff;}
+.members_section .member_details{padding: .5rem 0;border-bottom: 1px solid #ccc;}
+.member_details .members_img{float: left;width: 4.5rem;height: 4.5rem;}
+.member_details .members_img img{min-width:100%;min-height: 100%;vertical-align:middle;}
+.member_details .members_info_rate{float: right;width:32%;text-align:right;line-height:4.5rem;}
+.member_details .memers_info{padding:0 32% 0 5rem;height: 4.5rem;line-height:2.2rem;font-size: 1.2rem;}
+.member_details .memers_info .info_name{font-size:1.4rem;}
+.memers_info .info_name span{margin-left:.5rem;font-size: 1.2rem;}
+.member_details .memers_info .info_card{color: #FAD40C;}
+.member_details .members_info_rate span{margin-left: .5rem;color: #E51C23;}
+/*健康信息*/
+.member_details_list .add_member_second,.member_details_list .add_member_third,.member_details_list .add_member_fourth{display: none;}
+.member_details_list .add_member_fourth{font-size: 1.4rem;color: #8C888C;}
+.health_info .list_group .left{width: 30%;}
+.health_info .list_group input.form_control{float:left;line-height: 4rem;border:none;font-size: 1.4rem;color: #666;}
+.health_info .list_group span.unit{font-size: 1.4rem;color: #000;}
+.fixed_btn .btn_set{margin: 0 auto;width:93.75%;overflow: hidden;}
+.fixed_btn .btn_set button.next_btn{float: left;}
+.fixed_btn .btn_set button.save_btn{float: right;}
+.health_info .member_details_list{background: #fff;}
+.health_info section.member_details_list:last-child{padding-bottom:1rem;background: #fff;}
+.add_member_third .illness_list{background: #fff;}
+.medicine_record_content .illness_list header{margin: 0 auto;width: 96%;background: #fff;line-height: 4rem;}
+.medicine_record_content .illness_list .left{line-height: 4rem;}
+.add_member_fourth .illness_list{margin-bottom: 1rem;background: #fff;}
+.add_member_fourth input.form_control{display: none;float: left;line-height: 4rem;text-align: left;}
+.add_member_fourth .input_result{float: right;;text-align: right;line-height: 4rem;height: 4rem;}
+.add_member_fourth span.unit{float: right;height: 4rem;line-height: 4rem;}
+.add_member_fourth .info_input{height: 4rem;}
+.illness_list .illness_statue{line-height: 4rem;}

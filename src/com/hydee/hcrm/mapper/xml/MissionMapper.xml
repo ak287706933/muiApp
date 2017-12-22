@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hydee.hcrm.mapper.MissionMapper">
+	<!-- 获取任务名单总的记录数 -->
+	<select id="getMissionCount" resultType="String" parameterType="int">
+	select count from(
+    select healther,count(1) as count from t_crm_activity_c inner join t_crm_memcard_reg
+    on t_crm_activity_c.memcardno=t_crm_memcard_reg.memcardno
+    where t_crm_activity_c.healther=#{userid} and nvl(t_crm_activity_c.task_status, 0) = 0
+    group by healther
+    )
+	</select>
+	<!-- 获取我的任务需要处理的客户名单 ，根据healther业务员查-->
+	<select id="getMissionList" resultMap="list" parameterType="Page">
+	<!-- SELECT * from  v_crm_wechat_activity_c where healther=#{userid} -->
+	SELECT cardholder,sex,age,memcardno,activeid,rowno FROM(
+	SELECT a.activeid,a.rowno,a.memcardno,a.busno,a.mobile,a.healther,a.messagetext,a.status,a.createuser,a.createtime,a.checker1,
+       a.checktime1,b.cardholder,nvl(b.sex,'未知') as sex,b.birthday,floor(MONTHS_BETWEEN(sysdate, b.BIRTHDAY) / 12) as age,a.TASK_RESON,a.TASK_REMARK,
+       a.FOLLOWUPWORK,a.TASK_STATUS,a.FEEDBACKTIME,a.SALENO,a.SALEBUSNO,a.SALEDATE,a.SALEQTY,rownum r 
+       FROM t_crm_activity_c a
+       join t_crm_activity m
+       on a.activeid = m.activeid
+       join t_crm_memcard_reg b
+       on b.compid = m.compid
+       and b.memcardno = a.memcardno
+       where nvl(a.task_status, 0) = 0 and healther=#{userid}
+       )
+       where r&gt;=#{index} and r&lt;=#{showSize}
+	
+	</select>
+	<resultMap type="TaskList" id="list">
+		<result property="cardholder" column="cardholder"/>
+		<result property="sex" column="sex"/>
+		<result property="age" column="age"/>
+		<result property="memcardno" column="memcardno"/>
+		<result property="activeid" column="activeid"/>
+		<result property="rowno" column="rowno"/>
+	</resultMap>
+	
+	<!-- 慢病购药记录（复购记录），根据活动标号和行数查(根据卡号)-->
+	<select id="getBuyBack" resultMap="wareid" parameterType="t_crm_activity_c">
+	SELECT activeid,rowno,memcardno,wareid,warespec,warename,to_char(lasttime, 'yyyy-mm-dd') as lasttime,
+	to_char(usedtime, 'yyyy-mm-dd') as usedtime,remind,factoryname FROM(
+    SELECT w.activeid as activeid,w.rowno as rowno,w.memcardno as memcardno,v.warecode as wareid,
+    w.lastqty as lastqty,w.lasttime as lasttime,w.usedtime as usedtime,w.remind as remind,
+    w.compid as compid,w.saleno as saleno,v.warecode as warecode,v.warename as warename,
+    v.warespec as warespec,v.wareunit as wareunit,v.factoryid as factoryid,v.factoryname as factoryname,
+    t.cardholder as cardholder,t.sex as sex,t.birthday as birthday
+    FROM t_crm_activity_ware w join t_crm_ware v
+    on v.wareid = w.wareid
+    join t_crm_memcard_reg t
+    on t.memcardno = w.memcardno
+    where w.rowno=#{ROWNO} and w.activeid=#{ACTIVEID}
+    )
+	
+	<!-- SELECT * from v_crm_wechat_activity_ware where activeid=#{ACTIVEID} and memcardno=#{MEMCARDNO} -->
+	</select>
+	<resultMap type="BuyBack" id="wareid">
+		<result property="warename" column="warename"/>
+		<result property="wareid" column="wareid"/>
+		<result property="warespec" column="warespec"/>
+		<result property="factoryname" column="factoryname"/>
+		<result property="lasttime" column="lasttime"/>
+		<result property="usedtime" column="usedtime"/>
+		<result property="remind" column="remind"/>
+	</resultMap>
+	
+	<!-- 获取单个会员信息,根据会员卡号 -->
+	<select id="getMember" resultMap="menber" parameterType="t_crm_activity_c">
+	SELECT cardholder,to_char(birthday, 'yyyy-mm-dd') as birthday,memcardno,mobile,nvl(sex,'未知') as sex,floor(MONTHS_BETWEEN(sysdate, birthday) / 12) as age 
+    FROM t_crm_memcard_reg  WHERE memcardno=#{MEMCARDNO}
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="menber">
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="BIRTHDAY" column="birthday"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="MOBILE" column="mobile"/>
+		<result property="SEX" column="sex"/>
+		<result property="AGE" column="age"/>
+	</resultMap>
+	
+	<!-- 购药记录，根据会员卡号查区最近几条 --><!-- WHERE a.membercardno=#{MEMCARDNO} -->
+	<select id="getShoppingRecord" resultMap="history" parameterType="t_crm_activity_c">
+	<!-- SELECT busno,compid,rowno,wareid,warecode,warename,warespec,wareunit,factoryname,wareqty,netprice,wareqty,netje,membercardno,saleno,accdate FROM(
+    SELECT a.busno,a.compid,b.rowno,b.wareid,d.warecode,d.warename,d.WARESPEC,d.wareunit,d.factoryname,b.wareqty,b.NETPRICE,
+       b.wareqty * b.netprice as netje,a.membercardno,a.saleno,a.accdate
+    FROM t_crm_sale_h a, t_crm_sale_d b, t_crm_ware d
+    WHERE ROWNUM &lt;= 6 and a.membercardno=#{MEMCARDNO}
+     )
+	-->
+	SELECT * FROM v_crm_wechat_purchase_record where membercardno=#{MEMCARDNO} 
+	</select>
+	<resultMap type="PurchaseHistory" id="history">
+		<result property="warename" column="warename"/>
+		<result property="warespec" column="warespec"/>
+		<result property="factoryname" column="factoryname"/>
+		<result property="wareunit" column="wareunit"/>
+		<result property="accdate" column="accdate"/>
+	</resultMap>
+	
+	<!-- 反馈向数据库插入反馈信息 -->
+	<update id="getFeedBack" parameterType="t_crm_activity_c">
+   		 update t_crm_activity_c
+   		<trim prefix="set" suffixOverrides=",">
+        <if test="TASK_RESON!=null">TASK_RESON=#{TASK_RESON},</if>
+        <if test="TASK_REMARK!=null">TASK_REMARK=#{TASK_REMARK},</if>
+        <if test="FOLLOWUPWORK!=null">FOLLOWUPWORK=#{FOLLOWUPWORK},</if>
+        <if test="TASK_STATUS!=null">TASK_STATUS=#{TASK_STATUS},</if>
+        <if test="FEEDBACKTIME!=null">FEEDBACKTIME=to_date(#{FEEDBACKTIME},'yyyy-mm-dd hh24:mi:ss'),</if>
+        <if test="REMINDAYS!=null">REMINDAYS=#{REMINDAYS},</if>
+        </trim>
+        where MEMCARDNO=#{MEMCARDNO} and ACTIVEID=#{ACTIVEID}
+   </update>
+   <!-- 获取本月时间 -->
+   <select id="getDate" resultType="String">
+   select to_char(sysdate,'yyyy-mm') from dual
+   </select>
+   <!-- 获取本月完成任务数 -->
+   <select id="getDoneCount" resultType="String" parameterType="t_crm_activity_c">
+    select count(*) from t_crm_activity_c inner join t_crm_memcard_reg
+    on t_crm_activity_c.memcardno=t_crm_memcard_reg.memcardno
+    where to_char(t_crm_activity_c.CREATETIME,'mm')=to_char(sysdate,'mm') and healther=#{HEALTHER}
+    and t_crm_activity_c.task_status>0
+   </select>
+   
+   <!-- 查询本月的任务数 -->
+   <select id="getMonthCount" resultType="String" parameterType="t_crm_activity_c">
+    select count(*) from t_crm_activity_c inner join t_crm_memcard_reg
+    on t_crm_activity_c.memcardno=t_crm_memcard_reg.memcardno
+    where to_char(t_crm_activity_c.CREATETIME,'mm')=to_char(sysdate,'mm') and healther=#{HEALTHER}
+   </select>
+   
+   <!-- 获取上月年月 -->
+   <select id="getUltimoDate" resultType="String">
+   select to_char(sysdate-interval'1'month,'yyyy-mm') from dual
+   </select>
+   <!-- 获取上月已经完成任务数 -->
+   <select id="getUltimoFinish" resultType="String" parameterType="t_crm_activity_c">
+    select count(*) from t_crm_activity_c inner join t_crm_memcard_reg
+    on t_crm_activity_c.memcardno=t_crm_memcard_reg.memcardno
+    where to_char(t_crm_activity_c.CREATETIME,'mm')=to_char(sysdate-interval'1'month,'mm') 
+    and healther=#{HEALTHER} and t_crm_activity_c.task_status>0
+   </select>
+   
+   <!-- 获取上月任务数 -->
+   <select id="getUltimo" resultType="String" parameterType="t_crm_activity_c">
+    select count(*) from t_crm_activity_c inner join t_crm_memcard_reg
+    on t_crm_activity_c.memcardno=t_crm_memcard_reg.memcardno
+    where to_char(t_crm_activity_c.CREATETIME,'mm')=to_char(sysdate-interval'1'month,'mm') 
+    and healther=#{HEALTHER}
+   </select>
+   
+</mapper>

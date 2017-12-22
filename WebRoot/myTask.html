@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的任务</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/my_task.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的任务<span>(56)</span></h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card my_task_card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse my_task_li">
+						<a class="mui-navigate-right cust_info_con" href="#">
+							<span class="left_select">电话复购</span>
+							<p class="mid_info">
+								<span class="cust_name">冯军</span>
+								<span class="cust_sex">(男/22岁)</span>
+							</p>
+						</a>
+						<div class="mui-collapse-content">
+							<div id="segmentedControl" class="mui-segmented-control">
+								<a class="mui-control-item mui-active" href="#item1">复购信息</a>
+								<a class="mui-control-item" href="#item2">会员信息</a>
+								<a class="mui-control-item" href="#item3">购物药记录</a>
+							</div>
+							<div>
+								<div id="item1" class="mui-control-content tab_info_con mui-active">
+									<div class="info_warper">
+										<ul>
+											<li>药品名称: XXXXXXXX (编码:6431654)</li>
+											<li>药品名称: XXXXXXXX (编码:6431654)</li>
+											<li>药品名称: XXXXXXXX (编码:6431654)</li>
+											<li>药品名称: XXXXXXXX (编码:6431654)</li>
+											<li>药品名称: XXXXXXXX (编码:6431654)</li>
+											<li>药品名称: XXXXXXXX (编码:6431654)</li>
+										</ul>
+									</div>
+								</div>
+								<div id="item2" class="mui-control-content tab_info_con">
+									<div class="info_warper">
+										<ul>
+											<li><span>姓名:王鹏</span><span>生日:1988/05/23</span></li>
+											<li><span>姓名:王鹏</span><span>生日:1988/05/23</span></li>
+											<li><span>姓名:王鹏</span><span>生日:1988/05/23</span></li>
+											<li><span>姓名:王鹏</span><span>生日:1988/05/23</span></li>
+											<li><span>姓名:王鹏</span><span>生日:1988/05/23</span></li>
+										</ul>
+									</div>
+								</div>
+								<div id="item3" class="mui-control-content tab_info_con">
+									<div id="scroll" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+										<div class="mui-scroll">
+											<div class="drugRec_warp">
+											<table class="drugRec" cellspacing="0">
+												<tr>
+													<th>药品名称</th>
+													<th>规格</th>
+													<th>生产企业</th>
+													<th>数量</th>
+													<th>购买时间</th>
+												</tr>
+												<tr>
+													<td>三九维泰颗粒</td>
+													<td>2.5g*6袋</td>
+													<td>华润三九医药股份有限公司</td>
+													<td>2</td>
+													<td>2017/03/14</td>
+												</tr>
+												<tr>
+													<td>三九维泰颗粒</td>
+													<td>2.5g*6袋</td>
+													<td>华润三九医药股份有限公司</td>
+													<td>2</td>
+													<td>2017/03/14</td>
+												</tr>
+												<tr>
+													<td>三九维泰颗粒</td>
+													<td>2.5g*6袋</td>
+													<td>华润三九医药股份有限公司</td>
+													<td>2</td>
+													<td>2017/03/14</td>
+												</tr>
+												<tr>
+													<td>三九维泰颗粒</td>
+													<td>2.5g*6袋</td>
+													<td>华润三九医药股份有限公司</td>
+													<td>2</td>
+													<td>2017/03/14</td>
+												</tr>
+												<tr>
+													<td>三九维泰颗粒</td>
+													<td>2.5g*6袋</td>
+													<td>华润三九医药股份有限公司</td>
+													<td>2</td>
+													<td>2017/03/14</td>
+												</tr>
+											</table>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--按钮-->
+							<div class="taskBtnCon">
+								<button type="button">拨打电话</button>
+								<button type="button"><a href="./fangkui.html">填写反馈信息</a></button>
+							</div>
+						</div>	
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true//是否显示滚动条
+				});
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

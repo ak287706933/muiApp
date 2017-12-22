@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>记录数据(普通样式)</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/rec_normal.css"/>
+		<style>
+			html,
+			body {
+				background-color: #F2F2F2;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav flex-con">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title clearfix"><p class="tran_btn"><span class="rec_sel">身高</span><span class="tran_con"></span></p></h1>
+			<div class="rec_list">
+				<ul id="ul1">
+					<li class="getheight"><a href="#" class="cm">身高</a></li>
+					<li class="getweight"><a href="#" class="kg">体重</a></li>
+					<li class="gettemperature"><a href="#" class="°C">体温</a></li>
+					<li class="getstepcount"><a href="" class="步">步数</a></li>
+					<li class="getbloodpressure"><a href="#" class="mm/Hg">血压</a></li>
+					<li class="getheartrate"><a href="#" class="bmp">心率</a></li>
+					<li class="getbloodsugar"><a href="#" class="mmol/L">血糖</a></li>
+					<li class="getoxygenall"><a href="#" class="%bmp">血氧</a></li>
+					<li class="getglycosylatedhemoglobin"><a href="#" class="mmol/L">糖化血红蛋白</a></li>
+					<li class="gettotalcholesterol"><a href="#" class="mmol">总胆固醇</a></li>
+					<li class="gethighdensitylipoprotein"><a href="#" class="mmol/L">高密度脂蛋白</a></li>
+					<li class="gettriglyceride"><a href="#" class="mmol/L">甘油三酯</a></li>
+					<li class="getlowdensitylipoprotein"><a href="#" class="mmol/L">低密度脂蛋白</a></li>
+					<li class="gethomocysteinechloride"><a href="#" class="mmol/L">同型半胱氯酸</a></li>
+				</ul>
+			</div>
+		</header>
+		<div class="mui-content">
+			<div class="vip_info clearfix">
+				<span></span>
+				<p class="name">李相赫</p>
+				<p class="card_id">( 卡号:20170356223 )</p>
+			</div>
+			<div class="rec_info_con">
+				<div class="info_item_con">
+					<p class="tname">身高</p>
+					<input type="number" placeholder="单位"  value=""/>
+				</div>
+				<div class="info_item_con">
+					<p>测量时间</p>
+					<input type="button" value="选择记录时间(默认当前)" data-options='{}' id="datePicker"/>
+				</div>
+				<div class="info_item_con">
+					<p>备注</p>
+					<textarea id="textarea"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="tijiao_btn">提交</div>
+		<!--遮罩-->
+		<div class="mui-backdrop2"></div>
+		<!--提交成功弹出内容-->
+		<div class="add_suc_pop">
+			<div class="suc_top">
+				<span></span>
+				<p>提交成功</p>
+			</div>
+			<div class="suc_bottom">
+				<!-- <ul>
+			        <li class="clearfix"><span>测量项目: </span><p>步数</p></li>
+					<li class="clearfix"><span>步数: </span><p>5656步</p></li>
+					<li class="clearfix"><span>测量时段: </span><p>2017-10-22 18:35</p></li>
+					<li class="clearfix"><span>备注: </span><p>xxxxx</p></li>
+				</ul> -->
+				<div class="suc_btn_con clearfix">
+					<input type="button" class="repeat_rec" value="继续" />
+					<input type="button" class="hist_rec" value="完成" />
+				</div>
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			
+			var memcardno;
+			var compid;//企业编码
+			var valname;//健康类型
+			var cname;
+			var collecttype;//获取大表格类型
+			var remark;//备注
+			var tval;//获取项目对应的采集的值
+			var ctime;//获取时间
+			var urlv;//地址
+			
+			//接受参数
+			function UrlSearch(){
+		       var name,value; 
+		       var str=location.href;
+		       var num=str.indexOf("?");
+		       str=str.substr(num+1);
+		       var arr=str.split("&");
+		       for(var i=0;i < arr.length;i++){ 
+		         num=arr[i].indexOf("="); 
+		          if(num>0){ 
+		          name=arr[i].substring(0,num);
+		          value=arr[i].substr(num+1);
+		          this[name]=value;
+		         } 
+		       } 
+		     } 
+		     var Request=new UrlSearch(); 
+		     memcardno=Request.memcardno;
+		     compid=Request.compid;
+		     valname=Request.valname;
+		     cname=Request.cname;
+		     collecttype=Request.collecttype;
+		     valname=decodeURIComponent(valname);
+		     cname=decodeURIComponent(cname);
+		     //collecttype=decodeURIComponent(collecttype);
+		     mui.toast(cname);
+		     $(".rec_sel").html(valname);
+		     $(".name").html(cname);
+		     $(".card_id").html("(卡号"+memcardno+")");
+		     $(".tname").html(valname);
+		     //var num=$("#ul1 li").length;
+		     //循环li
+		     $("#ul1 li").each(function(e){
+		    	//这里会弹出每一个li的html()
+		    	if($(this).find('a').html()==valname){
+		    	$("input[type=number]").attr('placeholder',$(this).find('a').attr('class'));
+		    	collecttype=$(this).attr('class');
+		    	}
+		     });
+		     
+		    //获取当前时间
+			function p(s) {
+				return s < 10 ? '0' + s: s;
+			}
+			var myDate = new Date();
+			//获取当前年
+			var year=myDate.getFullYear();
+			//获取当前月
+			var month=myDate.getMonth()+1;
+			//获取当前日
+			var date=myDate.getDate(); 
+			var h=myDate.getHours();       //获取当前小时数(0-23)
+			var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+			var s=myDate.getSeconds();     //获取秒
+			ctime=year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m);//当前时间
+			//mui.toast(ctime);
+			$("#datePicker").val(ctime);
+		     
+			mui.init();
+			function addTransition(deg){
+				var obj = document.querySelector(".tran_con");
+    			obj.style.transition="transform 500ms ease-out";
+    			obj.style.webkitTransition="-webkit-transform 500ms ease-out";
+				obj.style.webkitTransform="rotate("+deg+"deg)";
+				obj.style.transform="rotate("+deg+"deg)";
+			}
+			mui("body").on("tap",".tran_btn",function(){
+				addTransition(180);
+				$(".rec_list").slideDown();
+			});
+			mui(".rec_list").on("tap","li>a",function(){
+				//$(this).addClass("now").parent().siblings("li").find("a").removeClass("now");
+				$(".rec_sel").text($(this).text());
+				addTransition(0);
+				$(".rec_list").slideUp();
+			});
+			//自定义选择事件
+			mui(".rec_list").on("tap","li",function(){
+				//逻辑业务
+				if($(this).find('a').html()=='血压'){
+				valname=$(this).find('a').html();
+				collecttype=$(this).attr('class');
+				location.href="rec_pressure.html?valname="+valname+"&memcardno="+memcardno+"&cname="+cname+"&compid="+compid+"&collecttype="+collecttype;
+				}else if($(this).find('a').html()=='血糖'){
+				valname=$(this).find('a').html();
+				collecttype=$(this).attr('class');
+				location.href="rec_special.html?valname="+valname+"&memcardno="+memcardno+"&cname="+cname+"&compid="+compid+"&collecttype="+collecttype;
+				}else{
+				valname=$(this).find('a').html();
+				$('.tname').html(valname);
+				collecttype=$(this).attr('class');
+				$("input[type=number]").attr('placeholder',$(this).find('a').attr('class'));	
+				}
+			});
+			//收起菜单 
+			$("body").click(function(){
+				$(".rec_list").slideUp();
+				addTransition(0);
+			});
+			//记录日期选择
+			(function($) {
+				$.init();
+				var pickBtn = document.querySelector("#datePicker");
+				pickBtn.addEventListener("tap",function(){
+					var optionsJson = this.getAttribute('data-options') || '{}';
+					var options = JSON.parse(optionsJson);
+					var picker = new $.DtPicker(options);
+					picker.show(function(rs) {
+						pickBtn.value = rs.text;
+						picker.dispose();
+					});
+				},false);
+			})(mui);
+			//提交弹窗方法
+			function addRecInfoSuccess(){
+				$(".mui-backdrop2").show();
+				$(".add_suc_pop").show();
+			}
+			//提交事件
+			mui("body").on("tap",".tijiao_btn",function(){
+				//获取值
+				remark=$('#textarea').val();
+		    	tval=$("input[type=number]").val();
+		    	ctime=$("input[type=button]").val();
+		    	if(tval===''){
+		    		mui.toast('请输入数据！');
+		    	}else{
+	    		$.ajax({
+		            type:'get',      
+		            url:'addHealth.do?memcardno='+memcardno+'&compid='+compid+'&ctime='+ctime+'&remark='+remark+'&tval='+tval+'&collecttype='+collecttype,  
+		            dataType:'json',  
+		            success:function(data){
+		            	//提交成功调用函数
+		            	addRecInfoSuccess();
+		            }
+		        });
+		    	}
+			});
+			
+			//继续记录数据
+			mui(".add_suc_pop").on("tap",".repeat_rec",function(){
+				$(".mui-backdrop2").hide();
+				$(".add_suc_pop").hide();
+			});
+			//查看历史记录
+			mui(".add_suc_pop").on("tap",".hist_rec",function(){
+				//没做的
+				location.href="custDetail.html?memcardno="+memcardno+"&compid="+compid;
+			});
+		</script>
+	</body>
+
+</html>

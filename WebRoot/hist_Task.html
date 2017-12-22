@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>history</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.mui-navigate-right:after, .mui-push-right:after {
+				right: 0 !important;
+				content: '\e583';
+			}
+			/*自定义*/
+			.renwuLink{
+				position: absolute;
+				display: inline-block;
+				top: 0.333333rem;
+				left: 0;
+				width: 0.666666rem;
+				height: 0.666666rem;
+				background: url(img/renwu.png) no-repeat;
+				background-size: cover;
+			}
+			.gukeLink{
+				position: absolute;
+				display: inline-block;
+				top: 0.333333rem;
+				left: 0;
+				width: 0.666666rem;
+				height: 0.666666rem;
+				background: url(img/guke.png) no-repeat;
+				background-size: cover;
+			}
+			.crm_ul{
+				background: transparent;
+			}
+			.crm_li{
+				width: 100%;
+				height: 1.333333rem;
+				border-bottom: 1px solid #ebebeb;
+				padding: 0 0.266666rem;
+				overflow: hidden;
+				margin-top: 0.133333rem;
+				background: #fff;
+			}
+			.crm_li a{
+				font-size: 14px !important;
+				display: block;
+				width: 100%;
+				height: 1.333333rem;
+				line-height: 1.333333rem;
+				position: relative;
+				color: #333333;
+			}
+			.crm_li p{
+				color: #333;
+				font-size: 12px;
+			}
+			.task_total{
+				float: right;
+				margin-top:0.373333rem;
+				margin-right: 0.56rem;
+				background: #FAFAFA !important;
+				border: 1px solid #E0E0E0;
+				color: #999;
+				font-size: 14px !important;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+				<a href="myTaskTest.html" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 id="title" class="mui-title">历史任务</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="crm_ul">
+				<li class="crm_li">
+					<a href="#" class="mui-navigate-right month">本月<span class="mui-badge task_total">22/<span>189</span></span></a>
+				</li>
+				<li class="crm_li">
+					<a href="#" class="mui-navigate-right month"><span class="mui-badge task_total">72/<span>89</span></span></a>
+				</li>
+				<li class="crm_li">
+					<a href="#" class="mui-navigate-right month">--<span class="mui-badge task_total">--/<span>--</span></span></a>
+				</li>
+			</ul>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			
+		 	//mui初始化
+			mui.init();
+			//接收页面传过来的值
+		    function UrlSearch(){
+		       var name,value; 
+		       var str=location.href;
+		       var num=str.indexOf("?");
+		       str=str.substr(num+1);
+		       var arr=str.split("&");
+		       for(var i=0;i < arr.length;i++){ 
+		         num=arr[i].indexOf("="); 
+		          if(num>0){ 
+		          name=arr[i].substring(0,num);
+		          value=arr[i].substr(num+1);
+		          this[name]=value;
+		         } 
+		       } 
+		     } 
+		     var Request=new UrlSearch(); 
+		     var uid=Request.userid;
+		     
+		     var donecount;
+			 var monthcount;
+			 var nowdate;
+			 var ultimofinish;
+			 var ultimo;
+			 var ultimodate;
+		     
+		     //获取本月完成任务数
+		     function getdonecount(){
+		     $.ajax({
+					url:"donecount.do",
+					type:"get",
+					dataType:"text",
+					success:function(data){
+					donecount=eval(data);
+					},
+					error:function(data){
+						alert('失败' + data);
+					}
+				});
+			}
+			//获取本月总任务数
+			function getmonthcount(){
+			$.ajax({
+					url:"monthcount.do",
+					type:"get",
+					dataType:"text",
+					success:function(data){
+					monthcount=eval(data);
+					},
+					error:function(data){
+						alert('失败' + data);
+					}
+				});
+				}
+				//获取本月日期
+				
+				$.ajax({
+					url:"nowdate.do",
+					type:"get",
+					dataType:"text",
+					success:function(data){
+					nowdate=data;
+					mui.toast(nowdate);
+					//alert(data);
+					getdonecount();
+					getmonthcount();
+					getultimofinish();
+					getultimo();
+					getultimodate();
+					},
+					error:function(data){
+						alert('失败' + data);
+					}
+				});
+				
+				//获取上月完成任务数
+				function getultimofinish(){
+				$.ajax({
+					url:"ultimofinish.do",
+					type:"get",
+					dataType:"text",
+					success:function(data){
+					ultimofinish=eval(data);
+					},
+					error:function(data){
+						alert('失败' + data);
+					}
+				});
+				}
+				//获取上月总任务数
+				function getultimo(){
+				$.ajax({
+					url:"ultimo.do",
+					type:"get",
+					dataType:"text",
+					success:function(data){
+					ultimo=eval(data);
+					},
+					error:function(data){
+						alert('失败' + data);
+					}
+				});
+				}
+				//获取上月日期
+				function getultimodate(){
+				$.ajax({
+					url:"ultimodate.do",
+					type:"get",
+					dataType:"text",
+					success:function(data){
+					$(".crm_li:eq(0)").empty();
+					$(".crm_li:eq(1)").empty();
+					ultimodate=data;
+					$(".crm_li:eq(1)").html(
+					'<a href="#" class="mui-navigate-right month">'+ultimodate+'<span class="mui-badge task_total">'+ultimofinish+'/<span>'+ultimo+'</span>'+'</span>'+'</a>'
+					);
+					$(".crm_li:eq(0)").html(
+					'<a href="#" class="mui-navigate-right month">本月<span class="mui-badge task_total">'+donecount+'/<span>'+monthcount+'</span>'+'</span>'+'</a>'
+					);
+					},
+					error:function(data){
+						alert('失败' + data);
+					}
+				});
+				}
+				
+			
+		</script>	
+	</body>
+</html>

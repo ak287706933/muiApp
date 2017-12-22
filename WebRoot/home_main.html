@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>main</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/home_main.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">首页</h1>
+		</header>
+			<!--弹出-->
+			<!--<div class="gray">
+				<div class="gray_top"></div>
+				<div class="gray_bottom">
+					<div class="func_menber">
+						<div class="menber_box">
+							<div class="menber_img">
+								<img src="img/add_sousuo.png"/>
+							</div>
+							<div class="menber_text">搜索会员</div>
+						</div>
+						<div class="menber_box">
+							<div class="menber_img">
+								<img src="img/add_sousuo.png"/>
+							</div>
+							<div class="menber_text">搜索会员</div>
+						</div>
+						<div class="menber_box">
+							<div class="menber_img">
+								<img src="img/add_sousuo.png"/>
+							</div>
+							<div class="menber_text">搜索会员</div>
+						</div>
+						<div class="menber_box">
+							<div class="menber_img">
+								<img src="img/add_sousuo.png"/>
+							</div>
+							<div class="menber_text">搜索会员</div>
+						</div>
+					</div>
+					<div class="menber_close"></div>
+				</div>
+			</div>-->
+		<nav class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-about.html">
+				<span class="crms_icon mui-icon"></span>
+				<span class="mui-tab-label">crm中心</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-chat.html">
+				<span class="mes_icon mui-icon"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">消息</span>
+			</a>
+			<a class="mui-tab-item my_center" href="crms_center.html">
+				<span class="add_func"></span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-contact.html">
+				<span class="store_icon mui-icon"></span>
+				<span class="mui-tab-label">门店</span>
+			</a>
+			<a class="mui-tab-item" href="tab-webview-subpage-setting.html">
+				<span class="store_person mui-icon"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		 	//mui初始化
+			mui.init();
+			var subpages = ['tab-webview-subpage-about.html', 'tab-webview-subpage-chat.html','crms_center.html', 'tab-webview-subpage-contact.html', 'tab-webview-subpage-setting.html'];
+			var subpage_style = {
+				top: '45px',
+				bottom: '51px'
+			};
+			var aniShow = {};
+			 //创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				for (var i = 0; i < 5; i++) {
+					var temp = {};
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+					if (i > 0) {
+						sub.hide();
+					}else{
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow,temp);
+					}
+					self.append(sub);
+				}
+			});
+			 //当前激活选项
+			var activeTab = subpages[0];
+			var title = document.getElementById("title");
+			 //选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				//打开控制中心
+//				if(e.target.className=='add_func'){
+//					$('.gray').show();
+//				}
+				//切换页面
+				var targetTab = this.getAttribute('href');
+				if (targetTab == activeTab) {
+					return;
+				}
+				//更换标题
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				//显示目标选项卡
+				//若为iOS平台或非首次显示，则直接显示
+				if(mui.os.ios||aniShow[targetTab]){
+					plus.webview.show(targetTab);
+				}else{
+					//否则，使用fade-in动画，且保存变量
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow,temp);
+					plus.webview.show(targetTab,"fade-in",300);
+				}
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			 //自定义事件，模拟点击“首页选项卡”
+			document.addEventListener('gohome', function() {
+				var defaultTab = document.getElementById("defaultTab");
+				//模拟首页点击
+				mui.trigger(defaultTab, 'tap');
+				//切换选项卡高亮
+				var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+				if (defaultTab !== current) {
+					current.classList.remove('mui-active');
+					defaultTab.classList.add('mui-active');
+				}
+			});
+			//关闭弹层
+//			mui('.gray_bottom').on('tap', '.menber_close', function(e) {
+//				$('.gray').hide();
+//			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hydee.hcrm.mapper.MyCustomerMapper">
+    <!-- 查询所有客户数量 -->
+	<select id="getClientCount" resultType="String" parameterType="t_crm_memcard_reg">
+	select count(*) from t_crm_memcard_reg r where r.CLERK=#{CLERK}
+	</select>
+	
+	<!-- 获取列表客户信息 -->
+	<select id="getClientList" resultMap="ClientList" parameterType="Page">
+	  select compid,cardholder,sex,age,memcardno,persent from v_crm_wechat_memcard_reg where CLERK=#{userid}
+	<!--
+	select compid,cardholder,sex,memcardno,age,r from(
+	select compid,cardholder,nvl(sex,'未知') as sex,memcardno,floor(MONTHS_BETWEEN(sysdate,BIRTHDAY) / 12) as age,rownum r  from t_crm_memcard_reg t
+    where CLERK=#{userid}
+    order by substr(t.cardholder,1,1)
+	)
+	where r&gt;=#{index} and r&lt;=#{showSize}-->
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="ClientList">
+		<result property="COMPID" column="compid"/>
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="AGE" column="age"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="PERSENT" column="persent"/>
+	</resultMap>
+	
+	<!-- 搜索会员信息 -->
+	<select id="SearchMember" resultMap="Search" parameterType="t_crm_memcard_reg">
+	select compid,cardholder,nvl(sex,'未知') as sex,memcardno,floor(MONTHS_BETWEEN(sysdate,BIRTHDAY) / 12) as age  from t_crm_memcard_reg t
+     where compid=(select crmcompid  from s_user_base where userid=#{CLERK})
+    <!-- <trim suffix="WHERE" suffixOverrides="AND | OR"> -->    
+    
+    <if test="MEMCARDNO != null">  
+        AND t.MEMCARDNO =  trim(#{MEMCARDNO})
+    </if>  
+    <!-- 
+     <if test="CARDHOLDER != null">  
+        AND t.CARDHOLDER LIKE concat(concat('%',#{CARDHOLDER}),'%')
+    </if> -->
+    <if test="MOBILE !=null">
+    	AND t.MOBILE = trim(#{MOBILE})
+    </if>
+    <if test="IDCARD !=null">
+    	AND t.IDCARD = trim(#{IDCARD})
+    </if>
+	<!-- </trim> -->
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="Search">
+		<result property="COMPID" column="compid"/>
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="AGE" column="age"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+	</resultMap>
+	
+	
+	<!-- 按回访时间获取客户信息 -->
+	<select id="getClientTime" resultMap="ClientTime" parameterType="Page">
+	select compid,cardholder,sex,memcardno,age,TO_CHAR(accept_date, 'YYYY-MM-DD') as accept_date,r from(
+	select m.compid,m.cardholder,nvl(m.sex,'未知') as sex,m.memcardno,floor(MONTHS_BETWEEN(sysdate,m.BIRTHDAY) / 12) as age,m.accept_date,rownum r from t_crm_memcard_reg m
+	where CLERK=#{userid}
+  	order by m.accept_date desc
+	)
+	where r&gt;=#{index} and r&lt;=#{showSize}
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="ClientTime">
+		<result property="COMPID" column="compid"/>
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="AGE" column="age"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="ACCEPT_DATE" column="accept_date"/>
+	</resultMap>
+	<!--按最后购买时间 -->
+	<select id="getBuyTime" resultMap="BuyTime" parameterType="Page">
+	select compid,cardholder,sex,memcardno,age,TO_CHAR(lastdate, 'YYYY-MM-DD') as lastdate,r from(
+	select m.compid,m.cardholder,nvl(m.sex,'未知') as sex,m.memcardno,floor(MONTHS_BETWEEN(sysdate,m.BIRTHDAY) / 12) as age,m.lastdate,rownum r from t_crm_memcard_reg m
+	where CLERK=#{userid}
+  	order by m.lastdate desc
+	)
+	where r&gt;=#{index} and r&lt;=#{showSize}
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="BuyTime">
+		<result property="COMPID" column="compid"/>
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="AGE" column="age"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="LASTDATE" column="lastdate"/>
+	</resultMap>
+	<!-- 输出会员资料信息,购买次数，购买均价，消费总额 -->
+	<select id="getAccountInfo" resultMap="AccountInfo" parameterType="t_crm_memcard_reg">
+	select * from v_crm_wechat_memcard_reg where MEMCARDNO=#{MEMCARDNO} and COMPID=#{COMPID}
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="AccountInfo">
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="BIRTHDAY" column="birthday"/>
+		<result property="TEL" column="tel"/>
+		<result property="AGE" column="age"/>
+		<result property="MOBILE" column="mobile"/>
+		<result property="IDCARD" column="idcard"/>
+		<result property="PROVINCE" column="province"/>
+		<result property="CITY" column="city"/>
+		<result property="AREA" column="area"/>
+		<result property="CARDADDRESS" column="cardaddress"/>
+		<result property="INTEGRALSUM" column="integralsum"/>
+		<result property="WECHATACCOUNT" column="wechataccount"/>
+		<result property="APPLYTIME" column="applytime"/>
+		<result property="BUSNOS" column="busnos"/>
+		<result property="CLERK" column="clerk"/>
+	</resultMap>
+	<!-- 输出回访记录 -->
+	<select id="getAccessRecord" resultMap="AccessRecord" parameterType="t_crm_memcard_reg">
+	select * from t_crm_memcard_reg
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="AccessRecord">
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="AGE" column="age"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+	</resultMap>
+   <!-- 健康数据采集 -->
+   <insert id="addHealth" parameterType="t_crm_addhealth">
+		insert into t_crm_addhealth
+	<trim prefix="(" suffix=")" suffixOverrides=",">  
+            <if test="ID != null">  
+                ID,  
+            </if>  
+            <if test="COMPID != null">  
+                COMPID,  
+            </if>  
+            <if test="CREATETIME != null">  
+                CREATETIME,  
+            </if>
+            <if test="MEMCARDNO != null">  
+                MEMCARDNO,  
+            </if>  
+            <if test="REMARK != null">  
+                REMARK,  
+            </if>
+            <if test="VALUE1 != null">  
+                VALUE1,  
+            </if>  
+            <if test="VALUE2 != null">  
+                VALUE2,  
+            </if>
+            <if test="VALUE3 != null">  
+                VALUE3,  
+            </if>
+            <if test="VALUE4 != null">  
+                VALUE4,  
+            </if>
+            <if test="VAGUETIMEPOINT != null">  
+                VAGUETIMEPOINT,  
+            </if>
+                MERCODE,  
+            <if test="CREATEUSER != null">  
+                CREATEUSER,  
+            </if>
+            <if test="COLLECTTYPE != null">  
+                COLLECTTYPE,  
+            </if>
+            <if test="VAGUETIME != null">  
+                VAGUETIME,  
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">  
+            <if test="ID != null">  
+                seq_t_crm_addhealth.nextval,  
+            </if>  
+            <if test="COMPID != null">  
+                #{COMPID},  
+            </if>  
+            <if test="CREATETIME != null">  
+                to_date(#{CREATETIME},'yyyy-mm-dd hh24:mi:ss'),  
+            </if>
+            <if test="MEMCARDNO != null">  
+                #{MEMCARDNO},  
+            </if>  
+            <if test="REMARK != null">  
+                #{REMARK},  
+            </if>  
+            <if test="VALUE1 != null">  
+                #{VALUE1},  
+            </if>  
+            <if test="VALUE2 != null">  
+                #{VALUE2},  
+            </if>
+            <if test="VALUE3 != null">  
+                #{VALUE3},  
+            </if>
+            <if test="VALUE4 != null">  
+                #{VALUE4},  
+            </if>
+            <if test="VAGUETIMEPOINT != null">  
+                #{VAGUETIMEPOINT},  
+            </if>
+                '510101',
+            <if test="CREATEUSER != null">  
+                #{CREATEUSER},  
+            </if>
+            <if test="COLLECTTYPE != null">  
+                #{COLLECTTYPE},  
+            </if>
+            <if test="VAGUETIME != null">  
+                #{VAGUETIME},  
+            </if>
+        </trim>  
+	</insert>
+	<!-- 身高 -->
+	<select id="getHeight" resultMap="Height" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where collecttype='getheight'
+    <if test="MEMCARDNO!=null">
+    and memcardno=#{MEMCARDNO}
+    </if>
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Height">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 体重 -->
+	<select id="getWeight" resultMap="Weight" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getweight'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Weight">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 体温 -->
+	<select id="getTemperature" resultMap="Temperature" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='gettemperature'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Temperature">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 心率 -->
+	<select id="getHeartrate" resultMap="Heartrate" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getheartrate'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Heartrate">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 步数 -->
+	<select id="getSteps" resultMap="Steps" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getstepcount'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Steps">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 收缩压 -->
+	<select id="getSystolic" resultMap="Systolic" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where id in (select max(id) from t_crm_addhealth 
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodpressure'
+    group by collecttype)
+	</select>
+	<resultMap type="t_crm_addhealth" id="Systolic">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 舒张压 -->
+	<select id="getDiastolic" resultMap="Diastolic" parameterType="t_crm_addhealth">
+	select value2,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where id in (select max(id) from t_crm_addhealth 
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodpressure'
+    group by collecttype)
+	</select>
+	<resultMap type="t_crm_addhealth" id="Diastolic">
+	<result property="VALUE2" column="value2"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 血氧 -->
+	<select id="getOxygen" resultMap="Oxygen" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getoxygenall'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Oxygen">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 早餐前血糖 -->
+	<select id="getBloodsugar1" resultMap="Bloodsugar1" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='bebreakfast'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar1">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 早餐后血糖 -->
+	<select id="getBloodsugar2" resultMap="Bloodsugar2" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='afbreakfast'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar2">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 午餐前血糖 -->
+	<select id="getBloodsugar3" resultMap="Bloodsugar3" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='belunch'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar3">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 午餐后血糖 -->
+	<select id="getBloodsugar4" resultMap="Bloodsugar4" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='aflunch'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar4">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 晚餐前血糖 -->
+	<select id="getBloodsugar5" resultMap="Bloodsugar5" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='bedinner'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar5">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 晚餐后血糖 -->
+	<select id="getBloodsugar6" resultMap="Bloodsugar6" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='afdinner'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar6">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 睡觉前血糖 -->
+	<select id="getBloodsugar7" resultMap="Bloodsugar7" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getbloodsugar' and vaguetime='besleep'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Bloodsugar7">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 糖化血红蛋白 -->
+	<select id="getGlycosylated" resultMap="Glycosylated" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getglycosylatedhemoglobin'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Glycosylated">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 总胆固醇 -->
+	<select id="getCholesterol" resultMap="Cholesterol" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='gettotalcholesterol'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Cholesterol">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 甘油三酯 -->
+	<select id="getTriglyceride" resultMap="Triglyceride" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='gettriglyceride'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Triglyceride">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 高密度脂蛋白 -->
+	<select id="getHighlipoprotein" resultMap="Highlipoprotein" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='gethighdensitylipoprotein'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Highlipoprotein">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 低密度脂蛋白 -->
+	<select id="getLowlipoprotein" resultMap="Lowlipoprotein" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='getlowdensitylipoprotein'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Lowlipoprotein">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	<!-- 同型半胱氯酸 -->
+	<select id="getHomocysteine" resultMap="Homocysteine" parameterType="t_crm_addhealth">
+	select value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where (compid,memcardno,collecttype,id,nvl(vaguetime,' ') ) in 
+    (select compid,memcardno,collecttype,max(id) as id,nvl(vaguetime,' ') from t_crm_addhealth
+    where memcardno=#{MEMCARDNO} and collecttype='gethomocysteinechloride'
+    group by compid,memcardno,collecttype,nvl(vaguetime,' '))
+	</select>
+	<resultMap type="t_crm_addhealth" id="Homocysteine">
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	 <!-- 获取日数据 -->
+	 <select id="getDay" resultMap="day" parameterType="t_crm_addhealth">
+	 select value1 from t_crm_addhealth
+	 where createtime &gt;=trunc(sysdate) and createtime &lt;= trunc(sysdate+1) and collecttype=#{COLLECTTYPE} and memcardno=#{MEMCARDNO}
+	 </select>
+	 <resultMap type="t_crm_addhealth" id="day">
+	 <result property="VALUE1" column="value1"/>
+	 </resultMap>
+	
+	<!-- 输出周数据(普通类型) -->
+	<select id="getWeek" resultMap="week" parameterType="t_crm_addhealth">
+	select id,value1,createtime from t_crm_addhealth where id in(
+	select max(id) from(
+	select id,value1,to_char(createtime, 'yyyy-mm-dd') as createtime,remark from t_crm_addhealth t
+	where t.createtime &gt;=trunc(next_day(sysdate-8,1)+1) and t.createtime &lt;=trunc(next_day(sysdate-8,1)+7)+1
+	<if test="MEMCARDNO != null">
+	and t.memcardno=#{MEMCARDNO}
+	</if>
+	<if test="COLLECTTYPE != null">
+	and t.collecttype=#{COLLECTTYPE}
+	</if>
+	<if test="VAGUETIME != null">
+	and t.vaguetime=#{VAGUETIME}
+	</if>
+	)
+	group by createtime)
+	</select>
+	<resultMap type="t_crm_addhealth" id="week">
+	<result property="ID" column="id"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 输出周数据血压类型 -->
+	<select id="getWeekPressure" resultMap="WeekPressure" parameterType="t_crm_addhealth">
+	select id,value1,value2,createtime from t_crm_addhealth where id in(
+	select max(id) from(
+	select id,value1,value2,to_char(createtime, 'yyyy-mm-dd') as createtime,remark from t_crm_addhealth t
+	where t.createtime &gt;=trunc(next_day(sysdate-8,1)+1) and t.createtime &lt;=trunc(next_day(sysdate-8,1)+7)+1
+	<if test="MEMCARDNO != null">
+	and t.memcardno=#{MEMCARDNO}
+	</if>
+	<if test="COLLECTTYPE != null">
+	and t.collecttype=#{COLLECTTYPE}
+	</if>
+	)
+	group by createtime)
+	</select>
+	<resultMap type="t_crm_addhealth" id="WeekPressure">
+	<result property="ID" column="id"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="VALUE2" column="value2"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 输出月数据 -->
+	<select id="getMonth" resultMap="Month" parameterType="t_crm_addhealth">
+	select id,value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where id in(
+	select max(id) from(
+	select id,value1,to_char(createtime, 'yyyy-mm-dd') as createtime,remark from t_crm_addhealth t
+	where t.createtime &gt;=TRUNC(SYSDATE, 'MM') and t.createtime &lt;=last_day(SYSDATE)
+	<if test="MEMCARDNO != null">
+	and t.memcardno=#{MEMCARDNO}
+	</if>
+	<if test="COLLECTTYPE != null">
+	and t.collecttype=#{COLLECTTYPE}
+	</if>
+	<if test="VAGUETIME != null">
+	and t.vaguetime=#{VAGUETIME}
+	</if>
+	)
+	group by createtime)
+	</select>
+	<resultMap type="t_crm_addhealth" id="Month">
+	<result property="ID" column="id"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 获取月数据血压 -->
+	<select id="getMonthPressure" resultMap="MonthPressure" parameterType="t_crm_addhealth">
+	select id,value1,value2,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where id in(
+	select max(id) from(
+	select id,value1,value2,to_char(createtime, 'yyyy-mm-dd') as createtime,remark from t_crm_addhealth t
+	where t.createtime &gt;=TRUNC(SYSDATE, 'MM') and t.createtime &lt;=last_day(SYSDATE)
+	<if test="MEMCARDNO != null">
+	and t.memcardno=#{MEMCARDNO}
+	</if>
+	<if test="COLLECTTYPE != null">
+	and t.collecttype=#{COLLECTTYPE}
+	</if>
+	)
+	group by createtime)
+	</select>
+	<resultMap type="t_crm_addhealth" id="MonthPressure">
+	<result property="ID" column="id"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="VALUE2" column="value2"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 输出年数据 -->
+	<select id="getYear" resultMap="Year" parameterType="t_crm_addhealth">
+	select id,value1,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where id in(
+	select max(id) from(
+	select id,value1,to_char(createtime, 'yyyy-mm-dd') as createtime,remark from t_crm_addhealth t
+	where t.createtime &gt;=trunc(sysdate,'YYYY') and t.createtime &lt;=add_months(trunc(sysdate,'YYYY'),12)-1
+	<if test="MEMCARDNO != null">
+	and t.memcardno=#{MEMCARDNO}
+	</if>
+	<if test="COLLECTTYPE != null">
+	and t.collecttype=#{COLLECTTYPE}
+	</if>
+	<if test="VAGUETIME != null">
+	and t.vaguetime=#{VAGUETIME}
+	</if>
+	)
+	group by createtime)
+	</select>
+	<resultMap type="t_crm_addhealth" id="Year">
+	<result property="ID" column="id"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 输出年数据血压 -->
+	<select id="getYearPressure" resultMap="YearPressure" parameterType="t_crm_addhealth">
+	select id,value1,value2,to_char(createtime, 'yyyy-mm-dd hh24:mi') as createtime from t_crm_addhealth where id in(
+	select max(id) from(
+	select id,value1,value2,to_char(createtime, 'yyyy-mm-dd') as createtime,remark from t_crm_addhealth t
+	where t.createtime &gt;=trunc(sysdate,'YYYY') and t.createtime &lt;=add_months(trunc(sysdate,'YYYY'),12)-1
+	<if test="MEMCARDNO != null">
+	and t.memcardno=#{MEMCARDNO}
+	</if>
+	<if test="COLLECTTYPE != null">
+	and t.collecttype=#{COLLECTTYPE}
+	</if>
+	)
+	group by createtime)
+	</select>
+	<resultMap type="t_crm_addhealth" id="YearPressure">
+	<result property="ID" column="id"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="VALUE2" column="value2"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 获取备注 降序-->
+	<select id="getRemark" resultMap="Remark" parameterType="t_crm_addhealth">
+	select id,value1,value2,createtime,remark,memcardno from(
+	select id,value1,value2,createtime,nvl(remark,'无') as remark,memcardno from t_crm_addhealth
+	where memcardno=#{MEMCARDNO} and collecttype=#{COLLECTTYPE} ORDER BY id DESC
+	)
+	where ROWNUM &lt;= 5
+	</select>
+	<resultMap type="t_crm_addhealth" id="Remark">
+	<result property="REMARK" column="remark"/>
+	<result property="VALUE1" column="value1"/>
+	<result property="VALUE2" column="value2"/>
+	<result property="CREATETIME" column="createtime"/>
+	</resultMap>
+	
+	<!-- 电话回访获取相关信息 -->
+	<select id="getMemcrd" resultMap="Memcrd" parameterType="t_crm_addhealth">
+	select COMPID,BUSNO from t_crm_memcard_reg
+	where memcardno=#{MEMCARDNO}
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="Memcrd">
+	<result property="COMPID" column="COMPID"/>
+	<result property="BUSNO" column="BUSNO"/>
+	</resultMap>
+	
+	<!-- 添加电话反馈信息 -->
+    <insert id="setMemberfk" parameterType="member_sale">
+	insert into t_crm_member_sale
+	<trim prefix="(" suffix=")" suffixOverrides=",">  
+            <if test="COMPID != null">  
+                COMPID,  
+            </if>  
+            <if test="MEMCARDNO != null">  
+                MEMCARDNO,  
+            </if>  
+            <if test="BUSNO != null">  
+                BUSNO,  
+            </if>
+            <if test="CALLER != null">  
+                CALLER,  
+            </if>  
+            <if test="NOTES != null">  
+                NOTES,  
+            </if>  
+                MEMBER_SALENO,
+            <if test="CREATEUSER != null">  
+                CREATEUSER,  
+            </if>  
+            <if test="CREATETIME != null">  
+                CREATETIME,  
+            </if>
+            <if test="STATUS != null">  
+                STATUS,  
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">  
+            <if test="COMPID != null">  
+                #{COMPID},  
+            </if>  
+            <if test="MEMCARDNO != null">  
+                #{MEMCARDNO},  
+            </if>  
+            <if test="BUSNO != null">  
+                #{BUSNO},  
+            </if>
+            <if test="CALLER != null">  
+                #{CALLER},  
+            </if> 
+            <if test="NOTES != null">  
+                #{NOTES},  
+            </if>  
+                f_get_serial ('MSA', NULL),
+            <if test="CREATEUSER != null">  
+                #{CREATEUSER},  
+            </if>
+            <if test="CREATETIME != null">  
+                to_date(#{CREATETIME},'yyyy-mm-dd hh24:mi:ss'),  
+            </if>
+            <if test="STATUS != null">  
+                #{STATUS},  
+            </if>  
+        </trim>  
+	 </insert>
+	 <!-- 输出电话回访信息 -->
+	 <select id="getMemberhf" resultMap="Memberhf" parameterType="member_sale">
+	 select STATUS,NOTES,to_char(CREATETIME, 'yyyy-MM-dd HH:mm:ss') as CREATETIME,CALLER from(
+  	 select STATUS,NOTES,CREATETIME,CALLER from t_crm_member_sale
+	 where memcardno=#{MEMCARDNO} and caller=#{CALLER} ORDER BY createtime DESC
+	 )
+	 where ROWNUM &lt;= 5
+	 </select>
+	 <resultMap type="member_sale" id="Memberhf">
+	 <result property="STATUS" column="STATUS"/>
+	 <result property="NOTES" column="NOTES"/>
+	 <result property="CREATETIME" column="CREATETIME"/>
+	 <result property="CALLER" column="CALLER"/>
+	 </resultMap>
+	 
+	 <!-- 输出周平均值 -->
+	 <select id="getWeekavg" resultMap="weekavg" parameterType="t_crm_addhealth">
+	 select trunc(avg(value1),2) as value1,trunc(avg(value2),2) as value2 from t_crm_addhealth t
+	 where t.createtime &gt;=trunc(next_day(sysdate-8,1)+1) and t.createtime &lt;=trunc(next_day(sysdate-8,1)+7)+1
+     and t.memcardno=#{MEMCARDNO} and t.collecttype=#{COLLECTTYPE}
+     <if test="VAGUETIME != null">
+	 and t.VAGUETIME=#{VAGUETIME}
+	 </if>
+	 </select>
+	 <resultMap type="t_crm_addhealth" id="weekavg">
+	 <result property="VALUE1" column="value1"/>
+	 <result property="VALUE2" column="value2"/>
+	 </resultMap>
+	 
+	 <!-- 输出月平均值 -->
+	 <select id="getMonthavg" resultMap="Monthavg" parameterType="t_crm_addhealth">
+	 select trunc(avg(value1),2) as value1,trunc(avg(value2),2) as value2 from t_crm_addhealth t
+	 where t.createtime &gt;=TRUNC(SYSDATE, 'MM') and t.createtime &lt;=last_day(SYSDATE)
+	 and t.memcardno=#{MEMCARDNO} and t.collecttype=#{COLLECTTYPE}
+	 <if test="VAGUETIME != null">
+	 and t.VAGUETIME=#{VAGUETIME}
+	 </if>
+	 </select>
+	 <resultMap type="t_crm_addhealth" id="Monthavg">
+	 <result property="VALUE1" column="value1"/>
+	 <result property="VALUE2" column="value2"/>
+	 </resultMap>
+	 
+	 <!-- 输出年均值 -->
+	 <select id="getYearavg" resultMap="Yearavg" parameterType="t_crm_addhealth">
+	 select trunc(avg(value1),2) as value1,trunc(avg(value2),2) as value2 from t_crm_addhealth t
+     where t.createtime &gt;=trunc(sysdate,'YYYY') and t.createtime &lt;=add_months(trunc(sysdate,'YYYY'),12)-1
+     and t.memcardno=#{MEMCARDNO} and t.collecttype=#{COLLECTTYPE}
+     <if test="VAGUETIME != null">
+	 and t.VAGUETIME=#{VAGUETIME}
+	 </if>
+	 </select>
+	 <resultMap type="t_crm_addhealth" id="Yearavg">
+	 <result property="VALUE1" column="value1"/>
+	 <result property="VALUE2" column="value2"/>
+	 </resultMap>
+	 
+	 <!-- 输出会员资料信息,购买次数，购买均价，消费总额 -->
+	<select id="getWXAccountInfo" resultMap="WXAccountInfo" parameterType="t_crm_memcard_reg">
+	select cardholder,COMPID,sex,memcardno,to_char(birthday, 'yyyy-mm-dd') as birthday,
+	tel,mobile,idcard,nvl(province,' ') as province,nvl(city,' ') as city,nvl(area,' ') as area,cardaddress,integralsum,wechataccount,to_char(applytime, 'yyyy-mm-dd') as applytime,busnos,clerk
+	from t_crm_memcard_reg
+	where WEIXINID=#{WEIXINID}
+	</select>
+	<resultMap type="t_crm_memcard_reg" id="WXAccountInfo">
+		<result property="CARDHOLDER" column="cardholder"/>
+		<result property="SEX" column="sex"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="COMPID" column="COMPID"/>
+		<result property="BIRTHDAY" column="birthday"/>
+		<result property="TEL" column="tel"/>
+		<result property="MOBILE" column="mobile"/>
+		<result property="IDCARD" column="idcard"/>
+		<result property="PROVINCE" column="province"/>
+		<result property="CITY" column="city"/>
+		<result property="AREA" column="area"/>
+		<result property="CARDADDRESS" column="cardaddress"/>
+		<result property="INTEGRALSUM" column="integralsum"/>
+		<result property="WECHATACCOUNT" column="wechataccount"/>
+		<result property="APPLYTIME" column="applytime"/>
+		<result property="BUSNOS" column="busnos"/>
+		<result property="CLERK" column="clerk"/>
+	</resultMap>
+	
+	<!-- 输出病患信息 -->
+	 <select id="getDisease" resultMap="disease" parameterType="t_crm_disease">
+	 	select * from V_CRM_WECHAT_DISEASE where memcardno=#{memcardno} and compid=#{compid}
+	 </select>
+	 <resultMap type="t_crm_disease" id="disease">
+	 <result property="fileno" column="fileno"/>
+	 <result property="compid" column="compid"/>
+	 <result property="billno" column="billno"/>
+	 <result property="entityid" column="entityid"/>
+	 <result property="diseasetype" column="diseasetype"/>
+	 <result property="diseasename" column="diseasename"/>
+	 <result property="treatmentstate" column="treatmentstate"/>
+	 <result property="shootingtime" column="shootingtime"/>
+	 <result property="pathogeny" column="pathogeny"/>
+	 <result property="concurrent" column="concurrent"/>
+	 <result property="symptoms" column="symptoms"/>
+	 </resultMap>
+	 
+	 <!-- 输出病种信息 -->
+	 <select id="getEntity" resultMap="entity" parameterType="t_crm_entity">
+	 	select entityid,entityname,entitydefine from T_CRM_ENTITY where compid=#{COMPID} order by entityid asc
+	 </select>
+	 <resultMap type="t_crm_entity" id="entity">
+	 <result property="ENTITYID" column="entityid"/>
+	 <result property="ENTITYNAME" column="entityname"/>
+	 <result property="ENTITYDEFINE" column="entitydefine"/>
+	 </resultMap>
+	 
+	 <!-- 输出病种类型信息 -->
+	 <select id="getEntityType" resultMap="entityType" parameterType="t_crm_entity_type">
+	 	  select et.typename as typename from  t_crm_entity_type et inner join T_CRM_ENTITY e on e.entityid=et.entityid where et.entityid=#{ENTITYID} and et.compid=#{COMPID}
+	 </select>
+	 <resultMap type="t_crm_entity_type" id="entityType">
+	 <result property="TYPENAME" column="typename"/>
+	 </resultMap>
+	 
+	 <!-- 输出病种对应基本症状信息 -->
+	 <select id="getEntitySymptom" resultMap="entitySymptom" parameterType="t_crm_entity_symptom">
+	 	  select es.symptom as symptom from t_crm_entity_symptom es inner join t_crm_entity e on es.entityid=e.entityid where es.entityid=#{ENTITYID} and es.compid=#{COMPID}
+	 </select>
+	 <resultMap type="t_crm_entity_symptom" id="entitySymptom">
+	 <result property="SYMPTOM" column="symptom"/>
+	 </resultMap>
+	 
+	 <!-- 输出病种对应并发症状信息 -->
+	 <select id="getEntitySyndrome" resultMap="entitySyndrome" parameterType="t_crm_entity_syndrome">
+	 	  select esm.syndrome as syndrome from t_crm_entity_syndrome esm inner join t_crm_entity e on esm.entityid=e.entityid where esm.entityid=#{ENTITYID} and esm.compid=#{COMPID}
+	 </select>
+	 <resultMap type="t_crm_entity_syndrome" id="entitySyndrome">
+	 <result property="SYNDROME" column="syndrome"/>
+	 </resultMap>
+	 
+	<!-- 添加病种信息 -->
+    <insert id="addDisease" parameterType="t_crm_disease">
+		insert into t_crm_disease_note values(#{compid},#{billno},#{memcardno},#{entityid},#{diseaseid},#{diseasetype},#{diseasename},SYSDATE,#{treatmentstate},#{pathogeny},#{concurrent},null,null,#{fileno},#{symptoms},1) 
+	</insert>
+	
+	<!-- 根据compid etityname查询慢病病种信息 -->
+	<select id="getEntityByCompid" resultMap="entityByCompid" parameterType="t_crm_entity">
+	select ENTITYID,ENTITYNAME from T_CRM_ENTITY where entityname=#{ENTITYNAME} and compid=#{COMPID}
+	</select>
+	<resultMap type="t_crm_entity" id="entityByCompid">
+	<result property="ENTITYID" column="ENTITYID"/>
+	<result property="ENTITYNAME" column="ENTITYNAME"/>
+	</resultMap>
+	
+	<!-- 获取billno -->
+	<select id="getBillno" resultType="String">
+	select f_get_serial('HEALTH',null) from dual
+	</select>
+	<select id="getNewBillnoTop" resultType="String" parameterType="String">
+	select billno from t_crm_health_modilis where fileno=#{fileno}
+	</select>
+	<select id="getNewFileno" resultType="String">
+	select f_get_serial('FILENO',null) from dual
+	</select>
+	<select id="getNewFilenoTop" resultType="String">
+	select fileno from (select * from t_crm_health_modilis order by fileno desc) where rownum=1
+	</select>
+	
+	
+	<!-- 获取Fileno -->
+	<select id="getFileno" resultType="String" parameterType="t_crm_addhealth">
+	select fileno from t_crm_health_list where memcardno=#{MEMCARDNO} and compid=#{COMPID}
+	</select>
+	
+	<update id="updateDiseaseStatus" parameterType="t_crm_disease_note">
+	update t_crm_disease_note set treatmentstate=#{treatmentstate} where compid=#{compid} and entityid=#{entityid} and billno=#{billno}
+	</update>
+	
+	<select id="getDiseaseByBillno" resultMap="dis" parameterType="t_crm_disease">
+	 	select * from t_crm_disease where billno=#{billno} and compid=#{compid} and entityid=#{entityid}
+	 </select>
+	 <resultMap type="t_crm_disease" id="dis">
+	 <result property="fileno" column="fileno"/>
+	 <result property="compid" column="compid"/>
+	 <result property="billno" column="billno"/>
+	 <result property="entityid" column="entityid"/>
+	 <result property="diseasetype" column="diseasetype"/>
+	 <result property="diseasename" column="diseasename"/>
+	 <result property="treatmentstate" column="treatmentstate"/>
+	 <result property="shootingtime" column="shootingtime"/>
+	 <result property="pathogeny" column="pathogeny"/>
+	 <result property="concurrent" column="concurrent"/>
+	 <result property="symptoms" column="symptoms"/>
+	 </resultMap>
+	 
+	 <!-- 添加病种信息 -->
+    <insert id="addDiseaseNote" parameterType="t_crm_disease_note">
+		insert into t_crm_disease_note values(#{compid},#{billno},#{memcardno},#{entityid},#{diseaseid},#{diseasetype},#{diseasename},null,null,null,null,null,null,#{fillno},null,1) 
+	</insert>
+	
+	<!--查询家庭健康档案信息(除本人以外)-->
+	<select id="getMemberRelationShip" resultMap="health_list" parameterType="t_crm_health_list">
+	select CARDHOLDER,TYPE,FILENO,FILETYPE,MEMCARDNO,COMPID,SEX,floor(MONTHS_BETWEEN(sysdate,BIRTHDAY) / 12) as BIRTHDAY from t_crm_health_list a WHERE exists (select FILENO from t_crm_health_list c where c.memcardno = #{MEMCARDNO} and a.compid = c.compid and a.fileno = C.fileno) and a.compid = #{COMPID} and a.type!='本人'
+	</select>
+	<resultMap type="t_crm_health_list" id="health_list">
+		<result property="CARDHOLDER" column="CARDHOLDER"/>
+		<result property="FILENO" column="FILENO"/>
+		<result property="MEMCARDNO" column="MEMCARDNO"/>
+		<result property="SEX" column="SEX"/>
+		<result property="BIRTHDAY" column="BIRTHDAY"/>
+		<result property="TYPE" column="TYPE"/>
+		<result property="FILETYPE" column="fILETYPE"/>
+		<result property="COMPID" column="COMPID"/>
+	</resultMap>
+	
+	<!--查询家庭健康档案信息(本人)-->
+	<select id="getMemberRelationShipMe" resultMap="health_list_me" parameterType="t_crm_health_list">
+	select CARDHOLDER,TYPE,FILENO,MEMCARDNO,COMPID,SEX,FILETYPE,floor(MONTHS_BETWEEN(sysdate,BIRTHDAY) / 12) as BIRTHDAY from t_crm_health_list a WHERE exists (select FILENO from t_crm_health_list c where c.memcardno = #{MEMCARDNO} and a.compid = c.compid and a.fileno = C.fileno) and a.compid = #{COMPID} and a.type='本人'
+	</select>
+	<resultMap type="t_crm_health_list" id="health_list_me">
+		<result property="CARDHOLDER" column="CARDHOLDER"/>
+		<result property="FILENO" column="FILENO"/>
+		<result property="MEMCARDNO" column="MEMCARDNO"/>
+		<result property="SEX" column="SEX"/>
+		<result property="BIRTHDAY" column="BIRTHDAY"/>
+		<result property="TYPE" column="TYPE"/>
+		<result property="FILETYPE" column="fILETYPE"/>
+		<result property="COMPID" column="COMPID"/>
+	</resultMap>
+	
+	<!--查询家庭健康档案信息(个人明细)-->
+	<select id="getMemberRelationShipDetails" resultMap="health_list_details" parameterType="t_crm_health_list">
+	select CARDHOLDER,TYPE,FILENO,MEMCARDNO,COMPID,SEX,FILETYPE,floor(MONTHS_BETWEEN(sysdate,BIRTHDAY) / 12) as BIRTHDAY from t_crm_health_list a WHERE exists (select FILENO from t_crm_health_list c where c.memcardno = #{MEMCARDNO} and a.compid = c.compid and a.fileno = C.fileno) and a.compid = #{COMPID} and a.fileno=#{FILENO}
+	</select>
+	<resultMap type="t_crm_health_list" id="health_list_details">
+		<result property="CARDHOLDER" column="CARDHOLDER"/>
+		<result property="FILENO" column="FILENO"/>
+		<result property="MEMCARDNO" column="MEMCARDNO"/>
+		<result property="SEX" column="SEX"/>
+		<result property="BIRTHDAY" column="BIRTHDAY"/>
+		<result property="TYPE" column="TYPE"/>
+		<result property="FILETYPE" column="fILETYPE"/>
+		<result property="COMPID" column="COMPID"/>
+	</resultMap>
+	
+	<!--查询用药记录-->
+	<select id="getDrug" resultMap="drug" parameterType="t_crm_drug">
+	SELECT a.compid as compid,
+       a.fileno as fileno,
+       a.memcardno as memcardno,
+       b.warecode as warecode,
+       b.warename as warename,
+       b.warespec as warespec,
+       b.factoryname as factoryname,
+       a.availabledays as availabledays,
+       a.notes as notes,
+       a.stilluse as stilluse,
+       a.wareid as wareid,
+       a.billno as billno
+  FROM t_crm_drug a inner join t_crm_ware b on a.wareid = b.wareid and a.compid = b.compid where a.memcardno=#{MEMCARDNO} and a.compid=#{COMPID} and a.fileno=#{FILENO}
+    </select>
+	<resultMap type="t_crm_drug" id="drug">
+		<result property="COMPID" column="compid"/>
+		<result property="FILENO" column="fileno"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="WARECODE" column="warecode"/>
+		<result property="WARENAME" column="warename"/>
+		<result property="WARESPEC" column="warespec"/>
+		<result property="FACTORYNAME" column="factoryname"/>
+		<result property="AVAILABLEDAYS" column="availabledays"/>
+		<result property="NOTES" column="notes"/>
+		<result property="STILLUSE" column="stilluse"/>
+		<result property="WAREID" column="wareid"/>
+		<result property="BILLNO" column="billno"/>
+	</resultMap>
+	
+	<!--查询用药记录明细-->
+	<select id="getDrugDetails" resultMap="drugDetails" parameterType="t_crm_drug">
+	SELECT a.compid as compid,
+       a.fileno as fileno,
+       a.memcardno as memcardno,
+       b.warecode as warecode,
+       b.warename as warename,
+       b.warespec as warespec,
+       b.factoryname as factoryname,
+       a.availabledays as availabledays,
+       a.notes as notes,
+       a.stilluse as stilluse,
+       a.wareid as wareid,
+       a.billno as billno
+  FROM t_crm_drug a inner join t_crm_ware b on a.wareid = b.wareid and a.compid = b.compid where a.memcardno=#{MEMCARDNO} and a.compid=#{COMPID} and a.fileno=#{FILENO} and b.wareid=#{WAREID}
+    </select>
+	<resultMap type="t_crm_drug" id="drugDetails">
+		<result property="COMPID" column="compid"/>
+		<result property="FILENO" column="fileno"/>
+		<result property="MEMCARDNO" column="memcardno"/>
+		<result property="WARECODE" column="warecode"/>
+		<result property="WARENAME" column="warename"/>
+		<result property="WARESPEC" column="warespec"/>
+		<result property="FACTORYNAME" column="factoryname"/>
+		<result property="AVAILABLEDAYS" column="availabledays"/>
+		<result property="NOTES" column="notes"/>
+		<result property="STILLUSE" column="stilluse"/>
+		<result property="STARTTIME" column="starttime"/>
+		<result property="ENDTIME" column="endtime"/>
+		<result property="WAREID" column="wareid"/>
+		<result property="BILLNO" column="billno"/>
+	</resultMap>
+	
+	<!-- 添加用药记录-->
+    <insert id="addDrug" parameterType="t_crm_drug_note">
+		insert into t_crm_drug_note(COMPID,BILLNO,FILENO,MEMCARDNO,STARTTIME,ENDTIME,AVAILABLEDAYS,NOTES,STILLUSE,WAREID,LASTMODIFY,LASTTIME,ADDTYPE,USAGE) 
+		values(#{COMPID},#{BILLNO},#{FILENO},#{MEMCARDNO},#{STARTTIME},#{ENDTIME},#{AVAILABLEDAYS},#{NOTES},#{STILLUSE},#{WAREID},null,null,1,#{USAGE}) 
+	</insert>  
+	
+	<!--检索商品 and warecode=#{WARECODE} and warecode={WARENAME}-->
+	<select id="getWare" resultMap="ware" parameterType="t_crm_ware">
+	select compid,wareid,warecode,warename,warespec,notes,factoryname from t_crm_ware
+	<where>
+	  <if test="COMPID!=null and COMPID!=''"> compid=#{COMPID}  </if>
+	  <if test="WARECODE!=null and WARECODE!=''">and warecode like '%'||#{WARECODE}||'%'</if>
+	</where>
+	</select>
+	<resultMap type="t_crm_ware" id="ware">
+		<result property="WAREID" column="wareid"/>
+		<result property="WARECODE" column="warecode"/>
+		<result property="WARENAME" column="warename"/>
+		<result property="WARESPEC" column="warespec"/>
+		<result property="COMPID" column="compid"/>
+		<result property="FACTORYNAME" column="factoryname"/>
+	</resultMap>
+	
+	<!--检索商品 and warecode=#{WARECODE} and warecode={WARENAME}-->
+	<select id="getWareEnglish" resultMap="wareEnglish" parameterType="t_crm_ware">
+	select compid,wareid,warecode,warename,warespec,notes,factoryname from t_crm_ware
+	<where>
+	  <if test="COMPID!=null and COMPID!=''"> compid=#{COMPID}  </if>
+	  <if test="WAREABC!=null and WAREABC!=''">and wareabc like '%'||#{WAREABC}||'%'</if>
+	</where>
+	</select>
+	<resultMap type="t_crm_ware" id="wareEnglish">
+		<result property="WAREID" column="wareid"/>
+		<result property="WARECODE" column="warecode"/>
+		<result property="WARENAME" column="warename"/>
+		<result property="WARESPEC" column="warespec"/>
+		<result property="COMPID" column="compid"/>
+		<result property="FACTORYNAME" column="factoryname"/>
+	</resultMap>
+	
+	<!--检索商品 and warecode=#{WARECODE} and warecode={WARENAME}-->
+	<select id="getWareName" resultMap="wareName" parameterType="t_crm_ware">
+	select compid,wareid,warecode,warename,warespec,notes,factoryname from t_crm_ware
+	<where>
+	  <if test="COMPID!=null and COMPID!=''"> compid=#{COMPID}  </if>
+	  <if test="WARENAME!=null and WARENAME!=''">and warename like '%'||#{WARENAME}||'%'</if>
+	</where>
+	</select>
+	<resultMap type="t_crm_ware" id="wareName">
+		<result property="WAREID" column="wareid"/>
+		<result property="WARECODE" column="warecode"/>
+		<result property="WARENAME" column="warename"/>
+		<result property="WARESPEC" column="warespec"/>
+		<result property="COMPID" column="compid"/>
+		<result property="FACTORYNAME" column="factoryname"/>
+	</resultMap>
+	
+	<update id="updateDrug" parameterType="t_crm_drug_note">
+	update t_crm_drug_note set starttime=#{STARTTIME},endtime=#{ENDTIME},availabledays=#{AVAILABLEDAYS},notes=#{NOTES},stilluse=#{STILLUSE} where compid=#{COMPID} and wareid=#{WAREID}
+	</update>
+	<update id="updateDrugWareid" parameterType="t_crm_drug_note">
+	update t_crm_drug_note set wareid=#{WAREID} where compid=#{COMPID} and  starttime=#{STARTTIME} and endtime=#{ENDTIME} and availabledays=#{AVAILABLEDAYS} and notes=#{NOTES} and stilluse=#{STILLUSE} 
+	</update>
+	
+	<!-- -->
+	<select id="getHealthModilis" resultMap="healthModilis" parameterType="t_crm_health_list">
+     select COMPID,FILENO,CARDHOLDER,MEMCARDNO,MODBUSNO,TYPE,SEX,to_char(BIRTHDAY, 'yyyy-mm-dd') as BIRTHDAY,IDCARD,TEL,CARDADDRESS,CARDHOLDER,MEDICAL,FILETYPE,EMECONTACT,MOBILE from t_crm_health_list where memcardno=#{MEMCARDNO} and compid=#{COMPID} and fileno=#{FILENO} and type=#{TYPE}
+	</select>
+	<resultMap type="t_crm_health_list" id="healthModilis">
+		<result property="COMPID" column="COMPID"/>
+		<result property="FILENO" column="FILENO"/>
+		<result property="MEMCARDNO" column="MEMCARDNO"/>
+		<result property="MODBUSNO" column="MODBUSNO"/>
+		<result property="TYPE" column="TYPE"/>
+		<result property="SEX" column="SEX"/>
+		<result property="BIRTHDAY" column="BIRTHDAY"/>
+		<result property="IDCARD" column="IDCARD"/>
+		<result property="TEL" column="TEL"/>
+		<result property="CARDADDRESS" column="CARDADDRESS"/>
+		<result property="CARDHOLDER" column="CARDHOLDER"/>
+		<result property="MEDICAL" column="MEDICAL"/>
+		<result property="FILETYPE" column="FILETYPE"/>
+		<result property="EMECONTACT" column="EMECONTACT"/>
+		<result property="MOBILE" column="MOBILE"/>
+	</resultMap>
+	
+	<!-- 添加用药记录-->
+    <insert id="addMembers" parameterType="t_crm_health_modilis">
+		insert into t_crm_health_modilis(billno,modbusno,memcardno,type,height,weight,medical,temperature,heartrate,steps,systolic,diastolic,oxygen,bloodsugar1,bloodsugar2,bloodsugar3,bloodsugar4,glycosylated,cholesterol,triglyceride,highlipoprotein,lowlipoprotein,homocysteine,status,checkbit1,checkbit2,checkbit3,checkbit4,checkbit5,createtime,fileno,compid,CARDHOLDER,SEX,MOBILE,BIRTHDAY,TEL,CARDADDRESS,IDCARD,BUSNO,FILETYPE,bloodsugar5,bloodsugar6,bloodsugar7,bloodsugar8,docstatus) 
+		values(#{BILLNO,jdbcType=VARCHAR},#{MODBUSNO,jdbcType=INTEGER},#{MEMCARDNO,jdbcType=VARCHAR},#{TYPE,jdbcType=VARCHAR},
+				#{HEIGHT,jdbcType=NUMERIC},#{WEIGHT,jdbcType=NUMERIC},#{MEDICAL,jdbcType=VARCHAR},
+				#{TEMPERATURE,jdbcType=NUMERIC},#{HEARTRATE,jdbcType=NUMERIC},#{STEPS,jdbcType=NUMERIC},
+				#{SYSTOLIC,jdbcType=NUMERIC},#{DIASTOLIC,jdbcType=NUMERIC},#{OXYGEN,jdbcType=NUMERIC},
+				#{BLOODSUGAR1,jdbcType=NUMERIC},#{BLOODSUGAR2,jdbcType=NUMERIC},#{BLOODSUGAR3,jdbcType=NUMERIC},
+				#{BLOODSUGAR4,jdbcType=NUMERIC},#{GLYCOSYLATED,jdbcType=NUMERIC},#{CHOLESTEROL,jdbcType=NUMERIC},
+				#{TRIGLYCERIDE,jdbcType=NUMERIC},#{HIGHLIPOPROTEIN,jdbcType=NUMERIC},#{LOWLIPOPROTEIN,jdbcType=NUMERIC},
+				#{HOMOCYSTEINE,jdbcType=NUMERIC},1,1,1,1,1,1,sysdate,#{FILENO,jdbcType=VARCHAR},
+				#{COMPID,jdbcType=INTEGER},#{CARDHOLDER,jdbcType=VARCHAR}, #{SEX,jdbcType=VARCHAR},
+				#{MOBILE,jdbcType=VARCHAR},sysdate, #{TEL,jdbcType=VARCHAR}, #{CARDADDRESS,jdbcType=VARCHAR}, 
+  				#{IDCARD,jdbcType=VARCHAR}, #{BUSNO,jdbcType=INTEGER}, #{FILETYPE,jdbcType=INTEGER}, 
+  				#{BLOODSUGAR5,jdbcType=NUMERIC},#{BLOODSUGAR6,jdbcType=NUMERIC},#{BLOODSUGAR7,jdbcType=NUMERIC},
+  				#{BLOODSUGAR8,jdbcType=NUMERIC},1) 
+	</insert>
+	
+	<insert id="updateMembers" parameterType="t_crm_health_modilis">
+		insert into t_crm_health_modilis(billno,modbusno,memcardno,type,medical,status,checkbit1,checkbit2,checkbit3,checkbit4,checkbit5,createtime,fileno,compid,cardholder,sex,filetype,docstatus) 
+		values(#{BILLNO},#{MODBUSNO},#{MEMCARDNO},#{TYPE},#{MEDICAL},0,0,0,0,0,0,sysdate,#{FILENO},#{COMPID},#{CARDHOLDER},#{SEX},#{FILETYPE},1) 
+	</insert>
+	
+	<update id="updateMembersStatus" parameterType="t_crm_health_modilis">
+	update t_crm_health_modilis set status=1,execdate=sysdate where modbusno=#{MODBUSNO} and memcardno=#{MEMCARDNO} and cardholder=#{CARDHOLDER} and sex=#{SEX} and fileno=#{FILENO} and type=#{TYPE} and medical=#{MEDICAL}
+	</update>
+</mapper>

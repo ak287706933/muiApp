@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>会员搜索</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<style>
+			html,
+			body {
+				background: #F2F2F2 !important;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			h5 {
+				margin: 5px 7px;
+			}
+			.clearfix:after,
+			.clearfix:before {
+			    content: "";
+			    line-height: 0;
+			    height: 0;
+			    display: block;
+			    visibility: hidden;
+			    clear: both;
+			    }
+			.mui-bar-nav {
+			    top: 0;
+			    -webkit-box-shadow: 0 1px 6px #ccc;
+			    box-shadow: 0 0px 0px #fff;
+			    background: #fff !important;
+			}
+			.mui-icon-back:before, .mui-icon-left-nav:before {
+			    color: #666;
+			    content: '\e471';
+			}
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+			    color: #17C6B2 !important;
+			}
+			.mui-input-group .mui-input-row:after {
+			    height: 0px !important;
+			}
+			.mui-input-group:before {
+			 	height: 0px !important;
+			}
+			.mui-pull-loading{
+				font-size: 12px;
+			}
+			/*自定义搜索*/
+			.mSearchCon{
+				background: #fff;
+				padding: 5px;
+				padding-right: 0;
+				border-top: 1px solid #E0E0E0;
+			}
+			.mSearchCon div{
+				float: left;
+			}
+			.search-con{
+				width: 80%;
+			}
+			.search-btn{
+				width: 20%;
+				font-size: 14px;
+				height: 34px;
+				line-height: 34px;
+				text-align: center;
+			}
+			input[type=search] {
+			    background-color: #F5F5F5;
+			    margin-bottom: 0;
+			    padding: 0;
+			    margin-right: 5px;
+			}
+			.mui-search:before {
+			    margin-top: -11px;
+			}
+			.mui-bar-nav~.mui-content .mui-slider.mui-fullscreen {
+			    top: 94px;
+			}
+			/*顾客资料*/
+			.cur_list{
+				height: 70px;
+				padding: 0 10px;
+				overflow: hidden;
+			}
+			.img_head{
+				width: 50px;
+				height: 50px;
+				box-sizing: border-box;
+				border: 1px solid #e0e0e0;
+				border-radius: 2px;
+				margin-top: 10px;
+				float: left;
+			}
+			.cust-con{
+				float: left;
+				margin-left: 10px;
+				margin-top: 15px;
+			}
+			.cust-name{
+				display: flex;
+				display: -webkit-flex;
+				height: 14px;
+				line-height: 14px;
+			}
+			.cust-name p{
+				font-size: 14px;
+				color: #333;	
+			}
+			.cust-name span{
+				font-size: 12px;
+				color: #999;	
+				margin-left: 5px;
+			}
+			.cust-vip{
+				display: flex;
+				display: -webkit-flex;
+				margin-top: 5px;
+				height: 18px;
+				line-height: 18px;
+			}
+			.vip-icon{
+				width: 25px;
+				height: 18px;
+				background: url(img/vipcard.png);
+				background-size: contain;
+			}
+			.vip-numb{
+				font-size: 12px;
+				color: #ffd323;
+				margin-left: 5px;
+			}
+			.cust-per{
+				margin-top: 15px;
+				float: right;
+				display: flex;
+				display: -webkit-flex;
+			}
+			.per-text{
+				font-size: 12px;
+				line-height: 16px;
+				color: #d9d9d9;
+				margin-right: 5px;
+			}
+			.per-numb{
+				font-size: 16px;
+				line-height: 16px;
+				color: #fe8384;
+			}
+			.mui-pull-bottom-tips {
+			    text-align: center;
+			    background-color: #efeff4;
+			    font-size: 15px;
+			    line-height: 40px;
+			    color: #777;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!-- <a class=" mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">会员搜索</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mSearchCon clearfix">
+				<div class="mui-input-row mui-search search-con">
+				    <input type="search" class="mui-input-clear" id="mySearch" placeholder="输入会员信息">
+				</div>
+				<div class="search-btn" id="ss_btn">搜索</div>
+			</div>
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<div id="scroll1" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view" id="tul">
+								<!-- <li class="mui-table-view-cell cur_list">
+									<div class="img_head"></div>
+									<div class="cust-con">
+										<div class="cust-name">
+											<p>王鹏 </p>
+											<span>(男/23岁)</span>
+										</div>
+										<div class="cust-vip">
+											<div class="vip-icon"></div>
+											<div class="vip-numb">20170924</div>
+										</div>
+									</div>
+									<div class="cust-per">
+										<div class="per-text">资料完整度</div>
+										<div class="per-numb">20%</div>
+									</div>
+								</li>
+								<li class="mui-table-view-cell cur_list">
+									<div class="img_head"></div>
+									<div class="cust-con">
+										<div class="cust-name">
+											<p>王鹏 </p>
+											<span>(男/23岁)</span>
+										</div>
+										<div class="cust-vip">
+											<div class="vip-icon"></div>
+											<div class="vip-numb">20170924</div>
+										</div>
+									</div>
+									<div class="cust-per">
+										<div class="per-text">资料完整度</div>
+										<div class="per-numb">20%</div>
+									</div>
+								</li>
+								<li class="mui-table-view-cell cur_list">
+									<div class="img_head"></div>
+									<div class="cust-con">
+										<div class="cust-name">
+											<p>王鹏 </p>
+											<span>(男/23岁)</span>
+										</div>
+										<div class="cust-vip">
+											<div class="vip-icon"></div>
+											<div class="vip-numb">20170924</div>
+										</div>
+									</div>
+									<div class="cust-per">
+										<div class="per-text">资料完整度</div>
+										<div class="per-numb">20%</div>
+									</div>
+								</li>
+								<li class="mui-table-view-cell cur_list">
+									<div class="img_head"></div>
+									<div class="cust-con">
+										<div class="cust-name">
+											<p>王鹏 </p>
+											<span>(男/23岁)</span>
+										</div>
+										<div class="cust-vip">
+											<div class="vip-icon"></div>
+											<div class="vip-numb">20170924</div>
+										</div>
+									</div>
+									<div class="cust-per">
+										<div class="per-text">资料完整度</div>
+										<div class="per-numb">20%</div>
+									</div>
+								</li>
+								<li class="mui-table-view-cell cur_list">
+									<div class="img_head"></div>
+									<div class="cust-con">
+										<div class="cust-name">
+											<p>王鹏 </p>
+											<span>(男/23岁)</span>
+										</div>
+										<div class="cust-vip">
+											<div class="vip-icon"></div>
+											<div class="vip-numb">20170924</div>
+										</div>
+									</div>
+									<div class="cust-per">
+										<div class="per-text">资料完整度</div>
+										<div class="per-numb">20%</div>
+									</div>
+								</li>
+								<li class="mui-table-view-cell cur_list">
+									<div class="img_head"></div>
+									<div class="cust-con">
+										<div class="cust-name">
+											<p>王鹏 </p>
+											<span>(男/23岁)</span>
+										</div>
+										<div class="cust-vip">
+											<div class="vip-icon"></div>
+											<div class="vip-numb">20170924</div>
+										</div>
+									</div>
+									<div class="cust-per">
+										<div class="per-text">资料完整度</div>
+										<div class="per-numb">20%</div>
+									</div>
+								</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="./js/mui.pullToRefresh.js"></script>
+		<script src="./js/mui.pullToRefresh.material.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		 	//mui初始化
+			mui.init();
+			//搜索
+			mui("body").on("tap",".search-btn",function(){
+				//获得搜索关键字的值
+				var parameter=$("#mySearch").val();
+				$.ajax({
+					url:"searchmember.do?parameter="+parameter,
+					type:"get",
+					dataType:"json",
+					success:function(data){
+					$("#tul").empty(); 
+				        var json = eval(data);
+				        var list=[];
+				        //alert($.isEmptyObject(json));
+				        if($.isEmptyObject(json)==false){
+				        	$(json).each(function(i){
+				        		$("#tul").empty(); 
+								list[i]=json[i];
+								
+								if(list[i].AGE=="117"){
+									list[i].AGE=" ";
+								}
+								if(list[i].AGE=="0"){
+									list[i].AGE=" ";
+								}
+								
+								$("#tul").append(
+								'<li class="mui-table-view-cell cur_list">'+
+										'<div class="img_head"></div>'+
+										'<div class="cust-con">'+
+											'<div class="cust-name">'+
+												'<p class='+list[i].COMPID+'>'+list[i].CARDHOLDER+'</p>'+
+												'<span>('+list[i].SEX+'/'+list[i].AGE+'岁)</span>'+
+											'</div>'+
+											'<div class="cust-vip">'+
+												'<div></div>'+
+												'<div class="vip-numb">'+list[i].MEMCARDNO+'</div>'+
+											'</div>'+
+										'</div>'+
+										'<div class="cust-per">'+
+											'<div class="per-text"></div>'+
+											'<div class="per-numb"></div>'+
+										'</div>'+
+									'</li>'
+								);
+								});
+				        }else{
+				        	mui.toast("该会员不存在");
+				        }
+					},
+					error:function(data){
+						//alert('失败' + data);
+					}
+					});
+			});
+			
+			//进入子页面
+			mui('#tul').on('tap','li',function(){
+			var memcardno=$(this).find('.vip-numb').html();
+			var compid=$(this).find('.cust-name').find('p').attr('class');
+			location.href="add-members1.html?memcardno="+memcardno+"&compid="+compid;
+			});
+			
+		</script>	
+	</body>
+</html>

@@ -1,0 +1,131 @@
+{
+	"main.html": {
+		"resources": [
+			"img/renwu.png",
+			"img/personal.png",
+			"img/add.png",
+			"js/mui.min.js",
+			"img/crm.png",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"img/message.png",
+			"img/store.png",
+			"img/add_sousuo.png",
+			"css/home_main.css",
+			"img/guke.png",
+			"myCustTest.html",
+			"js/jquery.min.js",
+			"login.html",
+			"puffTest.html",
+			"myTask.html",
+			"pullrefresh_sub.html",
+			"pullrefresh_main.html",
+			"js/rem.js",
+			"myTaskTest.html"
+		],
+		"refer": [
+			"myCustTest.html",
+			"login.html",
+			"puffTest.html",
+			"myTask.html",
+			"pullrefresh_sub.html",
+			"pullrefresh_main.html",
+			"myTaskTest.html"
+		]
+	},
+	"login.html": {
+		"resources": [
+			"img/bolang_top.png",
+			"main.html",
+			"js/jquery.min.js",
+			"img/vipcard.png",
+			"css/login.css",
+			"img/bolang.png",
+			"css/iconfont.css",
+			"js/rem.js",
+			"js/mui.min.js"
+		],
+		"refer": [
+			"main.html"
+		]
+	},
+	"myCustTest.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/mui.min.css",
+			"css/my_curstomer.css",
+			"main.html",
+			"img/vipcard.png",
+			"img/paixu.png",
+			"img/paixu_up.png",
+			"img/paixu_down.png"
+		],
+		"refer": [
+			"main.html"
+		]
+	},
+	"puffTest.html": {
+		"resources": [
+			"css/mui.min.css",
+			"css/my_task.css",
+			"main.html"
+		],
+		"refer": [
+			"main.html"
+		]
+	},
+	"myTask.html": {
+		"resources": [
+			"css/mui.min.css",
+			"css/my_task.css",
+			"main.html"
+		],
+		"refer": [
+			"main.html"
+		]
+	},
+	"pullrefresh_sub.html": {
+		"resources": [
+			"css/mui.min.css",
+			"main.html"
+		],
+		"refer": [
+			"main.html"
+		]
+	},
+	"pullrefresh_main.html": {
+		"resources": [
+			"css/mui.min.css",
+			"pullrefresh_sub.html",
+			"main.html"
+		],
+		"refer": [
+			"pullrefresh_sub.html",
+			"main.html"
+		]
+	},
+	"myTaskTest.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/mui.min.css",
+			"css/my_task.css",
+			"main.html",
+			"fangkui.html"
+		],
+		"refer": [
+			"main.html",
+			"fangkui.html"
+		]
+	},
+	"fangkui.html": {
+		"resources": [
+			"css/mui.min.css",
+			"myTaskTest.html"
+		],
+		"refer": [
+			"myTaskTest.html"
+		]
+	}
+}

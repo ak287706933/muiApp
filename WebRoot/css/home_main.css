@@ -1,0 +1,134 @@
+/*重置*/
+*{
+	box-sizing: border-box;
+}
+.mui-icon .mui-badge {
+    line-height: 14px !important;
+}
+.my_center{
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #929292;
+}
+/*自己的*/
+.add_func{
+	display: block;
+	height: 0.8rem;
+	width: 0.8rem;
+	background: url(../img/add.png);
+	background-size: 100% 100%;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+.crms_icon{
+	display: block;
+	width: 24px;
+	height: 18px !important;
+	background: url(../img/crm.png) no-repeat;
+	background-size: 100% 100%;
+	margin: 0 auto;
+	top: 3px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
+}
+.crms_icon .act{
+	background: url(../img/crm_click.png) no-repeat;
+	background-size: 100% 100%;
+}
+.store_icon{
+	display: block;
+	width: 0.64rem;
+	height: 0.546666rem;
+	background: url(../img/store.png) no-repeat;
+	background-size: contain;
+	margin: 0 auto;
+	top: 3px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.store_person{
+	display: block;
+	width: 0.56rem;
+	height: 0.533333rem;
+	background: url(../img/personal.png) no-repeat;
+	background-size: contain;
+	margin: 0 auto;
+	top: 3px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.mes_icon{
+	display: block;
+	width: 0.706666rem;
+	height: 0.533333rem;
+	background: url(../img/message.png) no-repeat;
+	background-size: contain;
+	margin: 0 auto;
+	top: 3px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+/*弹出层*/
+.gray{
+	display: none;
+	z-index: 99;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.gray_top{
+	height: 55%;
+	width: 100%;
+    opacity: 0.8;
+    background: #F2F2F2;
+}
+.gray_bottom{
+	height: 45%;
+	width: 100%;
+	opacity: 1.0 !important;
+	background: #F2F2F2;
+}
+.func_menber{
+	height: 80%;
+	width: 100%;
+	display: flex;
+	display: -webkit-flex;
+	padding: 0.133333rem 0.266666rem;
+	box-sizing: border-box;
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
+.menber_box{
+    width: 33.33%;
+    height: 2.933333rem;
+}
+.menber_close{
+	height: 20%;
+	width: 100%;
+	text-align: center;
+}
+.menber_img img{
+	display: block;
+	height: 1.333333rem;
+	margin: 0 auto;
+}
+.menber_text{
+	height: 0.533333rem;
+	line-height: 0.533333rem;
+	text-align: center;
+	margin-top: 0.266666rem;
+}
+/*底部关闭*/
+.menber_close{
+	background: #ccc;
+}

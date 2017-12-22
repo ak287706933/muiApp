@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>健康档案</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/custDetail.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!-- <a class="mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+			<h1 class="mui-title" id="h1"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="p_info clearfix">
+				<div class="p_info_item">
+					<p class="p_info_det"></p>
+					<span class="p_info_tit">购买次数</span>
+				</div>
+				<div class="p_info_item">
+					<p class="p_info_det"></p>
+					<span class="p_info_tit">购买均价</span>
+				</div>
+				<div class="p_info_item">
+					<p class="p_info_det"></p>
+					<span class="p_info_tit">消费总额</span>
+				</div>
+			</div>
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll custTab" style="width: 100%;">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							会员资料
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							健康档案
+						</a>
+						<a class="mui-control-item" href="#item3mobile">
+							回访记录
+						</a>
+						<!--  
+						<a class="mui-control-item" href="#item4mobile">
+							人脸注册
+						</a>
+						-->
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="scroll_con">
+							<div class="jkda_con">
+								<div class="basic_con">
+									<div class="basic_tit">基础信息</div>
+									<div class="basic_info clearfix">
+										<ul class="mui-table-view">
+										    <li class="mui-table-view-cell list_item">
+										    	<span>卡号</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>姓名</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>备注名</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>生日</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>固定电话</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>手机号码</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>身份证</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>医保信息</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>所在地区</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>详细地址</span>
+										    	<p></p>
+										    </li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!--crm信息
+							<div class="jkda_con">
+								<div class="basic_con">
+									<div class="basic_tit">来自crm的会员标签信息</div>
+									<div class="basic_info_list">
+										<ul class="mui-table-view">
+										    <li class="mui-table-view-cell list_item">
+										    	<span>年龄标签</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>职业</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>购物性格</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>生活属性</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>体型</span>
+										    	<p></p>
+										    </li>
+										</ul>
+									</div>
+								</div>
+							</div>-->
+							<!--其他信息-->
+							<div class="jkda_con">
+								<div class="basic_con">
+									<div class="basic_tit">其他信息</div>
+									<div class="basic_info_list">
+										<ul class="mui-table-view">
+										    <li class="mui-table-view-cell list_item">
+										    	<span>会员积分</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>微信会员</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>注册时间</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>注册来源</span>
+										    	<p></p>
+										    </li>
+										    <li class="mui-table-view-cell list_item">
+										    	<span>所属门店</span>
+										    	<p></p>
+										    </li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="scroll_con">
+							<div class="jkda_con">
+									<div class="basic_con">
+										<div class="basic_tit">基础信息</div>
+										<div class="basic_info clearfix">
+											<div class="info_item" data-target-alink="0">
+											<input type="hidden" id="memcardno1">
+											<input type="hidden" id="compid1">
+												<div class="item_line1">身高</div>
+												<div class="item_line2"><i id="Height" >--</i><i>cm</i></div>
+												<div class="item_line3" id="time1"></div>
+											</div>
+											<div class="info_item" data-target-alink="1">
+												<div class="item_line1">体重</div>
+												<div class="item_line2"><i id="Weight">--</i><i>kg</i></div>
+												<div class="item_line3" id="time2"></div>
+											</div>
+											<div class="info_item" data-target-alink="4">
+												<div class="item_line1">体温</div>
+												<div class="item_line2"><i id="Temperature">--</i><i>℃</i><span id="TemperatureLog"></span></div>
+												<div class="item_line3" id="time3"></div>
+											</div>
+											<div class="info_item" data-target-alink="7">
+												<div class="item_line1">步数</div>
+												<div class="item_line2"><i id="Steps">--</i><i>步</i></div>
+												<div class="item_line3" id="time4"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--血压指标-->
+							<div class="jkda_con">
+									<div class="basic_con">
+										<div class="basic_tit">血压类</div>
+										<div class="basic_info clearfix">
+											<div class="info_item" data-target-alink="2">
+												<div class="item_line1">收缩压</div>
+												<div class="item_line2"><i id="Systolic">--</i><i>mm/Hg</i><span id="SystolicLog"></span></div>
+												<div class="item_line3" id="time5">2017-05-23 12:55</div>
+											</div>
+											<div class="info_item" data-target-alink="2">
+												<div class="item_line1">舒张压</div>
+												<div class="item_line2"><i id="Diastolic">--</i><i>mm/Hg</i><span id="DiastolicLog"></span></div>
+												<div class="item_line3" id="time6"></div>
+											</div>
+											<div class="info_item" data-target-alink="5">
+												<div class="item_line1">心率</div>
+												<div class="item_line2"><i id="Heartrate">--</i><i>bmp</i><span id="HeartrateLog"></span></div>
+												<div class="item_line3" id="time7"></div>
+											</div>
+											<div class="info_item" data-target-alink="6">
+												<div class="item_line1">血氧</div>
+												<div class="item_line2"><i id="Oxygen">--</i><i>%bmp</i><span id="OxygenLog"></span></div>
+												<div class="item_line3" id="time8"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--血糖类-->
+								<div class="jkda_con">
+									<div class="basic_con">
+										<div class="basic_tit">血糖类</div>
+										<div class="basic_info clearfix">
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">早餐前血糖</div>
+												<div class="item_line2"><i id="Bloodsugar1">--</i><i>mmol/L</i><span id="BloodsugarLog1"></span></div>
+												<div class="item_line3" id="time9"></div>
+											</div>
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">早餐后血糖</div>
+												<div class="item_line2"><i id="Bloodsugar2">--</i><i>mmol/L</i><span id="BloodsugarLog2"></span></div>
+												<div class="item_line3" id="time10"></div>
+											</div>
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">午餐前血糖</div>
+												<div class="item_line2"><i id="Bloodsugar3">--</i><i>mmol/L</i><span id="BloodsugarLog3"></span></div>
+												<div class="item_line3" id="time11"></div>
+											</div>
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">午餐后血糖</div>
+												<div class="item_line2"><i id="Bloodsugar4">--</i><i>mmol/L</i><span id="BloodsugarLog4"></span></div>
+												<div class="item_line3" id="time12"></div>
+											</div>
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">晚餐前血糖</div>
+												<div class="item_line2"><i id="Bloodsugar5">--</i><i>mmol/L</i><span id="BloodsugarLog5"></span></div>
+												<div class="item_line3" id="time19"></div>
+											</div>
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">晚餐后血糖</div>
+												<div class="item_line2"><i id="Bloodsugar6">--</i><i>mmol/L</i><span id="BloodsugarLog6"></span></div>
+												<div class="item_line3" id="time20"></div>
+											</div>
+											<div class="info_item" data-target-alink="3">
+												<div class="item_line1">睡觉前血糖</div>
+												<div class="item_line2"><i id="Bloodsugar7">--</i><i>mmol/L</i><span></span></div>
+												<div class="item_line3" id="time21"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--血脂类-->
+								<div class="jkda_con">
+									<div class="basic_con">
+										<div class="basic_tit">血脂类</div>
+										<div class="basic_info clearfix">
+											<div class="info_item" data-target-alink="8">
+												<div class="item_line1">糖化血红蛋白</div>
+												<div class="item_line2"><i id="Glycosylated">--</i><i>mmol/L</i><span id="GlycosylatedLog"></span></div>
+												<div class="item_line3" id="time13"></div>
+											</div>
+											<div class="info_item" data-target-alink="9">
+												<div class="item_line1">总胆固醇</div>
+												<div class="item_line2"><i id="Cholesterol">--</i><i>mmol/L</i><span id="CholesterolLog"></span></div>
+												<div class="item_line3" id="time14"></div>
+											</div>
+											<div class="info_item" data-target-alink="12">
+												<div class="item_line1">甘油三酯</div>
+												<div class="item_line2"><i id="Triglyceride">--</i><i>mmol/L</i><span id="TriglycerideLog"></span></div>
+												<div class="item_line3" id="time15"></div>
+											</div>
+											<div class="info_item" data-target-alink="10">
+												<div class="item_line1">高密度脂蛋白</div>
+												<div class="item_line2"><i id="Highlipoprotein">--</i><i>mmol/L</i><span id="HighlipoproteinLog"></span></div>
+												<div class="item_line3" id="time16"></div>
+											</div>
+											<div class="info_item" data-target-alink="11">
+												<div class="item_line1">低密度脂蛋白</div>
+												<div class="item_line2"><i id="Lowlipoprotein">--</i><i>mmol/L</i><span id="LowlipoproteinLog"></span></div>
+												<div class="item_line3" id="time17"></div>
+											</div>
+											<div class="info_item" data-target-alink="13">
+												<div class="item_line1">同型半胱氯酸</div>
+												<div class="item_line2"><i id="Homocysteine">--</i><i>mmol/L</i><span id="HomocysteineLog"></span></div>
+												<div class="item_line3" id="time18"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+					</div>
+					<!--回访记录-->
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="scroll_con">
+							<ul class="mui-table-view huifan" id="ul_fk">
+						        <li class="mui-table-view-cell mui-collapse">
+						            <a class="mui-navigate-right" href="#">2017/09/25 16:55</a>
+						            <div class="mui-collapse-content">
+										<div class="mui-control-content tab_info_con mui-active">
+											<div class="info_warper">
+												<ul>
+													<li>--</li>
+													<li>--</li>
+													<li>--</li>
+													<li>--</li>
+													<li>--</li>
+													<li>--</li>
+												</ul>
+											</div>
+										</div>
+						            </div>
+						        </li>
+						    </ul>
+						    <!-- <div class="load_more">点击加载更多</div> -->
+						</div>
+					</div>
+					<!-- <div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="head_con">
+							<p class="face_reg">照片墙</p>
+							<div class="head_img"></div>
+							<div class="head_img_con"><img src="img/test_head.jpg" alt="" /></div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<!--遮罩-->
+		<div class="mui-backdrop"></div>
+		<!--遮罩内记录框-->
+		<div class="rec_popCon">
+			<p class="rec_tit">选择记录项目</p>
+			<div class="rec_items">
+				<ul class="clearfix" id="ul1">
+					<li class="rec_normal" id="getheight"><a href="#" class="rec_item item_click">身高</a></li>
+					<li class="rec_normal" id="getweight"><a href="#" class="rec_item">体重</a></li>
+					<li class="rec_normal" id="gettemperature"><a href="#" class="rec_item">体温</a></li>
+					<li class="rec_normal" id="getstepcount"><a href="#" class="rec_item">步数</a></li>
+					<li class="rec_pressure" id="getbloodpressure"><a href="#" class="rec_item">血压</a></li>
+					<li class="rec_normal" id="getheartrate"><a href="#" class="rec_item">心率</a></li>
+					<li class="rec_special" id="getbloodsugar"><a href="#" class="rec_item">血糖</a></li>
+					<li class="rec_normal" id="getoxygenall"><a href="#" class="rec_item">血氧</a></li>
+					<li class="rec_normal" id="getglycosylatedhemoglobin"><a href="#" class="rec_item">糖化血红蛋白</a></li>
+					<li class="rec_normal" id="gettotalcholesterol"><a href="#" class="rec_item">总胆固醇</a></li>
+					<li class="rec_normal" id="gethighdensitylipoprotein"><a href="#" class="rec_item">高密度脂蛋白</a></li>
+					<li class="rec_normal" id="gettriglyceride"><a href="#" class="rec_item">甘油三酯</a></li>
+					<li class="rec_normal" id="getlowdensitylipoprotein"><a href="#" class="rec_item">低密度脂蛋白</a></li>
+					<li class="rec_normal" id="gethomocysteinechloride"><a href="#" class="rec_item">同型半胱氯酸</a></li>
+				</ul>
+			</div>
+			<div class="next_btn">
+				<a href="#" class="rec_next">下一步</a>
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="./js/mui.pullToRefresh.js"></script>
+		<script src="./js/mui.pullToRefresh.material.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		    function getQueryString(name) {  
+			  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+			  var r = window.location.search.substr(1).match(reg);  
+		      if (r != null) return unescape(r[2]); return null;  
+	        }
+		    var code = getQueryString('code');
+			var memcardno;//会员卡号
+			var compid;//企业编码
+			var urlname;//记录具体要跳转的具体详细页面
+			var valname;//采集的健康类型
+			var cname;
+			var collecttype;//获取大表格类型
+			
+			//接收页面传过来的会员号
+		    function UrlSearch(){
+		       var name,value; 
+		       var str=location.href;
+		       var num=str.indexOf("?");
+		       str=str.substr(num+1);
+		       var arr=str.split("&");
+		       for(var i=0;i < arr.length;i++){ 
+		         num=arr[i].indexOf("="); 
+		          if(num>0){ 
+		          name=arr[i].substring(0,num);
+		          value=arr[i].substr(num+1);
+		          this[name]=value;
+		         } 
+		       } 
+		     } 
+		     var Request=new UrlSearch(); 
+		     //memcardno=Request.memcardno;
+		     //compid=Request.compid;
+		     //mui.toast(compid);
+		     
+		    //获取客户信息
+			$.ajax({
+				url:"WXAccountinfo.do?code="+code,
+				type:"get",
+				dataType:"json",
+				data: {"code":code},
+				success:function(data){
+		        var json = eval(data);
+		        //alert(json);
+		        var mobile;
+		        var idcard;
+				if(json.MOBILE==null){
+					mobile='';
+				}else{
+				var phone=json.MOBILE;
+				mobile=phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+				}
+				if(json.IDCARD==null){
+					idcard='';
+				}else{
+				var cid=json.IDCARD;
+				idcard=cid.replace(/(\d{6})\d{8}(\d{4})/, '$1*******$2');
+				}
+		        //基本信息
+		        $(".p_info_det:eq(0)").html(json.BUYTIMES);
+		        $(".p_info_det:eq(1)").html(json.AVGPRICE);
+		        $(".p_info_det:eq(2)").html(json.REALAMOUNT);
+				$(".mui-table-view:eq(0)").find("p:eq(0)").html(json.MEMCARDNO);
+				$(".mui-table-view:eq(0)").find("p:eq(1)").html(json.CARDHOLDER);
+				//小标题
+				$("#h1").html(json.CARDHOLDER);
+				//打电话
+				$("#but1").find("a:eq(0)").attr("href","tel:"+json.MOBILE);
+				$(".mui-table-view:eq(0)").find("p:eq(2)").html();
+				$(".mui-table-view:eq(0)").find("p:eq(3)").html(json.BIRTHDAY);
+				$(".mui-table-view:eq(0)").find("p:eq(4)").html(json.TEL);
+				$(".mui-table-view:eq(0)").find("p:eq(5)").html(mobile);
+				$(".mui-table-view:eq(0)").find("p:eq(6)").html(idcard);//json.IDCARD
+				$(".mui-table-view:eq(0)").find("p:eq(7)").html();
+				$(".mui-table-view:eq(0)").find("p:eq(8)").html(json.PROVINCE+" "+json.CITY+" "+json.AREA);
+				$(".mui-table-view:eq(0)").find("p:eq(9)").html(json.CARDADDRESS);
+				//其他信息
+				$(".mui-table-view:eq(2)").find("p:eq(0)").html(json.INTEGRALSUM);
+				$(".mui-table-view:eq(2)").find("p:eq(1)").html(json.WECHATACCOUNT);
+				$(".mui-table-view:eq(2)").find("p:eq(2)").html(json.APPLYTIME);
+				$(".mui-table-view:eq(2)").find("p:eq(3)").html();
+				$(".mui-table-view:eq(2)").find("p:eq(4)").html(json.BUSNOS);
+				
+				$("#memcardno1").val(json.MEMCARDNO);
+				$("#compid1").val(json.COMPID);
+				},
+				error:function(data){
+					var json = eval(data);
+			        //alert("失败"+JSON.stringify(json));
+				}
+			});
+			//输出健康档案信息
+			$.ajax({
+				url:"WXshowall.do",
+				type:"get",
+				dataType:"json",
+				success:function(data){
+		        var json = eval(data);
+		        $('#Height').html(json.HEIGHT);
+		        $('#time1').html(json.CREATETIME1+"");
+		        $('#Weight').html(json.WEIGHT);
+		        $('#time2').html(json.CREATETIME2+"");
+		        
+		        $('#Temperature').html(json.TEMPERATURE);
+		        if(json.TEMPERATURE<36){
+		        	$('#TemperatureLog').html("偏低");
+		        	$('#TemperatureLog').addClass("low");
+		        }else if(json.TEMPERATURE>=36&&json.TEMPERATURE<=37){
+		        	$('#TemperatureLog').html("正常");
+		        	$('#TemperatureLog').addClass("noraml");
+		        }else if(json.TEMPERATURE>=37.3&&json.TEMPERATURE<=38){
+		        	$('#TemperatureLog').html("低热");
+		        	$('#TemperatureLog').addClass("high");
+		        }else if(json.TEMPERATURE>=38.1&&json.TEMPERATURE<=41){
+		        	$('#TemperatureLog').html("高热");
+		        	$('#TemperatureLog').addClass("high");
+		        }
+		        
+		        $('#time3').html(json.CREATETIME3+"");
+		        $('#Steps').html(json.STEPS);
+		        $('#time4').html(json.CREATETIME5+"");
+		        
+		        $('#Systolic').html(json.SYSTOLIC);
+		        if(json.SYSTOLIC<90){
+		        	$('#SystolicLog').html("偏低");
+		        	$('#SystolicLog').addClass("low");
+		        }else if(json.SYSTOLIC>=90&&json.SYSTOLIC<=140){
+		        	$('#SystolicLog').html("正常");
+		        	$('#SystolicLog').addClass("normal");
+		        }else if(json.SYSTOLIC>140){
+		        	$('#SystolicLog').html("偏高");
+		        	$('#SystolicLog').addClass("high");
+		        }
+		        
+		        $('#time5').html(json.CREATETIME6+"");
+		        
+		        $('#Diastolic').html(json.DIASTOLIC);
+		        if(json.DIASTOLIC<60){
+		        	$('#DiastolicLog').html("偏低");
+		        	$('#DiastolicLog').addClass("low");
+		        }else if(json.DIASTOLIC>=60&&json.DIASTOLIC<=90){
+		        	$('#DiastolicLog').html("正常");
+		        	$('#DiastolicLog').addClass("normal");
+		        }else if(json.DIASTOLIC>90){
+		        	$('#DiastolicLog').html("偏高");
+		        	$('#DiastolicLog').addClass("high");
+		        }
+		        
+		        $('#time6').html(json.CREATETIME7+"");
+		        
+		        $('#Heartrate').html(json.HEARTRATE);
+		        if(json.HEARTRATE<60){
+		        	$('#HeartrateLog').html("过缓");
+		        	$('#HeartrateLog').addClass("low");
+		        }else if(json.HEARTRATE>=60&&json.HEARTRATE<=100){
+		        	$('#HeartrateLog').html("正常");
+		        	$('#HeartrateLog').addClass("normal");
+		        }else if(json.HEARTRATE>100){
+		        	$('#HeartrateLog').html("过快");
+		        	$('#HeartrateLog').addClass("high");
+		        }
+		        
+		        $('#time7').html(json.CREATETIME4+"");
+		        
+		        $('#Oxygen').html(json.OXYGEN);
+		        if(json.OXYGEN<95){
+		        	$('#OxygenLog').html("偏低");
+		        	$('#OxygenLog').addClass("low");
+		        }else if(json.OXYGEN>=95&&json.OXYGEN<=98){
+		        	$('#OxygenLog').html("正常");
+		        	$('#OxygenLog').addClass("normal");
+		        }else if(json.OXYGEN>98){
+		        	$('#OxygenLog').html("偏高");
+		        	$('#OxygenLog').addClass("high");
+		        }
+		        $('#time8').html(json.CREATETIME8+"");
+		        
+		        $('#Bloodsugar1').html(json.BLOODSUGAR1);
+		        if(json.BLOODSUGAR1<3.9){
+		        	$('#BloodsugarLog1').html("偏低");
+		        	$('#BloodsugarLog1').addClass("low");
+		        }else if(json.BLOODSUGAR1>=3.9&&json.BLOODSUGAR1<=6.1){
+		        	$('#BloodsugarLog1').html("正常");
+		        	$('#BloodsugarLog1').addClass("normal");
+		        }else if(json.BLOODSUGAR1>6.1){
+		        	$('#BloodsugarLog1').html("偏高");
+		        	$('#BloodsugarLog1').addClass("high");
+		        }
+		        $('#time9').html(json.CREATETIME9+"");
+		        
+		        $('#Bloodsugar2').html(json.BLOODSUGAR2);
+		        if(json.BLOODSUGAR2<6.7){
+		        	$('#BloodsugarLog2').html("偏低");
+		        	$('#BloodsugarLog2').addClass("low");
+		        }else if(json.BLOODSUGAR2>=6.7&&json.BLOODSUGAR2<=9.4){
+		        	$('#BloodsugarLog2').html("正常");
+		        	$('#BloodsugarLog2').addClass("normal");
+		        }else if(json.BLOODSUGAR2>9.4){
+		        	$('#BloodsugarLog2').html("偏高");
+		        	$('#BloodsugarLog2').addClass("high");
+		        }
+		        $('#time10').html(json.CREATETIME10+"");
+		        
+		        $('#Bloodsugar3').html(json.BLOODSUGAR3);
+		        if(json.BLOODSUGAR3<3.9){
+		        	$('#BloodsugarLog3').html("偏低");
+		        	$('#BloodsugarLog3').addClass("low");
+		        }else if(json.BLOODSUGAR3>=3.9&&json.BLOODSUGAR3<=6.1){
+		        	$('#BloodsugarLog3').html("正常");
+		        	$('#BloodsugarLog3').addClass("normal");
+		        }else if(json.BLOODSUGAR3>6.1){
+		        	$('#BloodsugarLog3').html("偏高");
+		        	$('#BloodsugarLog3').addClass("high");
+		        }
+		        $('#time11').html(json.CREATETIME11+"");
+		        
+		        $('#Bloodsugar4').html(json.BLOODSUGAR4);
+		        if(json.BLOODSUGAR4<6.7){
+		        	$('#BloodsugarLog4').html("偏低");
+		        	$('#BloodsugarLog4').addClass("low");
+		        }else if(json.BLOODSUGAR4>=6.7&&json.BLOODSUGAR4<=9.4){
+		        	$('#BloodsugarLog4').html("正常");
+		        	$('#BloodsugarLog4').addClass("normal");
+		        }else if(json.BLOODSUGAR4>9.4){
+		        	$('#BloodsugarLog4').html("偏高");
+		        	$('#BloodsugarLog4').addClass("high");
+		        }
+		        $('#time12').html(json.CREATETIME12+"");
+		        
+		        $('#Bloodsugar5').html(json.BLOODSUGAR5);
+		        if(json.BLOODSUGAR5<3.9){
+		        	$('#BloodsugarLog5').html("偏低");
+		        	$('#BloodsugarLog5').addClass("low");
+		        }else if(json.BLOODSUGAR5>=3.9&&json.BLOODSUGAR5<=6.1){
+		        	$('#BloodsugarLog5').html("正常");
+		        	$('#BloodsugarLog5').addClass("normal");
+		        }else if(json.BLOODSUGAR5>6.1){
+		        	$('#BloodsugarLog5').html("偏高");
+		        	$('#BloodsugarLog5').addClass("high");
+		        }
+		        $('#time19').html(json.CREATETIME19+"");
+		        
+		        $('#Bloodsugar6').html(json.BLOODSUGAR6);
+		        if(json.BLOODSUGAR6<6.7){
+		        	$('#BloodsugarLog6').html("偏低");
+		        	$('#BloodsugarLog6').addClass("low");
+		        }else if(json.BLOODSUGAR6>=6.7&&json.BLOODSUGAR6<=9.4){
+		        	$('#BloodsugarLog6').html("正常");
+		        	$('#BloodsugarLog6').addClass("normal");
+		        }else if(json.BLOODSUGAR6>9.4){
+		        	$('#BloodsugarLog6').html("偏高");
+		        	$('#BloodsugarLog6').addClass("high");
+		        }
+		        $('#time20').html(json.CREATETIME20+"");
+		        
+		        $('#Bloodsugar7').html(json.BLOODSUGAR7);
+		        $('#time21').html(json.CREATETIME21+"");
+		        
+		        $('#Glycosylated').html(json.GLYCOSYLATED);
+		        if(json.GLYCOSYLATED<5.4){
+		        	$('#GlycosylatedLog').html("偏低");
+		        	$('#GlycosylatedLog').addClass("low");
+		        }else if(json.GLYCOSYLATED>=5.4&&json.GLYCOSYLATED<=10.2){
+		        	$('#GlycosylatedLog').html("正常");
+		        	$('#GlycosylatedLog').addClass("normal");
+		        }else if(json.GLYCOSYLATED>10.2){
+		        	$('#GlycosylatedLog').html("偏高");
+		        	$('#GlycosylatedLog').addClass("high");
+		        }
+		        $('#time13').html(json.CREATETIME13+"");
+		        
+		        $('#Cholesterol').html(json.CHOLESTEROL);
+		        if(json.CHOLESTEROL<2.33){
+		        	$('#CholesterolLog').html("偏低");
+		        	$('#CholesterolLog').addClass("low");
+		        }else if(json.CHOLESTEROL>=2.33&&json.CHOLESTEROL<=5.2){
+		        	$('#CholesterolLog').html("正常");
+		        	$('#CholesterolLog').addClass("normal");
+		        }else if(json.CHOLESTEROL>5.2){
+		        	$('#CholesterolLog').html("偏高");
+		        	$('#CholesterolLog').addClass("high");
+		        }
+		        $('#time14').html(json.CREATETIME14+"");
+		        
+		        $('#Triglyceride').html(json.TRIGLYCERIDE);
+		        if(json.TRIGLYCERIDE<1.7){
+		        	$('#TriglycerideLog').html("偏低");
+		        	$('#TriglycerideLog').addClass("low");
+		        }else if(json.TRIGLYCERIDE>=1.7&&json.TRIGLYCERIDE<=2.0){
+		        	$('#TriglycerideLog').html("正常");
+		        	$('#TriglycerideLog').addClass("normal");
+		        }else if(json.TRIGLYCERIDE>2.0){
+		        	$('#TriglycerideLog').html("偏高");
+		        	$('#TriglycerideLog').addClass("high");
+		        }
+		       	$('#time15').html(json.CREATETIME15+"");
+		       	
+		        $('#Highlipoprotein').html(json.HIGHLIPOPROTEIN);
+		        if(json.HIGHLIPOPROTEIN<1.04){
+		        	$('#HighlipoproteinLog').html("偏低");
+		        	$('#HighlipoproteinLog').addClass("low");
+		        }else if(json.HIGHLIPOPROTEIN>=1.04&&json.HIGHLIPOPROTEIN<=1.56){
+		        	$('#HighlipoproteinLog').html("正常");
+		        	$('#HighlipoproteinLog').addClass("normal");
+		        }else if(json.HIGHLIPOPROTEIN>1.56){
+		        	$('#HighlipoproteinLog').html("偏高");
+		        	$('#HighlipoproteinLog').addClass("high");
+		        }
+		        $('#time16').html(json.CREATETIME16+"");
+		        
+		        $('#Lowlipoprotein').html(json.LOWLIPOPROTEIN);
+		        if(json.LOWLIPOPROTEIN<2.074){
+		        	$('#LowlipoproteinLog').html("偏低");
+		        	$('#LowlipoproteinLog').addClass("low");
+		        }else if(json.LOWLIPOPROTEIN>=2.07&&json.LOWLIPOPROTEIN<=3.12){
+		        	$('#LowlipoproteinLog').html("正常");
+		        	$('#LowlipoproteinLog').addClass("normal");
+		        }else if(json.LOWLIPOPROTEIN>3.12){
+		        	$('#LowlipoproteinLog').html("偏高");
+		        	$('#LowlipoproteinLog').addClass("high");
+		        }
+		        $('#time17').html(json.CREATETIME17+"");
+		        
+		        $('#Homocysteine').html(json.HOMOCYSTEINE);
+		        if(json.HOMOCYSTEINE>=0&&json.HOMOCYSTEINE<=15){
+		        	$('#HomocysteineLog').html("正常");
+		        	$('#HomocysteineLog').addClass("normal");
+		        }else if(json.HOMOCYSTEINE>15){
+		        	$('#HomocysteineLog').html("偏高");
+		        	$('#HomocysteineLog').addClass("high");
+		        }else if(json.HOMOCYSTEINE==null){
+				    $('#HomocysteineLog').html("偏低");
+				    $('#HomocysteineLog').addClass("low");
+		        }
+		        $('#time18').html(json.CREATETIME18+"");
+				},
+				error:function(data){
+					//alert('失败' + data);
+				}
+			});
+			//输出电话回访记录
+			 $.ajax({
+					url:"WXmemberhf.do",
+					type:"get",
+					dataType:"json",
+					success:function(data){
+					$("#ul_fk").empty();
+			        var json = eval(data);
+			        var list=[];
+			        var zt;
+			        $(json).each(function(i){
+			        list[i]=json[i];
+			        if(list[i].STATUS==1){
+			        zt='会员择日复购';
+			        }else if(list[i].STATUS==2){
+			        zt='药品未完成';
+			        }else if(list[i].STATUS==3){
+			        zt='已在医院或药店购买';
+			        }else if(list[i].STATUS==4){
+			        zt='电话空号或无人接听';
+			        }else if(list[i].STATUS==5){
+			        zt='会员不欢迎沟通';
+			        }else if(list[i].STATUS==6){
+			        zt='其他';
+			        }else{
+			        zt='状态';
+			        }
+			        $("#ul_fk").append(
+					'<li class="mui-table-view-cell mui-collapse">'+
+			            '<a class="mui-navigate-right" href="#">'+list[i].CREATETIME+'</a>'+
+			            '<div class="mui-collapse-content">'+
+							'<div class="mui-control-content tab_info_con mui-active">'+
+								'<div class="info_warper">'+
+									'<ul>'+
+										'<li>状态: '+zt+'</li>'+
+										'<li>备注: '+list[i].NOTES+'</li>'+
+										'<li>回访时间: '+list[i].CREATETIME+'</li>'+
+										'<li>回访员工: '+list[i].CALLER+'</li>'+
+									'</ul>'+
+								'</div>'+
+							'</div>'+
+			            '</div>'+
+			        '</li>'
+					);
+					});
+					},
+					error:function(data){
+						
+					}
+			 });
+			
+			//获取默认值
+			valname=$("#ul1").find("li:eq(0)").find("a").html();
+			urlname=$("#ul1").find("li:eq(0)").attr("class");
+			collecttype=$("#ul1").find("li:eq(0)").attr("id");
+			
+			
+			mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+			})(mui);
+			
+			//选择数据盒子事件
+			mui("#item2mobile").on("tap",".info_item",function(){
+			valname=$(this).find(".item_line1").html();
+			if(valname=='早餐前血糖'){
+			valname='血糖';
+			}else if(valname=='早餐后血糖'){
+			valname='血糖';
+			}else if(valname=='午餐前血糖'){
+			valname='血糖';
+			}else if(valname=='午餐后血糖'){
+			valname='血糖';
+			}else if(valname=='晚餐前血糖'){
+			valname='血糖';
+			}else if(valname=='晚餐后血糖'){
+			valname='血糖';
+			}else if(valname=='睡觉前血糖'){
+			valname='血糖';
+			}else if(valname=='收缩压'){
+			valname='血压';
+			}else if(valname=='舒张压'){
+			valname='血压';
+			}
+			var memcardno1=$("#memcardno1").val();
+			var compid1=$("#compid1").val();
+			//alert(memcardno1+"=="+compid1);
+			cname=$(".mui-table-view:eq(0)").find("p:eq(1)").html();
+			location.href="jkdnTapBar1.html?valname="+valname+"&memcardno="+memcardno1+"&cname="+cname+"&compid="+compid1;
+			});
+			
+			//选择类型
+			mui("#ul1").on("tap","li",function(){
+				$(".clearfix").find("a").attr('class','rec_item');
+				valname=$(this).find('a').html();
+				urlname=$(this).attr('class');
+				collecttype=this.id;
+				cname=$(".mui-table-view:eq(0)").find("p:eq(1)").html();
+			});
+			//显示
+			mui("body").on("tap",".rec_btn",function(){
+				$(".mui-backdrop").show();
+				$(".rec_popCon").show();
+				localStorage.setItem("nowIndex",$(".custTab a.mui-active").index());
+			});
+			//回访记录
+			mui("body").on("tap",".visit_btn",function(){
+				var memcardno1=$("#memcardno1").val();
+				location.href="add_huifan.html?memcardno="+memcardno1;
+			});
+			//选中样式添加
+			mui(".rec_popCon").on("tap",".rec_item",function(){
+				$(this).addClass("item_click");
+				//额外取值操作可以写在这里面
+			});
+			//下一步
+			mui(".rec_popCon").on("tap",".rec_next",function(){
+			    $(".mui-backdrop").hide();
+				$(".rec_popCon").hide();
+				cname=$(".mui-table-view:eq(0)").find("p:eq(1)").html();
+				var memcardno1=$("#memcardno1").val();
+				var compid1=$("#compid1").val();
+				location.href="rec_pressure.html?valname="+valname+"&memcardno="+memcardno1+"&cname="+cname+"&compid="+compid1+"&collecttype="+collecttype;
+				
+			});
+			//回访记录切换
+			mui(".mui-table-view").on('tap','.mui-control-item',function(){
+				jQuery(this).parent().parent().find('.tab_info_con').eq(jQuery(this).index()).show();
+				jQuery(this).parent().parent().find('.tab_info_con').eq(jQuery(this).index()).siblings('.tab_info_con').hide();
+			});
+			//回访记录加载更多
+			mui("body").on("tap",".load_more",function(){
+				//加载逻辑
+			});
+			//点击遮罩关闭
+			mui("body").on("tap",".mui-backdrop",function(){
+				$(this).hide();
+				$(".rec_popCon").hide();
+			});
+			//点击照片墙
+			//mui("#item4mobile").on("tap",".face_reg",function(){
+			//location.href="photoWall.html";
+			//});
+			//固定的页面
+			$(function(){
+				var nowIndex =  parseInt(localStorage.getItem("nowIndex"));
+				if(nowIndex==0||nowIndex){
+					var gallery = mui('.mui-slider');
+					gallery.slider().gotoItem(nowIndex);
+					localStorage.removeItem("nowIndex");
+				}
+			});
+			//跳转定位
+			mui("body").on("tap",".info_item",function(){
+                var tabIndex = this.dataset.targetAlink;
+                localStorage.setItem("tabIndex",tabIndex);
+               /* 	mui.openWindow({
+					url:'jkdnTapBar.html',
+				}); */
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,225 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	background: #F2F2F2;
+}
+.drugRec_warp{
+	width: 14.3rem;
+	height: 5.333333rem;
+	padding: 0.266666rem;
+	background: #FAFAFA;
+}
+.drugRec{
+	color: #666;
+	text-align: left;
+	border: 1px solid #E0E0E0;
+}
+.drugRec tr th{
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 400 !important;
+	color: #666;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	background: #F2F2F2;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	text-indent: 5px;
+}
+.drugRec tr td{
+	display: inline-block;
+	font-size: 12px;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	text-indent: 5px;
+	background: #FAFAFA;
+	border-top: 1px solid #E0E0E0;
+}
+tr td:nth-child(1),tr td:nth-child(3){
+	width: 4rem;
+}
+tr td:nth-child(2){
+	width: 2.666666rem;
+}
+tr td:nth-child(4){
+	width: 1.066666rem;
+}
+tr td:nth-child(5){
+	width: 1.866666rem;
+}
+tr th:nth-child(1),tr th:nth-child(3){
+	width: 4rem;
+}
+tr th:nth-child(2){
+	width: 2.666666rem;
+}
+tr th:nth-child(4){
+	width: 1.066666rem;
+}
+tr th:nth-child(5){
+	width: 1.866666rem;
+}
+.mui-content {
+    background-color: #fafafa !important; 
+    -webkit-overflow-scrolling: touch;
+}
+.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+    width: auto;
+    height: auto;
+    white-space: nowrap;
+}
+.mui-segmented-control.mui-scroll-wrapper {
+ height: 5.333333rem;
+}
+.mui-control-content {
+	height: auto;
+}
+.tab_info_con{
+	background: #FAFAFA !important;
+}
+/*閫夐」鍗℃牱寮忛噸鍐�*/
+.mui-segmented-control {
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    display: table;
+    overflow: hidden;
+    width: 100%;
+    table-layout: fixed;
+    border: none !important;
+    border-radius: 0px !important;
+    background-color: transparent;
+    -webkit-touch-callout: none;
+}
+.mui-segmented-control .mui-control-item {
+    line-height: 38px;
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    -webkit-transition: background-color .1s linear;
+    transition: background-color .1s linear;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #999 !important;
+    border-color: #FAFAFA !important;
+    border:none !important;
+}
+.mui-segmented-control .mui-control-item.mui-active {
+    color: #17c5b3 !important;
+ 	background-color: #FAFAFA !important; 
+}
+/*閫夐」鍗nd*/
+.info_warper{
+	padding:  10px;
+	height: auto;
+	width: 100%;
+}
+.info_warper ul{
+	display: block;
+	width: 100%;
+}
+.info_warper li{
+	display: flex;
+	display: -webkit-flex;
+	width: 100% !important;
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	color: #666;
+}
+.info_warper li span{
+	width: 50%;
+}
+/*鎶樺彔闈㈡澘*/
+.mui-navigate-right:after, .mui-push-right:after {
+    border: 1px solid;
+    right: 15px;
+    content: '\e583';
+    border-radius: 50%;
+}
+.mui-card {
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    margin: 0px !important;
+    border-radius: 2px;
+    background-color: #F2F2F2;
+    background-clip: padding-box;
+    box-shadow: 0 0px 0px rgba(0,0,0,.3) !important;
+}
+.cust_info_con{
+	text-shadow: 0 0 0px #FFFFFF !important;
+	margin-right: -15px !important;
+}
+.left_select{
+	display: inline-block;
+	font-size: 12px;
+	height: 0.533333rem;
+	line-height: 0.533333rem;
+	width: auto;
+	border-radius: 0.053333rem;
+	background: #7d93fe;
+	color: #fff;
+	padding: 0.026666rem 0.133333rem 0.053333rem  0.133333rem;
+}
+.mid_info{
+	display: inline-block ;
+	margin-left: 1.2rem;
+}
+.mid_info .cust_name{
+	color: #333;
+}
+.mid_info .cust_sex{
+	color: #999;
+}
+.my_task_li{
+	background: #fff !important;
+	padding-right: 15px !important;
+}
+/*鎸夐挳padding-top: 0;*/
+.taskBtnCon{
+	display: flex;
+	display: -webkit-flex;
+	margin-top: 0.266666rem;
+}
+.taskBtnCon a{
+	text-align: center;
+	border: none;
+	width: 50%;
+	border-radius: 0.133333rem;
+	color: #fff;
+}
+.taskBtnCon a:nth-child(1){
+	margin-right: 0.266666rem;
+	background: #7D93FE;
+}
+.taskBtnCon a:nth-child(2){
+	background: #17C5B3;
+}
+.card_con{
+	margin-top: 0.133333rem;
+}
+.card_con:nth-child(1){
+	margin-top: 0.266666rem;
+}
+.card_con_ul{
+	overflow: hidden !important;
+	background: #FAFAFA !important;
+}
+.taskBtnCon a{
+	color: #fff;
+}
+.taskBtnCon button{
+	background: transparent;
+	border: none;
+	width: 100%;
+	color: #fff;
+}

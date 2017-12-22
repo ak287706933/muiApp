@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/font.css">
+	<script type="text/javascript" src="js/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	<link rel="stylesheet" href="css/mui.min.css">
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<title>新增记录</title>
+	<body>
+		<!--alert-->
+		<div class="alert">
+			<div class="alert_content">
+				<!--所患疾病-->
+				<div class="alert_illness_category" id="show1">
+				
+				</div>
+				<!--所患疾病 end-->
+				<!--治疗状态-->
+				<div class="alert_illness_statue">
+					<div class="section_title">治疗状态</div>
+					<div class="condition_box">
+						<ul class="condition_list">
+							<li val="co0">治疗中</li>
+							<li val="co1">已痊愈</li>
+							<li val="co2">未治疗</li>
+						</ul>
+						<button class="save">保存</buttom>
+					</div>
+				</div>
+				<!--治疗状态 end-->
+				<!--基本病症-->
+				<div class="alert_illness_basic" id="show2">
+					
+				</div>
+				<!--基本病症 end-->
+				<!--并发症-->
+				<div class="alert_illness_link" id="show3">
+					
+				</div>
+				<!--并发症-->
+				<div class="alert_notice">
+					<div class="section_title">选择提醒</div>
+					<div class="notice_tips">
+						请选择病种!
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--alert-->
+		<!--header-->
+		<div class="page_common_fixed">
+			<header class="header_fixed">
+				<a href="javascript:history.back(-1)" class="return_pre iconfont"></a>
+				<div class="header_title">新增记录</div>
+				<a onclick="addDisease()" class="add_record add_finish">完成</a>
+			</header>
+		</div>
+			
+		<div class="header_fixed_div"></div>
+		<!--header end-->
+		<!--content-->
+		<div class="content illness_list_content">
+			<div class="container">
+				<!--增加病史-->
+				<section class="illness_list add_info_list">
+					<header>病史</header>
+					<div class="list_show">
+						<div class="list_show_form">
+							<div class="info_list illness_name">
+								<div class="info_list_main">
+									<div class="left">所患疾病</div>
+									<div class="right" id="illness_name"><input id="diseasename" type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_category">
+								<div class="info_list_main">
+									<div class="left">疾病类型</div>
+									<div class="right" id="illness_category"><input id="diseasetype"  type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_time">
+								<div class="info_list_main">
+									<div class="left">诊断时间</div>
+									<div class="right">
+									
+									<!-- <input type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/> -->
+									<input type="button" style="border: none" value="请选择" data-options='{}' id="datePicker"/>
+									</div>
+									
+									<script type="text/javascript">
+									//记录日期选择
+									(function($) {
+										$.init();
+										var pickBtn = document.querySelector("#datePicker");
+										pickBtn.addEventListener("tap",function(){
+											var optionsJson = this.getAttribute('data-options') || '{}';
+											var options = JSON.parse(optionsJson);
+											var picker = new mui.DtPicker({
+											　　　　"type":"date"
+											　　　});
+											picker.show(function(rs) {
+												pickBtn.value = rs.text;
+												picker.dispose();
+											});
+										},false);
+									})(mui);
+									
+									</script>
+									
+								</div>
+							</div>
+							<div class="info_list illness_statue">
+								<div class="info_list_main">
+									<div class="left">治疗状态</div>
+									<div class="right" id="illness_statue"><input  id="tstate"  type="text"  placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_basic">
+								<div class="info_list_main">
+									<div class="left">基本症状</div>
+									<div class="right" id="illness_basic"><input  id="basicsymptom"  type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_link" >
+								<div class="info_list_main">
+									<div class="left">并发症</div>
+									<div class="right" id="illness_link"><input id="concurrent" type="text"  placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="ill_reason">
+								<div class="info_list_main">
+									<div class="left">病因</div>
+									<div class="right">
+										<div class="ill_reason_box">
+											<div class="microphone_input">
+												<i class="icon_microphone"></i>
+												<p>语音输入</p>
+											</div>
+											<div class="input_reason">
+												<textarea class="reason_box" id="pathogeny"  placeholder="请输入" class="normal_gray"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--增加病史 end-->
+			</div>
+		</div>
+		<!--content end-->
+		<div class="microphone_section ">
+			<!--开始说话前-->
+			<div class="before_speak" >
+				<div class="before_speak_box" >
+					<p>按住说话</p>
+					<a href="javascript:void(0)" class="iconfont hide_microphone"></a>
+					<a href="javascript:void(0)" class="iconfont deal_microphone"></a>
+				</div>
+			</div>
+			<!--开始说话前 end-->
+			<!--说话中-->
+			<div class="speaking" style="display: none;">
+				<div class="speaking_box">
+					<p>请说话</p>
+					<div class="deal_shadow" >
+						<a href="javascript:void(0)" class="iconfont deal_microphone"></a>
+					</div>
+				</div>
+			</div>
+			<!--说话中 end-->
+			<!--说话完成后，待确认-->
+			<div class="ensure_speak" style="display: none;">
+				<div class="ensure_box">
+					<div class="speaking_result">这里是语音转换成文字后的区域</div>
+					<a href="javascript:void(0)" class="word_deal result_cancle">取消</a>
+					<a href="javascript:void(0)" class="iconfont deal_microphone"></a>
+					<a href="javascript：void(0)" class="word_deal result_ensure">确定</a>
+				</div>
+			</div>
+			<!--说话完成后，待确认 end-->
+		</div>
+		<div class="microphone_section_kong"></div>
+	</body>
+	<script type="text/javascript">
+	var memcardno;//会员卡号
+	var compid;//企业编码
+	var entityname;
+	var fileno;
+	//接收页面传过来的会员号
+    function UrlSearch(){
+       var name,value; 
+       var str=location.href;
+       var num=str.indexOf("?");
+       str=str.substr(num+1);
+       var arr=str.split("&");
+       for(var i=0;i < arr.length;i++){ 
+         num=arr[i].indexOf("="); 
+          if(num>0){ 
+          name=arr[i].substring(0,num);
+          value=arr[i].substr(num+1);
+          this[name]=value;
+         } 
+       } 
+     } 
+    var Request=new UrlSearch(); 
+    memcardno=Request.memcardno;
+    compid=Request.compid;
+    fileno=Request.fileno;
+    
+		$(function(){
+			//语音输入
+			$('.microphone_input').click(function(){
+				$(".microphone_section").toggleClass('animate')
+			});
+			$('a.hide_microphone').click(function(){
+				$(".microphone_section").removeClass('animate');
+			})
+			//病种选择
+			$('.illness_name').click(function(){
+				$.ajax({
+					url:"getEntity.do?compid="+compid,
+					type:"get",
+					dataType:"json",
+					success:function(data){
+						 var json = eval(data);
+   				  		 var list=[];
+   				  	     $("#show1").append('<div class="section_title">病种选择</div>'+
+							'<div class="list_box disease_box">'+
+							'<div class="father_list_box">'+
+							'<form>'+
+							'<ul class="father_list" id="father_list1">'+
+							'</ul>'+
+							'</form>'+
+							'</div>'+
+							'<div>'+
+							'<ul class="child_list" id="child_list1">'+
+							'<li >糖尿病I型</li>'+
+							'<li >糖尿病II型</li>'+
+							'<li >妊娠糖尿病</li>'+
+							'<li >继发性糖尿病</li>'+
+							'</ul>'+
+						'</div>'+
+						'<button class="next_step_btn" onclick="next1()">下一步</button>'+
+						'</div>'
+    	    			);
+   				  	     var tag=0;
+     					 $(json).each(function(i){
+	        				list[i]=json[i];
+	        				$("#father_list1").append('<li onclick="clickEntity()" val="f'+tag+'">'+list[i].ENTITYNAME+'</li>');
+						    tag++;
+     					 });
+     					alertShow('alert_illness_category');
+						position();
+						//子病种选择()
+						
+						$('ul.child_list li,ul.father_list li').click(function(){
+							$(this).addClass('on').siblings().removeClass('on')
+						});
+						//病种选择的下一步
+						$('.alert_illness_category .next_step_btn').click(function(){
+							var child_list = $('.alert_illness_category ul.child_list li.on').html();
+							var father_list = $('.alert_illness_category ul.father_list li.on').html();
+							if( ( father_list != undefined ) && (child_list != undefined )  ){
+								$("#illness_name").children('input').val( father_list );
+								$("#illness_category").children('input').val( child_list );
+								alertShow('alert_illness_basic');
+							}
+						});
+						
+					  }
+					});
+				
+				});
+			
+			//病症选择
+			$(".illness_category").click(function(){
+				var ill_name = $("#illness_name").children('input').val();
+				if( ill_name == "" ){
+					alertShow('alert_notice');
+					position();
+					setInterval(function(){
+						close()
+					},1500)
+				}else{
+					alertShow('alert_illness_category');
+					position();
+				}
+			})
+			
+			//治疗状态的选择
+			$('.illness_statue').click(function(){
+				var ill_name = $("#illness_name").children('input').val();
+				if( ill_name == "" ){
+					alertShow('alert_notice');
+					position();
+					setInterval(function(){
+						close()
+					},1500);
+				}else{
+					alertShow('alert_illness_statue')
+					position();
+				}
+			})
+			
+			//选择治疗状态
+			$('.alert_illness_statue ul.condition_list li').click(function(){
+				$(this).addClass('on').siblings().removeClass('on')
+			})
+			
+			$('.alert_illness_statue button.save').click(function(){
+				var state = $('.alert_illness_statue ul.condition_list li.on').html();
+				if( state != undefined ){
+					$('#illness_statue').html( state )
+					 close();
+				}
+			})
+		})
+		
+		//多选保存选项
+		function selectMore(name){
+			var options = [];
+			if( options[0] != undefined ){}
+				$('ul.'+name+'_list li.on').each(function(){
+					options.push( $(this).html() );
+				})
+				var $UL ='';
+				if( options[0] != undefined ){
+					var $LI = '';
+					for( var i = 0 ; i < options.length ; i++ ){
+						$LI += '<li>'+options[i]+'</li>';
+					}
+					$UL = '<ul class="illness_label">'+$LI+'</ul>';
+				}
+			return $UL ;
+		}
+		
+		function addDisease(){
+				   var diseasename=$("#diseasename").val();
+				   var diseasetype=$("#diseasetype").val();
+				   var shootingtime=$("input[type=button]").val();
+				   var treatmentstate=$('.alert_illness_statue ul.condition_list li.on').html();
+				   var symptom=$('.alert_illness_basic ul.symptoms_list li.on').html();
+				   var concurrent=$('.alert_illness_link ul.complications_list li.on').html();
+				   var pathogeny=$("#pathogeny").val();
+				   //alert(treatmentstate+"=="+symptom+"=="+concurrent);
+				   //添加患病记录
+				   $.ajax({
+							url:"addDisease.do?memcardno="+memcardno+"&compid="+compid+"&diseasename="+diseasename+"&diseasetype="+diseasetype+"&treatmentstate="+treatmentstate+"&concurrent="+concurrent+"&pathogeny="+pathogeny+"&symptom="+symptom+"&fileno="+fileno,
+							type:"get",
+							dataType:"json",
+							success:function(data){
+								location.href="illness-info.html?memcardno="+memcardno+"&compid="+compid;
+							}
+	 			   });
+	    } 
+		
+	   function clickEntity(){
+			var obj_lis = document.getElementById("father_list1").getElementsByTagName("li");
+		    for(i=0;i<obj_lis.length;i++){
+		    	 obj_lis[i].onclick = function(){
+		    		 entityname=$(this).text();
+		             entityname=encodeURI(encodeURI(entityname));
+		             $.ajax({
+		 				url:"getEntityType.do?entityname="+entityname+"&compid="+compid,
+		 				type:"get",
+		 				dataType:"json",
+		 				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		 				success:function(data){
+		 					 $('#child_list1 li').each(function(){     
+		 				        $(this).remove();  
+		 				     }); 
+		 					 var json = eval(data);
+	   				  		 var list=[];
+	     					 $(json).each(function(i){
+		        				list[i]=json[i];
+		        				//alert(list[i].TYPENAME); 
+		        				$("#child_list1").append('<li>'+list[i].TYPENAME+'</li>');
+	     					 });
+	     					$('ul.child_list li,ul.father_list li').click(function(){
+								$(this).addClass('on').siblings().removeClass('on')
+							});
+		 				}
+		 		   });  
+		         }
+		    }
+	   }
+	   
+	   function next1(){
+		   $.ajax({
+				url:"getEntitySymptom.do?entityname="+entityname+"&compid="+compid,
+				type:"get",
+				dataType:"json",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success:function(data){
+					$('#symptoms_list1 li').each(function(){     
+ 				        $(this).remove();  
+ 				     }); 
+					 var json = eval(data);
+				     var list=[];
+				     $("#show2").append('<div class="section_title">基本病症选择</div>'+
+						'<div class="list_box symptoms_box">'+
+							'<ul class="symptoms_list" id="symptoms_list1">'+
+							'</ul>'+
+							'<div class="btn_set">'+
+								'<button class="pre_step_btn">上一步</buttom>'+
+								'<button class="next_step_btn" onclick="next2()">下一步</buttom>'+
+							'</div>'+
+						'</div>');
+					 $(json).each(function(i){
+       				  list[i]=json[i];
+       				  $("#symptoms_list1").append('<li>'+list[i].SYMPTOM+'</li>');
+					 });
+					
+			//基本病症选择
+			$('.illness_basic').click(function(){
+				var ill_name = $("#illness_name").children('input').val();
+					if( ill_name == "" ){
+						alertShow('alert_notice');
+						position();
+						setInterval(function(){
+						 close()
+						},1500);
+					}else{
+						alertShow('alert_illness_basic');
+						position();
+				}
+			})
+					 
+			//基本病症选择
+			//上一步
+			$('.alert_illness_basic button.pre_step_btn').click(function(){
+					alertShow('alert_illness_category');
+					position();
+			});
+			//下一步
+			$('.alert_illness_basic button.next_step_btn').click(function(){
+					var result = selectMore( 'symptoms' );
+					$('#illness_basic').html( result );
+					alertShow('alert_illness_link')
+					position();
+			});
+			//病症选择()
+			$('ul.symptoms_list li').click(function(){
+					$(this).toggleClass('on')
+			});
+		    }
+		   });  
+	  	 }
+	   
+	   function next2(){
+		   $.ajax({
+				url:"getEntitySyndrome.do?entityname="+entityname+"&compid="+compid,
+				type:"get",
+				dataType:"json",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				success:function(data){
+					$('#complications_list1 li').each(function(){     
+ 				        $(this).remove();  
+ 				     });
+					 var json = eval(data);
+				     var list=[];
+				     $("#show3").append('<div class="section_title">并发症选择</div>'+
+				 			'<div class="complications">'+
+							'<ul class="complications_list" id="complications_list1">'+
+							'</ul>'+
+							'<div class="btn_set">'+
+								'<button class="pre_step_btn" style="background: #ccc;">上一步</button>'+
+								'<button class="save_btn">保存</button>'+
+							'</div>'+
+						'</div>');
+					 $(json).each(function(i){
+      					  list[i]=json[i];
+      					  $("#complications_list1").append('<li>'+list[i].SYNDROME+'</li>');
+					 });
+					 position()
+					//并发症选择
+					$('.illness_link').click(function(){
+						var ill_name = $("#illness_name").children('input').val();
+						if( ill_name == "" ){
+							alertShow('alert_notice');
+							position();
+							setInterval(function(){
+								close()
+							},1500)
+						}else{
+							alertShow('alert_illness_link')
+							position();
+						}
+					});
+					
+					//并发症选择
+					//上一步
+					$('.alert_illness_link button.pre_step_btn').click(function(){
+						alertShow('alert_illness_basic');
+						position();
+					});
+					//并发症选择
+					$("ul.complications_list li").click(function(){
+						$(this).toggleClass('on')
+					});
+					
+					//保存按钮
+					$('.alert_illness_link .btn_set .save_btn').click(function(){
+						var complications = [];
+						$('ul.complications_list li.on').each(function(){
+							complications.push( $(this).html() );
+						})
+						var $UL ='';
+						if( complications[0] != undefined ){
+							var $LI = '';
+							for( var i = 0 ; i < complications.length ; i++ ){
+								$LI += '<li>'+complications[i]+'</li>';
+							}
+							$UL = '<ul class="illness_label">'+$LI+'</ul>';
+						}else{
+							$UL = '无';
+						}
+						$("#illness_link").html($UL);
+						close();
+					})
+				}
+	   		  });  
+	   		}
+	</script>
+</html>

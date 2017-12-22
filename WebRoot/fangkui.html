@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>反馈信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<style>
+			html,
+			body {
+				background: #F2F2F2 !important;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			h5 {
+				margin: 5px 7px;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+			    color: #17C6B2 !important;
+			}
+			.mui-input-group .mui-input-row:after {
+			    height: 0px !important;
+			}
+			.mui-input-group:before {
+			 	height: 0px !important;
+			}
+			/*勾选圆框*/
+			.mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio] {
+    			left: 0.266666rem;
+			}
+			/*文字部分*/
+			.mui-checkbox.mui-left label, .mui-radio.mui-left label {
+			    padding-right: 15px;
+			    padding-left: 58px;
+			}
+			.mui-checkbox label{
+				line-height: 14px !important;
+			}
+			.mui-input-group .mui-input-row {
+			    height: 36px !important;
+			}
+			.mui-input-group:after {
+			    height: 0px !important;
+			}
+			/*自定义*/
+			.formContain{
+				padding-top: 0.533333rem;
+				background: #fff;
+			}
+			.reason{
+				padding-left: 1.066666rem;
+				padding-right: 0.266666rem;
+				margin-top: 0.4rem;
+			}
+			.reason span{
+				font-size: 14px;
+				display: inline-block;
+				margin-right: 0.266666rem;
+				padding: 0.133333rem 0.266666rem !important;
+				background: #FAFAFA;
+				color: #CACACA;
+				border: 1px solid #E0E0E0 !important;
+			}
+			.reason .s_active{
+				font-size: 14px;
+				display: inline-block;
+				margin-right: 0.266666rem;
+				padding: 0.133333rem 0.266666rem !important;
+				background: #FFBC2A;
+				color: #fff;
+				border: 1px solid #FFBC2A !important;
+			}
+			/*ip5兼容*/
+			@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
+				.reason span{
+					font-size: 13px;
+					margin-right: 7px;
+				}
+				.reason .s_active{
+					font-size: 13px;
+					display: inline-block;
+					margin-right: 7px;
+					padding: 0.133333rem 0.266666rem !important;
+					background: #FFBC2A;
+					color: #fff;
+					border: 1px solid #FFBC2A !important;
+				}
+			}
+			.reason span:nth-last-child(1){
+				margin-right: 0;
+			}
+			.beizhu{
+				border: 1px solid #E0E0E0;
+				height: 2.4rem;
+			}
+			.beizhu textarea{
+				display: block;
+				height: 2.4rem;
+			}
+			.mui-button-row {
+				padding: 0 !important;
+			    position: relative;
+			    text-align: center;
+			    height: 83px !important;
+			    padding: 0 0.266666rem !important;
+				padding-top: 20px !important;
+				padding-bottom:30px;
+				background: #F2F2F2;
+			}
+			.fk_btn{
+				width: 100%;
+				background: #17C6B2;
+				color: #fff;
+				border: none;
+				border-radius: 5px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="./myTaskTest.html" class=" mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">填写反馈</h1>
+		</header>
+		<div class="mui-content">
+			<div class="formContain">
+				<form class="mui-input-group" id="myform">
+						<div class="mui-input-row mui-radio mui-left">
+							<label>愿意改天到店里购买</label>
+							<input name="checkbox" value="愿意改天到店里购买" type="radio" class="cla">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>已经换药</label>
+							<input name="checkbox" value="已经换药" type="radio" class="cla">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>已经在医院换药</label>
+							<input name="checkbox" value="已经在医院换药" type="radio" class="cla">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>已在别的药店购药 (请选择以下原因)</label>
+							<input name="checkbox" value="4" type="radio" class="cla1" checked>
+						</div>
+						<div class="reason" id="dv1">
+							<span class="mui-badge s_active" id="sp1">价格便宜</span>
+							<span class="mui-badge" id="sp2">服务更好</span>
+							<span class="mui-badge" id="sp3">离家近</span>
+							<span class="mui-badge" id="sp4">其他</span>
+						</div>
+						<p style="color: #333;padding-left: 0.266666rem;font-size: 14px;margin-top: 0.533333rem;">备注:</p>
+						<div class="beizhu" style="margin: 0.266666rem 0.266666rem 0.533333rem 0.266666rem;">
+							<textarea id="textarea" rows="5" placeholder="在此输入备注内容" style="padding: 0.133333rem;"></textarea>
+						</div>
+						<p style="color: #333;padding-left: 0.266666rem;font-size: 14px;margin-top: 0.4rem;">后续工作:</p>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>无</label>
+							<input name="checkbox1" value="无" type="radio" class="cla2" checked>
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>提醒我<span>3</span>天后联系</label>
+							<input name="checkbox1" value="3" type="radio" class="cla2">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label>该用户不欢迎沟通</label>
+							<input name="checkbox1" value="该用户不欢迎沟通" type="radio" class="cla2">
+						</div>
+						<div class="mui-button-row">
+							<button type="button" class="fk_btn" onclick="noTips();">提交</button>
+						</div>
+				</form>
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		    var checkbox=$('#sp1').html();
+		    var checkbox1=$(".cla2:eq(0)").val();
+		    var remark="";
+		   
+		    mui('#myform').on('tap','.cla',function(){
+		    	$("#dv1").hide();
+		    	checkbox = this.value;
+			});
+		    mui('#myform').on('tap','.cla1',function(){
+		    	$("#dv1").show();
+		    	checkbox=$('#sp1').html();
+			});
+		    mui('#dv1').on('tap','span',function(){
+		    	d=this.id;
+		    	$("#dv1 span").attr('class','mui-badge');
+		    	$("#"+d).attr('d','mui-badge s_active');
+		    	checkbox=$("#"+d).html();
+		    });
+		    mui('#myform').on('tap','.cla2',function(){
+		    	checkbox1 = this.value;
+		    });
+		   
+		    //接收页面传过来的会员号
+		    function UrlSearch(){
+		       var name,value; 
+		       var str=location.href;
+		       var num=str.indexOf("?");
+		       str=str.substr(num+1);
+		       var arr=str.split("&");
+		       for(var i=0;i < arr.length;i++){ 
+		         num=arr[i].indexOf("="); 
+		          if(num>0){ 
+		          name=arr[i].substring(0,num);
+		          value=arr[i].substr(num+1);
+		          this[name]=value;
+		         } 
+		       } 
+		     } 
+		     var Request=new UrlSearch(); 
+		     var memcardno=Request.id;
+		     var activeid=Request.aid;
+		    
+		    //提交反馈信息
+		    function noTips(){  
+		    	remark=$('#textarea').val();
+		        $.ajax({  
+		            type:'post',      
+		            url:'feedback.do?memcardno='+memcardno+'&checkbox='+checkbox+'&checkbox1='+checkbox1+'&remark='+remark+'&activeid='+activeid,  
+		            dataType:'text',  
+		            success:function(data){
+		            	location.href="myTaskTest.html";
+		            }
+		        });
+		    }
+		    
+		 	//mui初始化
+			mui.init();
+			//jq代码
+			(function($){
+				mui('.reason').on('tap','.reason span',function(){
+					$(this).toggleClass('s_active');
+				});
+			})(jQuery);
+		</script>	
+	</body>
+</html>

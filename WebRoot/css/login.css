@@ -1,0 +1,212 @@
+body,div,img,input,span,p,ul,li{
+	margin: 0;
+	padding: 0;
+}
+.clearfix::after,
+.clearfix::before {
+	content: "";
+	line-height: 0;
+	height: 0;
+	display: block;
+	visibility: hidden;
+	clear: both;
+	}
+	*{
+		box-sizing: border-box;
+	}
+	input{
+		background-color:transparent; 
+		border-color:transparent;
+		-webkit-appearance: none;
+		border: none;
+		outline: none;
+	}
+	a{
+		text-decoration: none;
+	}
+	li{
+		list-style: none;
+	}
+/*修改mui的样式*/
+body{
+	background: #fff !important;
+	height: 100%;
+}
+.my_login_form{
+	margin-top: 1.333333rem !important;
+	font-size: 16px !important;
+	color: #333 !important;
+}
+.log_content{
+	z-index: 5;
+}
+/*登录样式*/
+.img_head{
+	height: 2.133333rem;
+	width: 100%;
+	margin-top: 2.133333rem;
+}
+.head_con{
+	height: 2.133333rem;
+	width: 2.133333rem;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+.head_con img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.login_form{
+	margin-top: 1.333333rem;
+	font-size: 16px;
+	color: #333;
+	padding: 0 0.533333rem;
+}
+.input_con{
+	position: relative;
+	width: 100%;
+	height: 1.333333rem;
+	border-bottom: 1px solid #E0E0E0;
+}
+label{
+	display: inline-block;
+	width: 25%;
+	float: left;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+}
+.input_con input{
+	display: inline-block;
+	width: 75%;
+	float: right;
+	height: 1.333333rem;
+	line-height: 1.333333rem;
+}
+.input_con span{
+	z-index: 2;
+	position: absolute;
+	width: 0.533333rem;
+	height: 0.533333rem;
+	top: 0.4rem;
+	right: 0.266666rem;
+	display: none;
+}
+.button_con{
+	margin-top: 0.8rem;
+	width: 100%;
+	height: 1.2rem;
+}
+.login_btn:active{
+	background: #7FFFD4 !important;
+}
+.button_con .login_btn{
+	display: block;
+	font-size: 16px;
+	border-radius: 0.133333rem;
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.16rem;
+	background: #18C5B2;
+	color: #fff;
+	text-align: center;
+}
+/*动画层*/
+.my_content{
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+/*底部*/
+.btm_Con{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	/*margin-top: 5.2rem;*/
+}
+.btm_Con .btm_expl{
+	width: 100%;
+	color: #C4C4C4;
+	font-size: 14px;
+	height: 0.533333rem;
+	line-height: 0.533333rem;
+	
+}
+.btm_expl p{
+	width: 100%;
+	height: 0.533333rem;
+	line-height: 0.533333rem;
+	text-align: center;
+}
+.btm_Con .animate_Con{
+	height: 1.333333rem;
+	background: #B5ECE7;
+}
+/*底部动画*/
+@keyframes move_wave {
+    0% {
+        transform: translateX(0) translateZ(0) scaleY(1)
+    }
+    50% {
+        transform: translateX(-25%) translateZ(0) scaleY(0.55)
+    }
+    100% {
+        transform: translateX(-50%) translateZ(0) scaleY(1)
+    }
+}
+.waveWrapper {
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    height: 1.333333rem;
+}
+.waveWrapperInner {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    height: 1.333333rem;
+    bottom: 0px;
+}
+.bgTop {
+    z-index: 15;
+    opacity: 0.5;
+}
+.bgMiddle {
+    z-index: 10;
+    opacity: 0.75;
+}
+.bgBottom {
+    z-index: 5;
+}
+.wave {
+    position: absolute;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat no-repeat;
+    background-position: 0 bottom;
+    transform-origin: center bottom;
+}
+.waveTop {
+    background-size: 50% 100px;
+}
+.waveAnimation .waveTop {
+  animation: move-wave 3s;
+   -webkit-animation: move-wave 3s;
+   -webkit-animation-delay: 1s;
+   animation-delay: 1s;
+}
+.waveMiddle {
+    background-size: 50% 120px;
+}
+.waveAnimation .waveMiddle {
+    animation: move_wave 10s linear infinite;
+}
+.waveBottom {
+    background-size: 50% 100px;
+}
+.waveAnimation .waveBottom {
+    animation: move_wave 15s linear infinite;
+}

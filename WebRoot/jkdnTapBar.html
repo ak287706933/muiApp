@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>健康档案tab</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jkdaTapBar.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<!-- <a class="mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">健康档案</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div class="topBar_con">
+					<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll" id="navLink">
+							<a class="mui-control-item my-control mui-active" href="#item1mobile" data-datetype="身高" data-collecttype="getheight">
+								身高<span class="getheight"></span><span class="height"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item2mobile" data-datetype="体重" data-collecttype="getweight">
+								体重<span class="getweight"></span><span class="weight"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item3mobile" data-datetype="血压" data-collecttype="getbloodpressure">
+								血压<span class="getbloodpressure"></span><span class="pressure"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item4mobile" data-tagname="bloodSugar" data-datetype="血糖" data-collecttype="getbloodsugar">
+								血糖<span class="getbloodsugar"></span><span class="bloodSugar"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item5mobile" data-datetype="体温" data-collecttype="gettemperature">
+								体温<span class="gettemperature"></span><span class="temp"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item6mobile" data-datetype="心率" data-collecttype="getheartrate">
+								心率<span class="getheartrate"></span><span class="heartRate"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item7mobile" data-datetype="血氧" data-collecttype="getoxygenall">
+								血氧<span class="getoxygenall"></span><span class="oxygen"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item8mobile" data-datetype="步数" data-collecttype="getstepcount">
+								步数<span class="getstepcount"></span><span class="step"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item9mobile" data-datetype="糖化血红蛋白" data-collecttype="getglycosylatedhemoglobin">
+								糖化血红蛋白<span class="getglycosylatedhemoglobin"></span><span class="tanghua"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item10mobile" data-datetype="总胆固醇" data-collecttype="gettotalcholesterol">
+								总胆固醇<span class="gettotalcholesterol"></span><span class="allDgc"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item11mobile" data-datetype="高密度脂蛋白" data-collecttype="gethighdensitylipoprotein">
+								高密度脂蛋白<span class="gethighdensitylipoprotein"></span><span class="highDensity"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item12mobile" data-datetype="低密度脂蛋白" data-collecttype="getlowdensitylipoprotein">
+								低密度脂蛋白<span class="getlowdensitylipoprotein"></span><span class="lowDensity"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item13mobile" data-datetype="甘油三脂" data-collecttype="gettriglyceride">
+								甘油三脂<span class="gettriglyceride"></span><span class="ganyou"></span>
+							</a>
+							<a class="mui-control-item my-control" href="#item14mobile" data-datetype="同型半胱氨酸" data-collecttype="gethomocysteinechloride">
+								同型半胱氨酸<span class="gethomocysteinechloride"></span><span class="tongxin"></span>
+							</a>
+						</div>
+					</div>
+					<!--花瓣图标-->
+					<div class="jkda_more"></div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">身高(cm)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="weight">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="weight">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="weight">年</a></li>
+									</ul>
+								</div>
+								<!--体重图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="weight"></div>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">体重(kg)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="pressure">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="pressure">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="pressure">年</a></li>
+									</ul>
+								</div>
+								<!--血压图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="pressure"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">血压(mm/Hg)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="bloodSugar">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="bloodSugar">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="bloodSugar">年</a></li>
+									</ul>
+								</div>
+								<!--血糖时段-->
+								<div class="time_piece">
+									<ul class="clearfix timeLable" id="ul_xt">
+										<!-- <li><a href="#" class="lableAct" data-valtime="befBre">早餐前</a></li>
+										<li><a href="#" data-valtime="aftBre">早餐后</a></li>
+										<li><a href="#" data-valtime="befLunch">午餐前</a></li>
+										<li><a href="#" data-valtime="aftLunch">午餐后</a></li>
+										<li><a href="#" data-valtime="befDin">晚餐前</a></li>
+										<li><a href="#" data-valtime="aftDin">晚餐后</a></li>
+										<li><a href="#" data-valtime="befSlp">睡觉前</a></li> -->
+										<li><a href="#" class="lableAct" data-valtime="bebreakfast">早餐前</a></li>
+										<li><a href="#" data-valtime="afbreakfast">早餐后</a></li>
+										<li><a href="#" data-valtime="belunch">午餐前</a></li>
+										<li><a href="#" data-valtime="aflunch">午餐后</a></li>
+										<li><a href="#" data-valtime="bedinner">晚餐前</a></li>
+										<li><a href="#" data-valtime="afdinner">晚餐后</a></li>
+										<li><a href="#" data-valtime="besleep">睡觉前</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="bloodSugar"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">血糖(mmol/L)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="javascript:;" class="date_active" data-datetype="day" data-canvasid="temp">日</a></li>
+										<li><a href="javascript:;" data-datetype="week" data-canvasid="temp">周</a></li>
+									</ul>
+								</div>
+								<!--体重图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="temp"></div>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">体温(°C)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item6mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="heartRate">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="heartRate">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="heartRate">年</a></li>
+									</ul>
+								</div>
+								<!--心率图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="heartRate"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">心率(bmp)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item7mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="oxygen">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="oxygen">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="oxygen">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="oxygen"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">血氧(%bmp)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item8mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="step">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="step">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="step">年</a></li>
+									</ul>
+								</div>
+								<!--体重图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="step"></div>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">步数(步)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item9mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="tanghua">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="tanghua">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="tanghua">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="tanghua"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">糖化血红蛋白(mmol/L)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item10mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="allDgc">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="allDgc">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="allDgc">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="allDgc"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">总胆固醇(mmol)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item11mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="highDensity">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="highDensity">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="highDensity">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="highDensity"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">高密度脂蛋白(mmol/L)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item12mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="lowDensity">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="lowDensity">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="lowDensity">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="lowDensity"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">低密度脂蛋白(mmol/L)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item13mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="ganyou">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="ganyou">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="ganyou">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="ganyou"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">甘油三酯(mmol/L)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item14mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="topCon clearfix">
+									<div class="test_num">
+										<h3></h3>
+										<p>最近于 <span></span> 测量</p>
+									</div>
+									<div class="add_btn"></div>
+								</div>
+								<!--周月年-->
+								<div class="selDataCon  clearfix">
+									<ul class="clearfix">
+										<li><a href="#" class="date_active" data-datetype="week" data-canvasid="tongxin">周</a></li>
+										<li><a href="#" data-datetype="month" data-canvasid="tongxin">月</a></li>
+										<li><a href="#" data-datetype="year" data-canvasid="tongxin">年</a></li>
+									</ul>
+								</div>
+								<!--折线图-->
+								<div class="weightCon">
+									<div class="weiCanvas" id="tongxin"></div>
+								</div>
+								<div class="avg_con">
+									<ul class="clearfix">
+										<li>
+											<span>周均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>月均值</span>
+											<p class="avg"></p>
+										</li>
+										<li>
+											<span>年均值</span>
+											<p class="avg"></p>
+										</li>
+									</ul>
+								</div>
+								<div class="his_rec">
+									<p>历史记录</p>
+								</div>
+								<div class="easy_listCon">
+									<div class="list_head">
+										<span class="cl_shijian">时间</span>
+										<span class="cl_shuju">同型半胱氯酸(mmol/L)</span>
+									</div>
+									<ul class="list_body">
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="more_pop_con">
+			<div class="more_tit"><p>全部项目</p><span class="cha"></span></div>
+			<div class="more_list">
+				<ul class="clearfix">
+					<li><a class="mui-control-item my-control more_active" href="#item1mobile" data-datetype="身高" data-collecttype="getheight">身高<span class="getheight"></span><span class="height"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item2mobile" data-datetype="体重" data-collecttype="getweight">体重<span class="getweight"></span><span class="weight"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item3mobile" data-datetype="血压"  data-collecttype="getbloodpressure">血压<span class="getbloodpressure"></span><span class="pressure"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item4mobile" data-datetype="血糖"  data-collecttype="getbloodsugar">血糖<span class="getbloodsugar"></span><span class="bloodSugar"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item5mobile" data-datetype="体温"  data-collecttype="gettemperature">体温<span class="gettemperature"></span><span class="temp"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item6mobile" data-datetype="心率"  data-collecttype="getheartrate">心率<span class="getheartrate"></span><span class="heartRate"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item7mobile" data-datetype="血氧"  data-collecttype="getoxygenall">血氧<span class="getoxygenall"></span><span class="oxygen"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item8mobile" data-datetype="步数" data-collecttype="getstepcount">步数<span class="getstepcount"></span><span class="step"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item9mobile" data-datetype="糖化血红蛋白" data-collecttype="getglycosylatedhemoglobin">糖化血红蛋白<span class="getglycosylatedhemoglobin"></span><span class="tanghua"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item10mobile" data-datetype="总胆固醇" data-collecttype="gettotalcholesterol">总胆固醇<span class="gettotalcholesterol"></span><span class="allDgc"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item11mobile" data-datetype="高密度脂蛋白" data-collecttype="gethighdensitylipoprotein">高密度脂蛋白<span class="gethighdensitylipoprotein"></span><span class="highDensity"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item12mobile" data-datetype="低密度脂蛋白" data-collecttype="getlowdensitylipoprotein">低密度脂蛋白<span class="getlowdensitylipoprotein"></span><span class="lowDensity"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item13mobile" data-datetype="甘油三酯" data-collecttype="gettriglyceride">甘油三酯<span class="gettriglyceride"></span><span class="ganyou"></span></a></li>
+					<li><a class="mui-control-item my-control" href="#item14mobile" data-datetype="同型半胱氨酸" data-collecttype="gethomocysteinechloride">同型半胱氨酸<span class="gethomocysteinechloride"></span><span class="tongxin"></span></a></li>
+				</ul>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/echarts.common.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/canvasInit.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

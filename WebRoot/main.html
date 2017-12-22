@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>主页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/home_main.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			/*初始化nav样式*/
+			.mui-bar-nav {
+			    top: 0;
+			    -webkit-box-shadow: 0 1px 6px #ccc;
+			    box-shadow: 0 0px 0px #fff;
+			    background: #fff !important;
+			}
+			.mui-icon-back:before, .mui-icon-left-nav:before {
+			    color: #666;
+			    content: '\e471';
+			}
+			.mui-bar-nav~.mui-content {
+			    padding-top: 50px;
+			}
+			.mui-navigate-right:after, .mui-push-right:after {
+			    right: 0px;
+			    content: '\e583';
+			}
+			/*主体样式*/
+			.mui-bar-tab .mui-tab-item.mui-active {
+			    color: #17C6B2;
+			}
+			.renwuLink{
+				position: absolute;
+				display: inline-block;
+				top: 0.333333rem;
+				left: 0;
+				width: 0.666666rem;
+				height: 0.666666rem;
+				background: url(img/renwu.png) no-repeat;
+				background-size: cover;
+			}
+			.gukeLink{
+				position: absolute;
+				display: inline-block;
+				top: 0.333333rem;
+				left: 0;
+				width: 0.666666rem;
+				height: 0.666666rem;
+				background: url(img/guke.png) no-repeat;
+				background-size: cover;
+			}
+			.shezhiLink{
+				position: absolute;
+				display: inline-block;
+				top: 0.333333rem;
+				left: 0;
+				width: 0.666666rem;
+				height: 0.666666rem;
+				background: url(img/shezhi.png) no-repeat;
+				background-size: cover;
+			}
+			.mui-content ul{
+				background: #fff;
+			}
+			.crm_ul{
+				background: #fff;
+			}
+			.crm_li{
+				width: 100%;
+				height: 1.333333rem;
+				border-bottom: 1px solid #ebebeb;
+				padding: 0 0.266666rem;
+				overflow: hidden;
+			}
+			.crm_li a{
+				display: block;
+				width: 100%;
+				height: 1.333333rem;
+				line-height: 1.333333rem;
+				position: relative;
+				text-indent: 1.066666rem;
+				color: #333333;
+			}
+			.crm_li p{
+				color: #333;
+				font-size: 12px;
+			}
+			.mui-icon {
+			    font-family: Muiicons;
+			    font-size:1.493333rem;
+			    font-weight: 400;
+			    font-style: normal;
+			    line-height: 1;
+			    display: inline-block;
+			    text-decoration: none;
+			    -webkit-font-smoothing: antialiased;
+			    color: #fafafa;
+			}
+			.self_con{
+				display: none;
+			}
+			.person_info{
+				margin-bottom: 0.266666rem;
+			}
+			.person_info li{
+				padding: 0 0.266666rem;
+			}
+			.personLink{
+				position: relative;
+				display: block;
+				height: 2.933333rem;
+				width: 100%;
+				color: #333333;
+				overflow: hidden;
+			}
+			.personLink img{
+				float: left;
+				width: 2.133333rem;
+				height: 2.133333rem;
+				display: block;
+				margin-top: 0.4rem;
+				margin-right: 0.4rem;
+				border-radius: 50%;
+				border: 1px solid #E2E2E2;
+			}
+			.p_infoCon{
+				float: left;
+				margin-top: 0.6rem;
+			}
+			.p_infoCon p{
+				margin-bottom:0;
+			}
+			.p_infoCon .p_name{
+				font-size: 16px;
+				height: 20px;
+				line-height: 20px;
+			}
+			.p_infoCon .p_comp{
+				font-size: 14px;
+				height: 20px;
+				line-height: 20px;
+				margin: 0.133333rem 0;
+			}
+			.signCon{
+				margin:0;
+				padding: 0;
+			}
+			.signCon span{
+				float: left;
+				height: 0.533333rem;
+				line-height: 0.533333rem;
+				padding: 0 0.186666rem;
+				border: 1px solid #E0E0E0;
+				margin-right: 0.133333rem;
+				color: #999;
+				border-radius: 0.053333rem;
+				background: #FAFAFA;
+			}
+			.signCon span:nth-last-child(1){
+				margin-right: 0;
+			}
+
+		</style>
+		<script>
+			$(function(){
+				var loading='<div class="loading"><div class="pic"></div></div>';
+				$("").append(loading);
+				setInterval(function(){
+					$(".loading").fadeOut();
+				},3000);
+			});
+		</script>
+	</head>
+	<body>
+			<header class="mui-bar mui-bar-nav">
+					<!-- <a href="login.html" class=" mui-icon mui-icon-left-nav mui-pull-left"></a> -->
+					<h1 id="title" class="mui-title">CRM中心</h1>
+			</header>
+			<div class="mui-content">
+				<div class="crm_con tabItem">
+					<ul class="crm_ul">
+						<li class="crm_li">
+							<a href="./myTaskTest.html" class="mui-navigate-right myTask"><span class="renwuLink"></span>我的任务  (<span class="renwuCou">0</span>)</a>
+						</li>
+						<li class="crm_li">
+							<a href="./myCustTest.html" class="mui-navigate-right myCust"><span class="gukeLink"></span>我的顾客  (<span class="gukeCou">0</span>)</a>
+						</li>
+					</ul>
+				</div>
+				<div class="self_con tabItem">
+					<ul class="person_info">
+						<li>
+							<a href="#" class="mui-navigate-right personLink clearfix">
+								<img id="headimg"/>
+								<div class="p_infoCon">
+									<p class="p_name">--</p>
+									<p class="p_comp">--店</p>
+									<div class="signCon clearfix">
+										<span class="span_qx">店长</span>
+										<!-- <span>店员</span>
+										<span>营业员</span> -->
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<ul>
+						<li class="crm_li" id="li_sz">
+							<a href="#" class="mui-navigate-right"><span class="shezhiLink"></span>设置  </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		<!--弹出-->
+		<div class="gray">
+			<div class="gray_top"></div>
+			<div class="gray_bottom">
+				<div class="func_menber">
+					<div class="menber_box" id="sx_box">
+						<div class="menber_img">
+							<img src="img/add_sousuo.png"/>
+						</div>
+						<div class="menber_text">搜索会员</div>
+					</div>
+					<!-- <div class="menber_box">
+						<div class="menber_img">
+							<img src="img/add_sousuo.png"/>
+						</div>
+						<div class="menber_text">搜索会员</div>
+					</div>
+					<div class="menber_box">
+						<div class="menber_img">
+							<img src="img/add_sousuo.png"/>
+						</div>
+						<div class="menber_text">搜索会员</div>
+					</div>
+					<div class="menber_box">
+						<div class="menber_img">
+							<img src="img/add_sousuo.png"/>
+						</div>
+						<div class="menber_text">搜索会员</div>
+					</div> -->
+				</div>
+				<div class="menber_close">
+					<span class="mui-icon mui-icon-closeempty" style="display: inline-block;"></span>
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" data-subpage="crm_con">
+				<span class="crms_icon mui-icon" style="top: 4px;width:35px;"></span>
+				<span class="mui-tab-label">crm中心</span>
+			</a>
+			<!--<a class="mui-tab-item" href="tab-webview-subpage-chat.html">
+				<span class="mes_icon mui-icon"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">消息</span>
+			</a>-->
+			<a class="mui-tab-item my_center">
+				<span class="add_func"></span>
+			</a>
+			<!--<a class="mui-tab-item" href="tab-webview-subpage-contact.html">
+				<span class="store_icon mui-icon"></span>
+				<span class="mui-tab-label">门店</span>
+			</a>-->
+			<a class="mui-tab-item"  data-subpage="self_con">
+				<span class="store_person mui-icon"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<script src="./js/mui.min.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			
+		 	//mui初始化
+			mui.init();
+			mui('body').on('tap',".my_center",function(){
+				$('.gray').show();
+			});
+			mui('.gray').on('tap',".menber_close",function(){
+				$('.gray').hide();
+			});
+			mui('body').on('tap',".myTask",function(){
+				window.location.href = './myTaskTest.html';
+			});
+			mui('body').on('tap',".myCust",function(){
+				window.location.href = './myCustTest.html';
+			});
+			//主页切换中间内容
+			mui(".mui-bar-tab").on("tap","a",function(){
+				if($(this).hasClass("my_center")){
+					return;
+				}
+				var subClass = "."+this.dataset.subpage;
+				$(".mui-content .tabItem").hide();
+				$(subClass).show();
+			});
+			
+			//任务数
+			mui.ajax('count.do',{
+			data:{
+			
+			},
+			dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				success:function(data){
+					//获得服务器响应
+					$(".renwuCou").empty();
+					$(".renwuCou").html(data);
+				},
+				error:function(data){
+					mui.toast('网络繁忙！');
+				}
+			
+			});
+			//客户数
+			mui.ajax('clientcount.do',{
+				data:{
+					//category:'news'
+				},
+				dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					success:function(data){
+						//获得服务器响应
+						$(".gukeCou").empty();
+						$(".gukeCou").html(data);
+					},
+					error:function(data){
+						mui.toast('网络繁忙！');
+					}
+			});
+			
+			var userid;
+			//获取用户信息
+			mui.ajax('getuser.do',{
+				data:{
+					//category:'news'
+				},
+				dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						var json = eval(data);
+						//获得服务器响应
+						$(".p_name").empty();
+						$(".p_name").html(json.USERNAME);
+						if(json.GENDER=='女'){
+							$("#headimg").attr('src','img/female.png'); 
+						}else if(json.GENDER=='男'){
+							$("#headimg").attr('src','img/male.png'); 
+						}else{
+							$("#headimg").attr('src','img/mr_tx.png'); 
+						}
+						userid=json.USERID;
+					},
+					error:function(data){
+						mui.toast('网络繁忙！');
+					}
+			});
+			//获取门店
+			mui.ajax('torgname.do',{
+				data:{
+					//category:'news'
+				},
+				dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+						if(data!=="no"){
+						var json = eval(data);
+						//获得服务器响应
+						$(".p_comp").empty();
+						$(".p_comp").html(json.ORGNAME);
+						userid=json.USERID;
+						}
+					},
+					error:function(data){
+						mui.toast('网络繁忙！');
+					}
+			});
+			//获取权限
+			mui.ajax('rolename.do',{
+				data:{
+					//category:'news'
+				},
+				dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					success:function(data){
+					  if(data!=="no"){
+					  var json = eval(data);
+						//获得服务器响应
+						$(".span_qx").empty();
+						$(".span_qx").html(json.ROLENAME);
+						userid=json.USERID;
+						}
+					},
+					error:function(data){
+						mui.toast('网络繁忙！');
+					}
+			});
+			//设置事件
+			mui("#li_sz").on("tap",".mui-navigate-right",function(){
+			location.href="main_option.html?userid="+userid;
+			});
+			//搜索事件
+			mui("body").on("tap","#sx_box",function(){
+			location.href="mbrSearch.html";
+			});
+			
+		</script>	
+	</body>
+
+</html>

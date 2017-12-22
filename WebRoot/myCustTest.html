@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的客户</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/my_curstomer.css"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的客户 ( <span class="myclient">0</span>)</h1>
+		</header>
+		<div class="mui-content">
+		<!-- <div id="slider" class="mui-slider mui-fullscreen"> -->
+			<div>
+			<!-- <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted"> -->
+				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll custTab" style="width: 100%;">
+						<a class="mui-control-item mui-active" href="#item1mobile" id="item1">
+							资料完整度
+							<!-- <span class="px_up px_normal"></span> -->
+						</a>
+						<a class="mui-control-item" href="#item2mobile" id="item2">
+							最后回访时间
+							<!-- <span class="px_normal"></span> -->
+						</a>
+						<a class="mui-control-item" href="#item3mobile" id="item3">
+							最后购买时间
+							<!-- <span class="px_normal"></span> -->
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="./js/mui.min.js"></script>
+		<script src="./js/mui.pullToRefresh.js"></script>
+		<script src="./js/mui.pullToRefresh.material.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			
+		    var st=new Array(1,0,0);//记录状态
+		    var z=0;//记录状态
+		    var row=6;//默认显示条
+		    var pagemun=0;//记录总页数
+			var PageSize=0;//任务数
+			var showSize=0;//每次加载数
+			var inrow=1;//当前记录数行数
+			var begin=0;//开始行数
+			var end=0;//结束行数
+			var PageSize0=0;//任务数
+			var showSize0=0;//每次加载数
+			var inrow0=1;//当前记录数行数
+			var begin0=0;//开始行数
+			var end0=0;//结束行数
+			var PageSize1=0;//任务数
+			var showSize1=0;//每次加载数
+			var inrow1=1;//当前记录数行数
+			var begin1=0;//开始行数
+			var end1=0;//结束行数
+			
+			//获取客户数
+			$.ajax({
+					url:"clientcount.do",
+					type:"get",
+					dataType:"json",
+					success:function(data){
+					PageSize=eval(data);
+					PageSize0=PageSize;
+					PageSize1=PageSize;
+					pagemun=eval(data);
+					$(".myclient").empty();
+					$(".myclient").html(data);
+					getPage();
+					getPage0();
+					getPage1();
+					//addDomlist();
+					//addClientTime();
+					//getBuyTime();
+					},
+					error:function(data){
+						//alert('失败' + data);
+					}
+				});
+			//输出分页
+			function getPage(){
+			        if(PageSize>=row){
+					showSize=row;
+					PageSize=PageSize-showSize;
+					begin=inrow;
+					end=inrow+showSize-1;
+					inrow=end+1;
+					addDomlist();
+					}else if(PageSize<row&&PageSize!=0){
+					showSize=PageSize;
+					PageSize=PageSize-showSize;
+					begin=inrow;
+					end=inrow+showSize-1;
+					inrow=end;
+					addDomlist();
+					}else{
+					mui.toast("没有更多数据了！");
+					showSize=0;
+					}
+			}
+			function getPage0(){
+			        if(PageSize0>=row){
+					showSize0=row;
+					PageSize0=PageSize0-showSize0;
+					begin0=inrow0;
+					end0=inrow0+showSize0-1;
+					inrow0=end0+1;
+					addClientTime();
+					}else if(PageSize0<row&&PageSize0!=0){
+					showSize0=PageSize0;
+					PageSize0=PageSize0-showSize0;
+					begin0=inrow0;
+					end0=inrow0+showSize0-1;
+					inrow0=end0;
+					addClientTime();
+					}else{
+					mui.toast("没有更多数据了！");
+					showSize0=0;
+					}
+			}
+			function getPage1(){
+			        if(PageSize1>=row){
+					showSize1=row;
+					PageSize1=PageSize1-showSize1;
+					begin1=inrow1;
+					end1=inrow1+showSize1-1;
+					inrow1=end1+1;
+					getBuyTime();
+					}else if(PageSize1<row&&PageSize1!=0){
+					showSize1=PageSize1;
+					PageSize1=PageSize1-showSize1;
+					begin1=inrow1;
+					end1=inrow1+showSize1-1;
+					inrow1=end1;
+					getBuyTime();
+					}else{
+					mui.toast("没有更多数据了！");
+					showSize1=0;
+					}
+			}
+			
+			
+			function addDomlist(){
+			$.ajax({
+				url:"clientlist.do?begin="+begin+"&end="+end,
+				type:"get",
+				dataType:"json",
+				success:function(data){
+			        var json = eval(data);
+			        var list=[];
+					$(json).each(function(i){
+					list[i]=json[i];
+					$(".mui-table-view:eq(0)").append(
+					'<li class="mui-table-view-cell cur_list">'+
+							'<div class="img_head"></div>'+
+							'<div class="cust-con">'+
+								'<div class="cust-name">'+
+									'<p class='+list[i].COMPID+'>'+list[i].CARDHOLDER+'</p>'+
+									'<span>('+list[i].SEX+'/'+list[i].AGE+'岁)</span>'+
+								'</div>'+
+							'</div>'+
+							'<div class="cust-per">'+
+								'<div class="per-text">资料完整度</div>'+
+								'<div class="per-numb">'+list[i].PERSENT+'%</div>'+
+							'</div>'+
+							'<div class="cust-vip">'+
+									'<div class="vip-icon"></div>'+
+									'<div class="vip-numb">'+list[i].MEMCARDNO+'</div>'+
+							'</div>'+
+						'</li>'
+					);
+					});
+				},
+				error:function(data){
+					//alert('失败' + data);
+				}
+				});
+			}
+			
+			//按回访日期
+			function addClientTime(){
+			$.ajax({
+				url:"clienttime.do?begin="+begin0+"&end="+end0,
+				type:"get",
+				dataType:"json",
+				success:function(data){
+			        var json = eval(data);
+			        var list=[];
+					$(json).each(function(i){
+					list[i]=json[i];
+					
+					if(list[i].AGE=="117"){
+						list[i].AGE=" ";
+					}
+					
+					$(".mui-table-view:eq(1)").append(
+					'<li class="mui-table-view-cell cur_list">'+
+							'<div class="img_head"></div>'+
+							'<div class="cust-con">'+
+								'<div class="cust-name">'+
+									'<p class='+list[i].COMPID+'>'+list[i].CARDHOLDER+'</p>'+
+									'<span>('+list[i].SEX+'/'+list[i].AGE+'岁)</span>'+
+								'</div>'+
+							'</div>'+
+							'<div class="cust-per">'+
+								'<div class="per-text">最后回访时间</div>'+
+								'<div class="per-numb">'+list[i].ACCEPT_DATE+'</div>'+
+							'</div>'+
+							'<div class="cust-vip">'+
+								'<div class="vip-icon"></div>'+
+								'<div class="vip-numb">'+list[i].MEMCARDNO+'</div>'+
+							'</div>'+
+						'</li>'
+					);
+					});
+				},
+				error:function(data){
+					//alert('失败' + data);
+				}
+				});
+			}
+			
+			//按最后购买日期
+			function getBuyTime(){
+			$.ajax({
+				url:"buytime.do?begin="+begin1+"&end="+end1,
+				type:"get",
+				dataType:"json",
+				success:function(data){
+				//$(".mui-table-view:eq(2)").empty(); 
+			        var json = eval(data);
+			        var list=[];
+					$(json).each(function(i){
+					list[i]=json[i];
+					if(list[i].AGE=="117"){
+						list[i].AGE=" ";
+					}
+					$(".mui-table-view:eq(2)").append(
+					'<li class="mui-table-view-cell cur_list">'+
+							'<div class="img_head"></div>'+
+							'<div class="cust-con">'+
+								'<div class="cust-name">'+
+									'<p class='+list[i].COMPID+'>'+list[i].CARDHOLDER+'</p>'+
+									'<span>('+list[i].SEX+'/'+list[i].AGE+'岁)</span>'+
+								'</div>'+
+							'</div>'+
+							'<div class="cust-per">'+
+								'<div class="per-text">最后购买时间</div>'+
+								'<div class="per-numb">'+list[i].LASTDATE+'</div>'+
+							'</div>'+
+							'<div class="cust-vip">'+
+								'<div class="vip-icon"></div>'+
+								'<div class="vip-numb">'+list[i].MEMCARDNO+'</div>'+
+							'</div>'+
+						'</li>'
+					);
+					});
+				},
+				error:function(data){
+					//alert('失败' + data);
+				}
+				});
+			}
+			
+			mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										//if(index==1){
+											ul.insertBefore(createFragment(ul, index, 0, true), ul.firstChild);
+										//}
+										self.endPullDownToRefresh();
+										 //mui.toast('down',{ duration:'long', type:'div' }); 
+									}, 1000);
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										if(z==0){
+										getPage();
+										//addDomlist();
+										}else if(z==1){
+										getPage0();
+										//addClientTime();
+										}else{
+										getPage1();
+										//getBuyTime();
+										}
+										var ul = self.element.querySelector('.mui-table-view');
+										//if(index==1){
+											ul.appendChild(createFragment(ul, index, 0));
+										//}
+										self.endPullUpToRefresh();
+										//mui.toast('up',{ duration:'long', type:'div' }); 
+									}, 1000);
+								}
+							}
+						});
+					});
+					 var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment();
+						var li;
+						for (var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.setAttribute("class", "mui-table-view-cell cur_list");
+							li.innerHTML = 
+							 		//'<li class="mui-table-view-cell cur_list">'+
+									 '<div class="img_head"></div>'+
+										'<div class="cust-con">'+
+											'<div class="cust-name">'+
+												'<p>'+name[i]+'</p>'+
+												'<span></span>'+
+											'</div>'+
+											'<div class="cust-vip">'+
+												'<div class="vip-icon"></div>'+
+												'<div class="vip-numb"></div>'+
+											'</div>'+
+										'</div>'+
+										'<div class="cust-per">'+
+											'<div class="per-text">资料完整度</div>'+
+											'<div class="per-numb">20%</div>'+
+										'</div>';
+										//+'</li>'; 
+							//fragment.appendChild(li);
+						} 
+						return fragment;
+					}; 
+				});
+			})(mui);
+			mui('.custTab').on('tap','.custTab a',function(){
+				d=this.id;
+				if(d=="item1"&&st[0]!==1){
+				z=0;
+				st[0]=1;
+				st[1]=0;
+				st[2]=0;
+				}else if(d=="item2"&&st[1]!==1){
+				z=1;
+				st[0]=0;
+				st[1]=1;
+				st[2]=0;
+				}else if(d=="item3"&&st[2]!==1){
+				z=2;
+				st[0]=0;
+				st[1]=0;
+				st[2]=1;
+				};
+		});
+		//自定义事件进入子页面
+		mui('#item1mobile').on('tap','li',function(){
+		var memcardno=$(this).find('.vip-numb').html();
+		var compid=$(this).find('.cust-name').find('p').attr('class');
+		//location.href="custDetail.html?memcardno="+memcardno+"&compid="+compid;
+		location.href="member-relationship.html?memcardno="+memcardno+"&compid="+compid;
+		});
+		mui('#item2mobile').on('tap','li',function(){
+		var memcardno=$(this).find('.vip-numb').html();
+		var compid=$(this).find('.cust-name').find('p').attr('class');
+		//location.href="custDetail.html?memcardno="+memcardno+"&compid="+compid;
+		location.href="member-relationship.html?memcardno="+memcardno+"&compid="+compid;
+		});
+		mui('#item3mobile').on('tap','li',function(){
+		var memcardno=$(this).find('.vip-numb').html();
+		var compid=$(this).find('.cust-name').find('p').attr('class');
+		//location.href="custDetail.html?memcardno="+memcardno+"&compid="+compid;
+		location.href="member-relationship.html?memcardno="+memcardno+"&compid="+compid;
+		});
+		
+		//升序逻辑
+		function selectUp(){
+			
+		}
+		//降序逻辑
+		function selectDown(){
+			
+		}
+		</script>
+	</body>
+
+</html>

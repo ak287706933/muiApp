@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="telephone=no" name="format-detection">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="js/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="js/layer_mobile/layer.js" ></script>
+	<script type="text/javascript" src="js/datePicker.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	<link rel="stylesheet" href="css/mui.min.css">
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.layui-m-layercont{padding:0}
+	</style>
+	<title>新增成员</title>
+	<body>
+		<div class="alert">
+			<div class="alert_content">
+				<!--所患疾病-->
+				<div class="alert_illness_category" id="show1">
+				
+				</div>
+				<!--所患疾病 end-->
+				<!--治疗状态-->
+				<div class="alert_illness_statue">
+					<div class="section_title">治疗状态</div>
+					<div class="condition_box">
+						<ul class="condition_list">
+							<li val="co0">治疗中</li>
+							<li val="co1">已痊愈</li>
+							<li val="co2">未治疗</li>
+						</ul>
+						<button class="save">保存</buttom>
+					</div>
+				</div>
+				<!--治疗状态 end-->
+				<!--基本病症-->
+				<div class="alert_illness_basic" id="show2">
+					
+				</div>
+				<!--基本病症 end-->
+				<!--并发症-->
+				<div class="alert_illness_link" id="show3">
+					
+				</div>
+				<!--并发症-->
+				<div class="alert_notice">
+					<div class="section_title">选择提醒</div>
+					<div class="notice_tips">
+						请选择病种!
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--alert-->
+		<!--header-->
+		<div class="page_common_fixed">
+			<header class="header_fixed">
+				<a href="javascript:history.back(-1)" class="return_pre"></a>
+				<div class="header_title">基本信息</div>
+				<a class="add_record add_finish" id="add_save">&nbsp;</a>
+			</header>
+		</div>
+		<div class="header_fixed_div"></div>
+		<!--header end-->
+		<!--content-->
+		<div class="content medicine_record_content">
+			<div class="member_details_list">
+				<div class="add_member_first">
+					<section class="member_detail_info">
+						<div class="info_section">
+						  <div class="list_group">
+								<div class="container">
+									<span class="must_input">*</span>
+									<div class="left">家庭身份</div>
+									<div class="right family_identity result_must"  id="FAMILY">未选择</div>
+									<input type="hidden" id="cardHolderHid"/>
+									<input type="hidden" id="sexHid"/>
+									<input type="hidden" id="ageHid"/>
+									<input type="hidden" id="birthdayHid"/>
+									<input type="hidden" id="idcardHid"/>
+									<input type="hidden" id="mobileHid"/>
+									<input type="hidden" id="medicalHid"/>
+									<input type="hidden" id="filenoHid"/>
+									<input type="hidden" id="emecontactHid"/>
+									<input type="hidden" id="modbusnoHid"/>
+									<input type="hidden" id="memcardnoHid"/>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<span class="must_input">*</span>
+									<div class="left">档案类型</div>
+									<div class="right archives_sort result_must" id="FILETYPE">未选择</div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<div class="left">会员卡号</div>
+									<div class="right info_input"><input style="border: none;text-align: right;" readonly="readonly" id="MEMCARDNO"/></div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<span class="must_input">*</span>
+									<div class="left">姓名</div>
+									<div class="right info_input"><input style="border: none;text-align: right;"  id="CARDHOLDER" /></div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<span class="must_input">*</span>
+									<div class="left">性别</div>
+									<div class="right user_sex result_must" id="SEX">未选择</div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<span class="must_input">*</span>
+									<div class="left">年龄</div>
+									<div class="right info_input" ><input type="number" class="form_control" id="AGE"/><span class="unit">岁</span><div class="input_result"></div></div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<span class="must_input">*</span>
+									<div class="left">出生日期</div>
+									<!--<div class="right" class="birth_time" id="BIRTHDAY"></div>  -->
+									<input type="button" style="border: none" value="请选择" data-options='{}' id="datePicker"/>
+									<script type="text/javascript">
+									//记录日期选择
+									(function($) {
+										$.init();
+										var pickBtn = document.querySelector("#datePicker");
+										pickBtn.addEventListener("tap",function(){
+											var optionsJson = this.getAttribute('data-options') || '{}';
+											var options = JSON.parse(optionsJson);
+											var picker = new mui.DtPicker({
+											　　　　"type":"date"
+											　　　});
+											picker.show(function(rs) {
+												pickBtn.value = rs.text;
+												picker.dispose();
+											});
+										},false);
+									})(mui);
+									
+									</script>
+									
+									
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<div class="left">身份证号</div>
+									<div class="right info_input"><input type="number"  id="IDCARD"  style="border: none;text-align: right;" /></div>
+								</div>
+							</div>
+							<div class="info_section">
+							<div class="list_group">
+								<div class="container">
+									<div class="left">手机号码</div>
+									<div class="right info_input"><input id="MOBILE" type="tel" style="border: none;text-align: right;"/></div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<div class="left">家庭住址</div>
+									<div class="right info_input"><input id="CARDADDRESS" type="text" style="border: none;text-align: right;"/></div>
+								</div>
+							</div>
+						</div>
+							
+						</div>
+						<div class="info_section">
+							<div class="list_group">
+								<div class="container">
+									<div class="left">制卡机构</div>
+									<div class="right" ><input type="number"  id="MODBUSNO"  style="border: none;text-align: right;" /></div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<div class="left">医保信息</div>
+									<div class="right safeguard_info" id="MEDICAL">未选择</div>
+								</div>
+							</div>
+							
+							<div class="list_group">
+								<div class="container">
+									<div class="left">档案号</div>
+									<div class="right" id="filenotag"></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="info_section">
+							<div class="list_group">
+								<div class="container">
+									<div class="left">紧急联系人</div>
+									<div class="right info_input"><input  id="EMECONTACT" type="text"  style="border: none;text-align: right;"/></div>
+								</div>
+							</div>
+							<div class="list_group">
+								<div class="container">
+									<div class="left">联系号码</div>
+									<div class="right info_input"><input id="TEL" type="tel"  style="border: none;text-align: right;"/></div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<div class="fixed_btn">
+						<button class="next_btn" id="basic_next">下一步</button>
+					</div>
+				</div>
+				<div class="add_member_second">
+					<div class="health_info">
+						<section class="member_details_list">
+							<div class="member_details_header">
+								<div class="container">体测类</div>
+							</div>
+							<div class="info_list_show">
+								<div class="info_section">
+									<div class="list_group">
+										<div class="container">
+											<div class="left">身高</div>
+											<div class="right info_input"><input id="HEIGHT"  type="number" style="border: none"/><span class="unit">CM</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">体重</div>
+											<div class="right info_input"><input id="WEIGHT"  type="number" style="border: none"/><span class="unit">KG</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">体温</div>
+											<div class="right info_input"><input id="TEMPERATURE"  type="number" style="border: none"/><span class="unit">℃</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">步数</div>
+											<div class="right info_input"><input id="STEPS"  type="number"  style="border: none"/><span class="unit">步</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">血氧</div>
+											<div class="right info_input"><input id="OXYGEN"  type="number"  style="border: none"/><span class="unit">%bmp</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<section class="member_details_list">
+							<div class="member_details_header">
+								<div class="container">血液类</div>
+							</div>
+							<div class="info_list_show">
+								<div class="info_section">
+									<div class="list_group">
+										<div class="container">
+											<div class="left">收缩压</div>
+											<div class="right info_input"><input id="SYSTOLIC"  type="number" style="border: none"/><span class="unit">mm/Hg</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">舒张压</div>
+											<div class="right info_input"><input  id="DIASTOLIC" type="number"  style="border: none"/><span class="unit">mm/Hg</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">心率</div>
+											<div class="right info_input"><input id="HEARTRATE"  type="number"  style="border: none"/><span class="unit">bmp</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<section class="member_details_list">
+							<div class="member_details_header">
+								<div class="container">血糖类</div>
+							</div>
+							<div class="info_list_show">
+								<div class="info_section">
+									<div class="list_group">
+										<div class="container">
+											<div class="left">初诊血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR8"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">早餐前血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR1"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">早餐后血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR2"  type="number" style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">午餐前血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR3"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">午餐后血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR4"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">晚餐前血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR5"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">晚餐后血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR6"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">睡觉前血糖</div>
+											<div class="right info_input"><input id="BLOODSUGAR9"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">随机值</div>
+											<div class="right info_input"><input id="BLOODSUGAR7"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<section class="member_details_list">
+							<div class="member_details_header">
+								<div class="container">血脂类</div>
+							</div>
+							<div class="info_list_show">
+								<div class="info_section">
+									<div class="list_group">
+										<div class="container">
+											<div class="left">糖化血红蛋白</div>
+											<div class="right info_input"><input id="GLYCOSYLATED"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">总胆固醇</div>
+											<div class="right info_input"><input id="CHOLESTEROL"  type="number"  style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">甘油三酯</div>
+											<div class="right info_input"><input id="TRIGLYCERIDE"  type="number" style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">高密度脂蛋白</div>
+											<div class="right info_input"><input id="HIGHLIPOPROTEIN"  type="number" style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">低密度脂蛋白</div>
+											<div class="right info_input"><input id="LOWLIPOPROTEIN"  type="number" style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+									<div class="list_group">
+										<div class="container">
+											<div class="left">同型半胱氨酸</div>
+											<div class="right info_input"><input id="HOMOCYSTEINE"  type="number" style="border: none"/><span class="unit">mmol/L</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+					<div class="fixed_btn">
+						<div class="btn_set">
+							<button  class="next_btn" onclick="tabShow('sty','add_member_first')">上一步</button>
+							<button  class="next_btn save_btn" onclick="tabShow('sty','add_member_third')">下一步</button>
+						</div>
+					</div>
+				</div>	
+				<div class="add_member_third">
+					<!--增加病史-->
+				<section class="illness_list add_info_list">
+					<header>病史</header>
+					<div class="list_show">
+						<div class="list_show_form">
+							<div class="info_list illness_name">
+								<div class="info_list_main">
+									<div class="left">所患疾病</div>
+									<div class="right" id="illness_name"><input id="diseasename" type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_category">
+								<div class="info_list_main">
+									<div class="left">疾病类型</div>
+									<div class="right" id="illness_category"><input id="diseasetype"  type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_time">
+								<div class="info_list_main">
+									<div class="left">诊断时间</div>
+									<div class="right">
+									
+									<!-- <input type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/> -->
+									<input type="button" style="border: none" value="请选择" data-options='{}' id="datePicker1"/>
+									</div>
+									<script type="text/javascript">
+									//记录日期选择
+									(function($) {
+										$.init();
+										var pickBtn = document.querySelector("#datePicker1");
+										pickBtn.addEventListener("tap",function(){
+											var optionsJson = this.getAttribute('data-options') || '{}';
+											var options = JSON.parse(optionsJson);
+											var picker = new mui.DtPicker({
+											　　　　"type":"date"
+											　　　});
+											picker.show(function(rs) {
+												pickBtn.value = rs.text;
+												picker.dispose();
+											});
+										},false);
+									})(mui);
+									
+									</script> 
+									
+								</div>
+							</div>
+							<div class="info_list illness_statue">
+								<div class="info_list_main">
+									<div class="left">治疗状态</div>
+									<div class="right" id="illness_statue"><input  id="tstate"  type="text"  placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_basic">
+								<div class="info_list_main">
+									<div class="left">基本症状</div>
+									<div class="right" id="illness_basic"><input  id="basicsymptom"  type="text" placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="info_list illness_link" >
+								<div class="info_list_main">
+									<div class="left">并发症</div>
+									<div class="right" id="illness_link"><input id="concurrent" type="text"  placeholder="请选择" class="form_control normal_gray" disabled="disabled"/></div>
+								</div>
+							</div>
+							<div class="ill_reason">
+								<div class="info_list_main">
+									<div class="left">病因</div>
+									<div class="right">
+										<div class="ill_reason_box">
+											<div class="microphone_input">
+												<i class="icon_microphone"></i>
+												<p>语音输入</p>
+											</div>
+											<div class="input_reason">
+												<textarea class="reason_box" id="pathogeny"  placeholder="请输入" class="normal_gray"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--增加病史 end-->
+					<div class="fixed_btn">
+						<div class="btn_set">
+							<button  class="next_btn" onclick="pageShow('sty','add_member_second','健康信息')">上一步</button>
+							<button  class="next_btn save_btn" onclick="pageShow('sty','add_member_fourth','用药记录')">下一步</button>
+						</div>
+					</div>
+				</div>
+				<div class="add_member_fourth" >
+				<!--增加用药记录 section-->
+				<section class="illness_list add_medicine_record" id="drugTag">
+				<div class="list_show_form">
+					<div class="info_list">
+						<div class="info_list_main">
+							<span class="must_input">*</span>
+							<a onclick="clickSearch()">
+								<div class="left">商品编码</div>
+								<div class="right"><input type="text"  id="warecode" style="border: none" readonly="readonly"/></div>
+							</a>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<span class="must_input">*</span>
+							<div class="left">药品名称</div>
+							<div class="right"><input type="text"  style="border: none"  id="warename" readonly="readonly"/></div>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<span class="must_input">*</span>
+							<div class="left">生产企业</div>
+							<div class="right"><input type="text"  style="border: none" id="factoryname" readonly="readonly"/></div>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<span class="must_input">*</span>
+							<div class="left">药物规格</div>
+							<div class="right"><input type="text"  style="border: none"  id="warespec" readonly="readonly"/></div>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<div class="left">用法用量</div>
+							<div class="right"><input type="text"  style="border: none" id="usage" /></div>
+						</div>
+					</div>
+				</div>
+			</section>
+					<!--增加病史  section end-->
+					<!--增加用药记录 section-->
+				<section class="illness_list add_medicine_record" >
+				<div class="list_show_form">
+					<div class="info_list">
+						<div class="info_list_main">
+							<div class="left">可用天数</div>
+							<div class="right"><input type="text" style="border: none" id="availabledays" /><span>天</span></div>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<div class="left">使用状态</div>
+							<div class="right" id="using_statue"><input type="text"  style="border: none"  id="stilluse"  readonly="readonly"/></div>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<div class="left">开始时间</div>
+							<div class="right" id="start_time">
+								<input type="button" style="border: none" value="请选择" data-options='{}' id="datePicker2"/>
+							</div>
+						</div>
+					</div>
+					<div class="info_list">
+						<div class="info_list_main">
+							<div class="left">结束时间</div>
+							<div class="right" id="end_time">
+								<input type="button" style="border: none" value="请选择" data-options='{}' id="datePicker3"/>
+							</div>
+						</div>
+					</div>
+					 <script type="text/javascript">
+									//记录日期选择
+									(function($) {
+										$.init();
+										var pickBtn = document.querySelector("#datePicker2");
+										pickBtn.addEventListener("tap",function(){
+											var optionsJson = this.getAttribute('data-options') || '{}';
+											var options = JSON.parse(optionsJson);
+											var picker = new mui.DtPicker({
+											　　　　"type":"date"
+											　　　});
+											picker.show(function(rs) {
+												pickBtn.value = rs.text;
+												picker.dispose();
+											});
+										},false);
+										
+										var pickBtn1 = document.querySelector("#datePicker3");
+										pickBtn1.addEventListener("tap",function(){
+											var optionsJson = this.getAttribute('data-options') || '{}';
+											var options = JSON.parse(optionsJson);
+											var picker = new mui.DtPicker({
+											　　　　"type":"date"
+											　　　});
+											picker.show(function(rs) {
+												pickBtn1.value = rs.text;
+												picker.dispose();
+											});
+										},false);
+										
+									})(mui);
+									
+					 </script>
+					
+				</div>
+			</section>
+					<!--增加病史  section end-->
+					<!--增加用药记录 section-->
+					<section class="illness_list add_medicine_remark" >
+						<div class="list_show_form">
+							<div class="medicine_remark">
+								<div class="remark_title">备注</div>
+								<div class="microphone_input_box">
+									<div class="microphone_label_section">
+										<div class="microphone_input">
+											<i class="icon_microphone"></i>
+											<p>语音输入</p>
+										</div>
+									</div>
+									<div class="input_textarea">
+										<textarea class="reason_box" id="notes"  placeholder="请输入" class="normal_gray"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!--增加病史  section end-->
+					<div class="fixed_btn">
+						<div class="btn_set">
+							<button  class="next_btn" onclick="pageShow('sty','add_member_third','患病信息')">上一步</button>
+							<button  class="next_btn save_btn" onclick="saveMembers()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed_btn_kong"></div>
+		<!--content end-->
+		<div class="microphone_section ">
+			<!--开始说话前-->
+			<div class="before_speak" >
+				<div class="before_speak_box" >
+					<p>按住说话</p>
+					<a href="javascript:void(0)" class="iconfont hide_microphone"></a>
+					<a href="javascript:void(0)" class="iconfont deal_microphone"></a>
+				</div>
+			</div>
+			<!--开始说话前 end-->
+			<!--说话中-->
+			<div class="speaking" style="display: none;">
+				<div class="speaking_box">
+					<p>请说话</p>
+					<div class="deal_shadow" >
+						<a href="javascript:void(0)" class="iconfont deal_microphone"></a>
+					</div>
+				</div>
+			</div>
+			<!--说话中 end-->
+			<!--说话完成后，待确认-->
+			<div class="ensure_speak" style="display: none;">
+				<div class="ensure_box">
+					<div class="speaking_result">这里是语音转换成文字后的区域</div>
+					<a href="javascript:void(0)" class="word_deal result_cancle">取消</a>
+					<a href="javascript:void(0)" class="iconfont deal_microphone"></a>
+					<a href="javascript：void(0)" class="word_deal result_ensure">确定</a>
+				</div>
+				
+			</div>
+			<!--说话完成后，待确认 end-->
+		</div>
+		<div class="microphone_section_kong"></div>
+	</body>
+	<script type="text/javascript">
+	var memcardno;//会员卡号
+	var compid;//企业编码
+	var entityname;
+	var fileno;
+	var wareid;
+	var warecode;
+	var warename;
+	var warespec;
+	var notes;
+	var factoryname;
+	var HEIGHT;
+	 var WEIGHT;
+	   var TEMPERATURE;
+	   var STEPS;
+	   var OXYGEN;
+	   var SYSTOLIC;
+	   var DIASTOLIC;
+	   var HEARTRATE;	
+	   var BLOODSUGAR1;
+	   var BLOODSUGAR2;
+	   var BLOODSUGAR3;
+	   var BLOODSUGAR4;
+	   var BLOODSUGAR5;
+	   var BLOODSUGAR6;
+	   var BLOODSUGAR7;
+	   var BLOODSUGAR8;
+	   var GLYCOSYLATED;
+	   var CHOLESTEROL;	
+	   var TRIGLYCERIDE;
+	   var HIGHLIPOPROTEIN;
+	   var LOWLIPOPROTEIN;
+	   var HOMOCYSTEINE;
+	   var diseasename;
+	   var diseasetype;
+	   var treatmentstat;
+	   var symptom;
+	   var concurrent;
+	   var pathogeny;
+	
+	//接收页面传过来的会员号
+    function UrlSearch(){
+       var name,value; 
+       var str=location.href;
+       var num=str.indexOf("?");
+       str=str.substr(num+1);
+       var arr=str.split("&");
+       for(var i=0;i < arr.length;i++){ 
+         num=arr[i].indexOf("="); 
+          if(num>0){ 
+          name=arr[i].substring(0,num);
+          value=arr[i].substr(num+1);
+          this[name]=value;
+         } 
+       } 
+     } 
+	
+    var LocString=String(window.document.location.href);
+    function GetQueryString(str){
+    var rs=new RegExp("(^|)"+str+"=([^&]*)(&|$)","gi").exec(LocString),tmp;
+    if(tmp=rs)return tmp[2];
+    return " ";
+    }
+	
+    var Request=new UrlSearch(); 
+    memcardno=Request.memcardno;
+    compid=Request.compid;
+    fileno=Request.fileno;
+    HEIGHT=Request.HEIGHT;
+    WEIGHT=Request.WEIGHT;
+	TEMPERATURE=Request.TEMPERATURE;
+	STEPS=Request.STEPS;
+	OXYGEN=Request.OXYGEN;
+	SYSTOLIC=Request.SYSTOLIC;
+	DIASTOLIC=Request.DIASTOLIC;
+	HEARTRATE=Request.HEARTRATE;	
+	BLOODSUGAR1=Request.BLOODSUGAR1;
+	BLOODSUGAR2=Request.BLOODSUGAR2;
+	BLOODSUGAR3=Request.BLOODSUGAR3;
+	BLOODSUGAR4=Request.BLOODSUGAR4;
+	BLOODSUGAR5=Request.BLOODSUGAR5;
+	BLOODSUGAR6=Request.BLOODSUGAR6;
+	BLOODSUGAR7=Request.BLOODSUGAR7;
+	BLOODSUGAR8=Request.BLOODSUGAR8;
+	GLYCOSYLATED=Request.GLYCOSYLATED;
+	CHOLESTEROL=Request.CHOLESTEROL;	
+	TRIGLYCERIDE=Request.TRIGLYCERIDE;
+	HIGHLIPOPROTEIN=Request.HIGHLIPOPROTEIN;
+	LOWLIPOPROTEIN=Request.LOWLIPOPROTEIN;
+	HOMOCYSTEINE=Request.HOMOCYSTEINE;
+	diseasename=Request.diseasename;
+	diseasetype=Request.diseasetype;
+	treatmentstate=Request.treatmentstate;
+	symptom=Request.symptom;
+	concurrent=Request.concurrent;
+	pathogeny=Request.pathogeny;
+    
+    wareid=decodeURI(GetQueryString("wareid"));
+    warecode=decodeURI(GetQueryString("warecode"));
+    warename=decodeURI(GetQueryString("warename"));
+    warespec=decodeURI(GetQueryString("warespec"));
+    notes=decodeURI(GetQueryString("notes"));
+    factoryname=decodeURI(GetQueryString("factoryname"));
+    $("#warecode").val(warecode);
+	$("#warename").val(warename);
+	//$('#usage').val(notes);
+	$('#warespec').val(warespec);
+	$('#factoryname').val(factoryname);
+	$("#HEIGHT").val(HEIGHT);
+	$('#WEIGHT').val(WEIGHT);
+	$('#TEMPERATURE').val(TEMPERATURE);
+	$('#STEPS').val(STEPS);
+	$("#OXYGEN").val(OXYGEN);
+	$("#SYSTOLIC").val(SYSTOLIC);
+	$("#DIASTOLIC").val(DIASTOLIC);
+	$("#HEARTRATE").val(HEARTRATE);	
+	$("#BLOODSUGAR1").val(BLOODSUGAR1);
+	$("#BLOODSUGAR2").val(BLOODSUGAR2);
+	$("#BLOODSUGAR3").val(BLOODSUGAR3);
+	$('#BLOODSUGAR4').val(BLOODSUGAR4);
+	$('#BLOODSUGAR5').val(BLOODSUGAR5);
+	$('#BLOODSUGAR6').val(BLOODSUGAR6);
+	$("#BLOODSUGAR7").val(BLOODSUGAR7);
+	$("#BLOODSUGAR8").val(BLOODSUGAR8);
+	$("#GLYCOSYLATED").val(GLYCOSYLATED);
+	$("#CHOLESTEROL").val(CHOLESTEROL);	
+	$("#TRIGLYCERIDE").val(TRIGLYCERIDE);
+	$("#HIGHLIPOPROTEIN").val(HIGHLIPOPROTEIN);
+	$("#LOWLIPOPROTEIN").val(LOWLIPOPROTEIN);
+	$('#HOMOCYSTEINE').val(HOMOCYSTEINE);
+	
+	//if(decodeURI(GetQueryString("diseasename"))==null||decodeURI(GetQueryString("diseasename"))=="请选择"||decodeURI(GetQueryString("diseasename"))==""){
+	//	$("#diseasename").val("请选择");
+	//}else{
+	//	$("#diseasename").val(decodeURI(GetQueryString("diseasename")));
+	//}
+	//if(decodeURI(GetQueryString("diseasetype"))==null||decodeURI(GetQueryString("diseasetype"))=="请选择"||decodeURI(GetQueryString("diseasetype"))==""){
+	//	$("#diseasetype").val("请选择");
+	//}else{
+	//	$("#diseasetype").val(decodeURI(GetQueryString("diseasetype")));
+	//}
+	
+	$('.alert_illness_statue ul.condition_list li.on').html(treatmentstate);
+	$('.alert_illness_basic ul.symptoms_list li.on').html(symptom);
+	$('.alert_illness_link ul.complications_list li.on').html(concurrent);
+	$("#pathogeny").val(pathogeny);
+	
+	$(function(){
+		
+		var clickId = '';
+		if( clickId == 'drugTag' ){
+			alert(1);
+			pageShow('drugTag','add_member_fourth','用药记录');
+			return;
+		}
+		
+		//语音输入
+		$('.microphone_input').click(function(){
+			$(".microphone_section").toggleClass('animate')
+		});
+		$('a.hide_microphone').click(function(){
+			$(".microphone_section").removeClass('animate');
+		})
+		
+		//下一步
+		$("#basic_next").click(function(){
+			var flag = false ;
+			var dataFlag = false;
+			var q = 0 ;
+			var l = $('.result_must').length;
+			var data = $("#datePicker").val();
+			$('.result_must').each(function(){
+				var val = $(this).html();
+				if( val ==  '未选择' ){
+					q = q;
+					;
+				}else{
+					q = q+1;
+				}
+			})
+			if( q < l ){
+				flag = false;
+			}else{
+				flag = true
+			}
+			
+			if( data =="前选择" ){
+				dataFlag = false;
+			}else{
+				dataFlag = true;
+			}
+			if( flag && dataFlag ) {
+				pageShow('sty','add_member_second' ,'健康信息');
+			}else{
+				layer.open({
+				    content: '*为必填项！'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				  });
+			}
+//			
+		})
+		
+		//病种选择
+		$('.illness_name').click(function(){
+			$("#show1").empty();
+			$.ajax({
+				url:"getEntity.do?compid="+compid,
+				type:"get",
+				dataType:"json",
+				success:function(data){
+					     var json = eval(data);
+				  		 var list=[];
+				  	     $("#show1").append('<div class="section_title">病种选择</div>'+
+						'<div class="list_box disease_box">'+
+						'<div class="father_list_box">'+
+						'<form>'+
+						'<ul class="father_list" id="father_list1">'+
+						'</ul>'+
+						'</form>'+
+						'</div>'+
+						'<div>'+
+						'<ul class="child_list" id="child_list1">'+
+						'<li >糖尿病I型</li>'+
+						'<li >糖尿病II型</li>'+
+						'<li >妊娠糖尿病</li>'+
+						'<li >继发性糖尿病</li>'+
+						'</ul>'+
+					'</div>'+
+					'<button class="next_step_btn" onclick="next1()">下一步</button>'+
+					'</div>'
+	    			);
+ 					 $(json).each(function(i){
+        				list[i]=json[i];
+        				$("#father_list1").append('<li onclick="clickEntity()" id="'+list[i].ENTITYNAME+'">'+list[i].ENTITYNAME+'</li>');
+        				if(list[i].ENTITYNAME=='糖尿病'){
+        					//alert(this);
+        					$('#'+list[i].ENTITYNAME).addClass('on').siblings().removeClass('on')
+        				}
+ 					 });
+ 					$('ul.child_list li,ul.father_list li').click(function(){
+						$(this).addClass('on').siblings().removeClass('on')
+					});
+ 					alertShow('alert_illness_category');
+					position();
+					//子病种选择()
+					
+					
+					//病种选择的下一步
+					$('.alert_illness_category .next_step_btn').click(function(){
+						var child_list = $('.alert_illness_category ul.child_list li.on').html();
+						var father_list = $('.alert_illness_category ul.father_list li.on').html();
+						if( ( father_list != undefined ) && (child_list != undefined )  ){
+							$("#illness_name").children('input').val( father_list );
+							$("#illness_category").children('input').val( child_list );
+							alertShow('alert_illness_basic');
+						}
+					});
+					
+				  }
+				});
+			
+			});
+		
+		//病症选择
+		$(".illness_category").click(function(){
+			var ill_name = $("#illness_name").children('input').val();
+			if( ill_name == "" ){
+				alertShow('alert_notice');
+				position();
+				setInterval(function(){
+					close()
+				},1500)
+			}else{
+				alertShow('alert_illness_category');
+				position();
+			}
+		})
+		
+		//治疗状态的选择
+		$('.illness_statue').click(function(){
+			var ill_name = $("#illness_name").children('input').val();
+			if( ill_name == "" ){
+				alertShow('alert_notice');
+				position();
+				setInterval(function(){
+					close()
+				},1500);
+			}else{
+				alertShow('alert_illness_statue')
+				position();
+			}
+		})
+		
+		//选择治疗状态
+		$('.alert_illness_statue ul.condition_list li').click(function(){
+			$(this).addClass('on').siblings().removeClass('on')
+		})
+		
+		$('.alert_illness_statue button.save').click(function(){
+			var state = $('.alert_illness_statue ul.condition_list li.on').html();
+			if( state != undefined ){
+				$('#illness_statue').html( state )
+				 close();
+			}
+		})
+		
+		
+		//修改信息
+		var temp = '';
+		$('.info_input').click(function(){
+			$(this).children('input.form_control').show().focus().siblings('.input_result').hide();
+			temp = $(this).children('.input_result').html();
+		});
+		$('input.form_control').blur(function(){
+			var $this = $(this);
+			var result = $this.val();
+			if(  ( result == '' ) && ( temp == '' )  ) {
+				result = '未填写';
+			}else if( ( result == '' ) && ( temp != '' ) ){
+				result = temp;
+			}
+			$(this).hide().siblings('.input_result').html( result ).show()
+		});
+		//性别选择
+		$('.user_sex').click(function(){
+			layer.open({
+				content : `
+						  <div class="select_section left_options">
+						  		<ul class="select_options">
+						  			<li val="0">男</li>
+						  			<li val="1">女</li>
+						  		</ul>
+						  </div>
+				        `
+			});
+			select( 'user_sex' ) ;
+		})
+		//家庭身份选择
+		$('.family_identity').click(function(){
+			layer.open({
+				content : `
+						  <div class="select_section left_options">
+						  		<ul class="select_options">
+						  			<li val="0">本人</li>
+						  			<li val="1">配偶</li>
+						  			<li val="2">父亲</li>
+						  			<li val="3">母亲</li>
+						  		</ul>
+						  </div>
+				        `
+			});
+			select( 'family_identity' ) ;
+			
+		});
+		
+		//医保信息
+		$('.safeguard_info').click(function(){
+			layer.open({
+				content : `
+						  <div class="select_section left_options">
+						  		<ul class="select_options">
+						  			<li val="0">市医保</li>
+						  			<li val="1">省医保</li>
+						  			<li val="2">无医保</li>
+						  		</ul>
+						  </div>
+				          `
+			});
+			select( 'safeguard_info' ) ;  
+		});
+		
+		//使用状体选择
+		$('#using_statue').click(function(){
+			layer.open({
+				shadeClose: true,
+				'content':`<div class="status_options_box left_options select_section">
+						   		<ul class="status_options_list select_options">
+						   			<li val="0">使用中</li>
+						   			<li val="1">已停用</li>
+						   		</ul>
+						   </div>`
+			});
+			$('ul.status_options_list li').click(function(){
+				var $this = $(this);
+				var val = $this.html() ;
+				var statue = $this.attr('val');
+				$('#using_statue').children('input').val( val ).attr('statue', statue );
+				$this.addClass('on');
+				setTimeout(function(){layer.closeAll()},800)	
+			})
+		})
+		
+		//档案类型选择
+		$('.archives_sort').click(function(){
+			layer.open({
+				content : `
+						  <div class="select_section left_options">
+						  		<ul class="select_options">
+						  			<li val="0">普通</li>
+						  			<li val="1">慢病</li>
+						  		</ul>
+						  </div>
+				          `
+			});
+			select( 'archives_sort' ) ;
+		});
+		
+		function select(target){
+			$('ul.select_options li').click(function(){
+				var $this = $(this);
+				var html = $this.html();
+				var val = $this.attr('val');
+				$this.addClass('on');
+				$('.'+target ).html( html ).attr('val' ,val);
+				if("family_identity"==target){
+					changeMemberInfo(html);
+				}
+				setTimeout(function(){layer.closeAll()},800)	
+				
+			})
+		}
+	})
+		
+		//多选保存选项
+		function selectMore(name){
+			var options = [];
+			if( options[0] != undefined ){}
+				$('ul.'+name+'_list li.on').each(function(){
+					options.push( $(this).html() );
+				})
+				var $UL ='';
+				if( options[0] != undefined ){
+					var $LI = '';
+					for( var i = 0 ; i < options.length ; i++ ){
+						$LI += '<li>'+options[i]+'</li>';
+					}
+					$UL = '<ul class="illness_label">'+$LI+'</ul>';
+				}
+			return $UL ;
+		}
+		
+		
+		  function clickEntity(){
+				var obj_lis = document.getElementById("father_list1").getElementsByTagName("li");
+			    for(i=0;i<obj_lis.length;i++){
+			    	 obj_lis[i].onclick = function(){
+			             entityname=this.innerHTML;
+			             $.ajax({
+			 				url:"getEntityType.do?entityname="+entityname+"&compid="+compid,
+			 				type:"get",
+			 				dataType:"json",
+			 				success:function(data){
+			 					 $('#child_list1 li').each(function(){     
+			 				        $(this).remove();  
+			 				     }); 
+			 					 var json = eval(data);
+		   				  		 var list=[];
+		     					 $(json).each(function(i){
+			        				list[i]=json[i];
+			        				//alert(list[i].TYPENAME); 
+			        				$("#child_list1").append('<li>'+list[i].TYPENAME+'</li>');
+		     					 });
+		     					$('ul.child_list li,ul.father_list li').click(function(){
+									$(this).addClass('on').siblings().removeClass('on')
+								});
+			 				}
+			 		   });  
+			         }
+			    }
+		   }
+		   
+		   function next1(){
+			   $("#show2").empty();
+			   if(entityname==undefined){
+	            	 entityname='糖尿病'; 
+	             }
+			   $.ajax({
+					url:"getEntitySymptom.do?entityname="+entityname+"&compid="+compid,
+					type:"get",
+					dataType:"json",
+					success:function(data){
+						$('#symptoms_list1 li').each(function(){     
+	 				        $(this).remove();  
+	 				     }); 
+						 var json = eval(data);
+					     var list=[];
+					    
+					     $("#show2").append('<div class="section_title">基本病症选择</div>'+
+							'<div class="list_box symptoms_box">'+
+								'<ul class="symptoms_list" id="symptoms_list1">'+
+								'</ul>'+
+								'<div class="btn_set">'+
+									'<button class="pre_step_btn">上一步</buttom>'+
+									'<button class="next_step_btn" onclick="next2()">下一步</buttom>'+
+								'</div>'+
+							'</div>');
+						 $(json).each(function(i){
+	       				  list[i]=json[i];
+	       				  $("#symptoms_list1").append('<li>'+list[i].SYMPTOM+'</li>');
+						 });
+						
+				//基本病症选择
+				$('.illness_basic').click(function(){
+					var ill_name = $("#illness_name").children('input').val();
+						if( ill_name == "" ){
+							alertShow('alert_notice');
+							position();
+							setInterval(function(){
+							 close()
+							},1500);
+						}else{
+							alertShow('alert_illness_basic');
+							position();
+					}
+				})
+						 
+				//基本病症选择
+				//上一步
+				$('.alert_illness_basic button.pre_step_btn').click(function(){
+						alertShow('alert_illness_category');
+						position();
+				});
+				//下一步
+				$('.alert_illness_basic button.next_step_btn').click(function(){
+						var result = selectMore( 'symptoms' );
+						$('#illness_basic').html( result );
+						alertShow('alert_illness_link')
+						position();
+				});
+				//病症选择()
+				$('ul.symptoms_list li').click(function(){
+						$(this).toggleClass('on')
+				});
+			    }
+			   });  
+		  	 }
+		   
+		   function next2(){
+			   $("#show3").empty();
+			   if(entityname==undefined){
+	            	 entityname='糖尿病'; 
+	             }
+			   $.ajax({
+					url:"getEntitySyndrome.do?entityname="+entityname+"&compid="+compid,
+					type:"get",
+					dataType:"json",
+					success:function(data){
+						$('#complications_list1 li').each(function(){     
+	 				        $(this).remove();  
+	 				     });
+						 var json = eval(data);
+					     var list=[];
+					    
+					     $("#show3").append('<div class="section_title">并发症选择</div>'+
+					 			'<div class="complications">'+
+								'<ul class="complications_list" id="complications_list1">'+
+								'</ul>'+
+								'<div class="btn_set">'+
+									'<button class="pre_step_btn" style="background: #ccc;">上一步</button>'+
+									'<button class="save_btn">保存</button>'+
+								'</div>'+
+							'</div>');
+						 $(json).each(function(i){
+	      					  list[i]=json[i];
+	      					  $("#complications_list1").append('<li>'+list[i].SYNDROME+'</li>');
+						 });
+						 position()
+						//并发症选择
+						$('.illness_link').click(function(){
+							var ill_name = $("#illness_name").children('input').val();
+							if( ill_name == "" ){
+								alertShow('alert_notice');
+								position();
+								setInterval(function(){
+									close()
+								},1500)
+							}else{
+								alertShow('alert_illness_link')
+								position();
+							}
+						});
+						
+						//并发症选择
+						//上一步
+						$('.alert_illness_link button.pre_step_btn').click(function(){
+							alertShow('alert_illness_basic');
+							position();
+						});
+						//并发症选择
+						$("ul.complications_list li").click(function(){
+							$(this).toggleClass('on')
+						});
+						
+						//保存按钮
+						$('.alert_illness_link .btn_set .save_btn').click(function(){
+							var complications = [];
+							$('ul.complications_list li.on').each(function(){
+								complications.push( $(this).html() );
+							})
+							var $UL ='';
+							if( complications[0] != undefined ){
+								var $LI = '';
+								for( var i = 0 ; i < complications.length ; i++ ){
+									$LI += '<li>'+complications[i]+'</li>';
+								}
+								$UL = '<ul class="illness_label">'+$LI+'</ul>';
+							}else{
+								$UL = '无';
+							}
+							$("#illness_link").html($UL);
+							close();
+						})
+					}
+		   		  });  
+		   		}
+		
+	function saveMembers(){
+			   //var MEMCARDNO=$("#MEMCARDNO").val();
+			   var CARDHOLDER=$("#CARDHOLDER").val();
+			   var SEX=$("#SEX").html();
+			   var IDCARD=$('#IDCARD').val();
+			   var FAMILY=$('#FAMILY').html();
+			   var MODBUSNO=$('#MODBUSNO').html();
+			   var MEDICAL=$("#MEDICAL").html();
+			   var FILETYPE=$("#FILETYPE").html();
+			   var BILLNO=$("#BILLNO").html();
+			   var MOBILE=$("#MOBILE").val();	
+			   var EMECONTACT=$("#EMECONTACT").val();
+			   var TEL=$("#TEL").val();
+			   var HEIGHT=$("#HEIGHT").val();
+			   var WEIGHT=$('#WEIGHT').val();
+			   var TEMPERATURE=$('#TEMPERATURE').val();
+			   var STEPS=$('#STEPS').val();
+			   var OXYGEN=$("#OXYGEN").val();
+			   var SYSTOLIC=$("#SYSTOLIC").val();
+			   var DIASTOLIC=$("#DIASTOLIC").val();
+			   var HEARTRATE=$("#HEARTRATE").val();	
+			   var BLOODSUGAR1=$("#BLOODSUGAR1").val();
+			   var BLOODSUGAR2=$("#BLOODSUGAR2").val();
+			   var BLOODSUGAR3=$("#BLOODSUGAR3").val();
+			   var BLOODSUGAR4=$('#BLOODSUGAR4').val();
+			   var BLOODSUGAR5=$('#BLOODSUGAR5').val();
+			   var BLOODSUGAR6=$('#BLOODSUGAR6').val();
+			   var BLOODSUGAR7=$("#BLOODSUGAR7").val();
+			   var BLOODSUGAR8=$("#BLOODSUGAR8").val();
+			   var GLYCOSYLATED=$("#GLYCOSYLATED").val();
+			   var CHOLESTEROL=$("#CHOLESTEROL").val();	
+			   var TRIGLYCERIDE=$("#TRIGLYCERIDE").val();
+			   var HIGHLIPOPROTEIN=$("#HIGHLIPOPROTEIN").val();
+			   var LOWLIPOPROTEIN=$("#LOWLIPOPROTEIN").val();
+			   var HOMOCYSTEINE=$('#HOMOCYSTEINE').val();
+			   
+			   
+			   var diseasename=$("#diseasename").val();
+			   var diseasetype=$("#diseasetype").val();
+			  // var shootingtime=$("input[type=button]").val();
+			   var treatmentstate=$('.alert_illness_statue ul.condition_list li.on').html();
+			   var symptom=$('.alert_illness_basic ul.symptoms_list li.on').html();
+			   var concurrent=$('.alert_illness_link ul.complications_list li.on').html();
+			   var pathogeny=$("#pathogeny").val();
+
+			   var warecode=$("#warecode").val();
+			   var warename=$("#warename").val();
+			   var factoryname=$("#factoryname").val();
+			   var usage=$('#usage').val();
+			   var warespec=$('#warespec').val();
+			   var availabledays=$('#availabledays').val();
+			   var stilluse=$("#stilluse").val();
+			   var startTime=$("#datePicker2").val();
+			   var endTime=$("#datePicker3").val();
+			   var notes=$("#notes").val();
+			   
+			   $.ajax({
+					url:"addMembers.do?memcardno="+memcardno+"&compid="+compid+"&diseasename="+diseasename+"&diseasetype="+diseasetype+"&treatmentstate="+treatmentstate+"&symptom="+symptom+"&concurrent="+concurrent+"&pathogeny="+pathogeny+"&warecode="+warecode+"&warename="+warename+"&factoryname="+factoryname+"&usage="+usage+"&warespec="+warespec+"&availabledays="+availabledays+"&stilluse="+stilluse+"&startTime="+startTime+"&endTime="+endTime+"&notes="+notes+"&wareid="+wareid+"&CARDHOLDER="+CARDHOLDER+"&SEX="+SEX+"&IDCARD="+IDCARD+"&FAMILY="+FAMILY+"&MODBUSNO="+MODBUSNO+"&MEDICAL="+MEDICAL+"&FILETYPE="+FILETYPE+"&MOBILE="+MOBILE+"&EMECONTACT="+EMECONTACT+"&TEL="+TEL+"&HEIGHT="+HEIGHT+"&WEIGHT="+WEIGHT+"&TEMPERATURE="+TEMPERATURE+"&STEPS="+STEPS+"&OXYGEN="+OXYGEN+"&SYSTOLIC="+SYSTOLIC+"&DIASTOLIC="+DIASTOLIC+"&HEARTRATE="+HEARTRATE+"&BLOODSUGAR1="+BLOODSUGAR1+"&BLOODSUGAR2="+BLOODSUGAR2+"&BLOODSUGAR3="+BLOODSUGAR3+"&BLOODSUGAR4="+BLOODSUGAR4+"&BLOODSUGAR5="+BLOODSUGAR5+"&BLOODSUGAR6="+BLOODSUGAR6+"&BLOODSUGAR7="+BLOODSUGAR7+"&BLOODSUGAR8="+BLOODSUGAR8+"&GLYCOSYLATED="+GLYCOSYLATED+"&CHOLESTEROL="+CHOLESTEROL+"&TRIGLYCERIDE="+TRIGLYCERIDE+"&HIGHLIPOPROTEIN="+HIGHLIPOPROTEIN+"&LOWLIPOPROTEIN="+LOWLIPOPROTEIN+"&HOMOCYSTEINE="+HOMOCYSTEINE,
+					type:"get",
+					dataType:"json",
+					success:function(data){
+						location.href="member-relationship.html?memcardno="+memcardno+"&compid="+compid;
+					}
+		       });
+			   
+			   
+	}
+	
+	 function clickSearch(){
+		   var HEIGHT=$("#HEIGHT").val();
+		   var WEIGHT=$('#WEIGHT').val();
+		   var TEMPERATURE=$('#TEMPERATURE').val();
+		   var STEPS=$('#STEPS').val();
+		   var OXYGEN=$("#OXYGEN").val();
+		   var SYSTOLIC=$("#SYSTOLIC").val();
+		   var DIASTOLIC=$("#DIASTOLIC").val();
+		   var HEARTRATE=$("#HEARTRATE").val();	
+		   var BLOODSUGAR1=$("#BLOODSUGAR1").val();
+		   var BLOODSUGAR2=$("#BLOODSUGAR2").val();
+		   var BLOODSUGAR3=$("#BLOODSUGAR3").val();
+		   var BLOODSUGAR4=$('#BLOODSUGAR4').val();
+		   var BLOODSUGAR5=$('#BLOODSUGAR5').val();
+		   var BLOODSUGAR6=$('#BLOODSUGAR6').val();
+		   var BLOODSUGAR7=$("#BLOODSUGAR7").val();
+		   var BLOODSUGAR8=$("#BLOODSUGAR8").val();
+		   var GLYCOSYLATED=$("#GLYCOSYLATED").val();
+		   var CHOLESTEROL=$("#CHOLESTEROL").val();	
+		   var TRIGLYCERIDE=$("#TRIGLYCERIDE").val();
+		   var HIGHLIPOPROTEIN=$("#HIGHLIPOPROTEIN").val();
+		   var LOWLIPOPROTEIN=$("#LOWLIPOPROTEIN").val();
+		   var HOMOCYSTEINE=$('#HOMOCYSTEINE').val();
+		   var diseasename=$("#diseasename").val();
+		   var diseasetype=$("#diseasetype").val();
+		   var treatmentstate=$('.alert_illness_statue ul.condition_list li.on').html();
+		   var symptom=$('.alert_illness_basic ul.symptoms_list li.on').html();
+		   var concurrent=$('.alert_illness_link ul.complications_list li.on').html();
+		   var pathogeny=$("#pathogeny").val();
+		   
+    	   location.href="medicine-searching-members.html?memcardno="+memcardno+"&compid="+compid+"&fileno="+fileno+"&HEIGHT="+HEIGHT
+    	   +"&WEIGHT="+WEIGHT+"&TEMPERATURE="+TEMPERATURE+"&STEPS="+STEPS+"&OXYGEN="+OXYGEN+"&SYSTOLIC="+SYSTOLIC
+    	   +"&DIASTOLIC="+DIASTOLIC+"&HEARTRATE="+HEARTRATE+"&BLOODSUGAR1="+BLOODSUGAR1+"&BLOODSUGAR2="+BLOODSUGAR2
+    	   +"&BLOODSUGAR3="+BLOODSUGAR3+"&BLOODSUGAR4="+BLOODSUGAR4+"&BLOODSUGAR5="+BLOODSUGAR5+"&BLOODSUGAR6="+BLOODSUGAR6
+    	   +"&BLOODSUGAR7="+BLOODSUGAR7+"&BLOODSUGAR8="+BLOODSUGAR8+"&GLYCOSYLATED="+GLYCOSYLATED+"&CHOLESTEROL="+CHOLESTEROL
+    	   +"&TRIGLYCERIDE="+TRIGLYCERIDE+"&HIGHLIPOPROTEIN="+HIGHLIPOPROTEIN+"&LOWLIPOPROTEIN="+LOWLIPOPROTEIN+"&HOMOCYSTEINE="+HOMOCYSTEINE
+    	   +"&diseasename="+diseasename+"&diseasetype="+diseasetype+"&treatmentstate="+treatmentstate+"&symptom="+symptom
+    	   +"&concurrent="+concurrent+"&pathogeny="+pathogeny;
+	 }
+	 
+	 
+	//获取家庭健康档案信息(本人)
+		$.ajax({
+				//url:"getHealthModilis.do?memcardno="+memcardno+"&compid="+compid+"&fileno="+fileno+"&type="+encodeURI('本人'),
+				url:"accountinfo.do?memcardno="+memcardno+"&compid="+compid,
+				type:"get",
+				dataType:"json",
+				success:function(data){
+					if(data!=null){
+				      	var json = eval(data);
+				        var idcard;
+				 		if(json.IDCARD==null){
+				 			idcard='';
+				 		}else{
+				 		var cid=json.IDCARD;
+				 		idcard=cid.replace(/(\d{6})\d{8}(\d{4})/, '$1*******$2');
+				 		}
+				 		
+				 		var fileTypeTag;
+				  		if(json.FILETYPE==1){
+				  			fileTypeTag='慢病';
+				  		}else{
+				  			fileTypeTag='普通';
+				  		}
+				  		var mcal;
+				  		if(json.MEDICAL=="01"){
+				  			mcal="省医保";
+				  		}else if(json.MEDICAL=="02"){
+				  			mcal="市医保";
+				  		}else if(json.MEDICAL=="03"){
+				  			mcal="新农合";
+				  		}else{
+				  			mcal="无医保";
+				  		}
+				 		
+				         //基本信息
+				 		$("#MEMCARDNO").val(json.MEMCARDNO);
+				 		$("#CARDHOLDER").val(json.CARDHOLDER);
+				 		$("#SEX").html(json.SEX);
+				 		//$("#AGE").html(json.AGE+"岁");
+				 		//$("#BIRTHDAY").html(json.BIRTHDAY);
+				 		$("#IDCARD").val(idcard);//
+				 		$("#MOBILE").val(json.MOBILE);
+				 		$("#ADDRESS").val(json.CARDADDRESS);
+				 		$("#TEL").val(json.TEL);
+				 		$("#FAMILY").html("本人");
+				 		$("#MEDICAL").html(mcal);
+				 		$("#FILETYPE").html("慢病");
+				 		$("#filenotag").html(fileno);
+				 		$("#EMECONTACT").val(json.EMECONTACT);
+				 		$("#MODBUSNO").val(json.MODBUSNO);
+				 		
+				 		$("#memcardnoHid").val(json.MEMCARDNO);
+				 		$("#cardHolderHid").val(json.CARDHOLDER);
+				 		$("#sexHid").val(json.SEX);
+				 		$("#birthdayHid").val(json.BIRTHDAY);
+				 		$("#idcardHid").val(idcard);//
+				 		$("#mobileHid").val(json.MOBILE);
+				 		$("#medicalHid").val(mcal);
+				 		$("#filenoHid").val(fileno);
+				 		$("#emecontactHid").val(json.EMECONTACT);
+				 		$("#modbusnoHid").val(json.MODBUSNO);
+				 		
+					}
+
+		      	  
+				},
+				error:function(data){
+
+				}
+			 });
+	 
+	//变更会员初始化信息
+	function changeMemberInfo(html){
+		$("#FAMILY").html(html);
+		if(html != "本人"){
+			//$("#MEMCARDNO").val("");
+	 		$("#CARDHOLDER").val("");
+	 		$("#SEX").html("");
+	 		//$("#AGE").html(json.AGE+"岁");
+	 		$("#BIRTHDAY").html("");
+	 		$("#IDCARD").val("");//
+	 		$("#MOBILE").val("");
+	 		$("#ADDRESS").val("");
+	 		$("#TEL").val("");
+	 		$("#MEDICAL").html("");
+	 		$("#FILETYPE").html("");
+	 		$("#filenotag").html("");
+	 		$("#EMECONTACT").val("");
+	 		$("#MODBUSNO").val("");
+		}else{
+			$("#MEMCARDNO").val($("#memcardnoHid").val());
+	 		$("#CARDHOLDER").val($("#cardHolderHid").val());
+	 		$("#SEX").html($("#sexHid").val());
+	 		$("#BIRTHDAY").html($("#birthdayHid").val());
+	 		$("#IDCARD").val($("#idcardHid").val());//
+	 		$("#MOBILE").val($("#mobileHid").val());
+	 		$("#MEDICAL").html($("#medicalHid").val());
+	 		$("#FILETYPE").html("慢病");
+	 		$("#filenotag").html($("#filenoHid").val());
+	 		$("#EMECONTACT").val($("#emecontactHid").val());
+	 		$("#MODBUSNO").val($("#modbusnoHid").val());
+		}
+	}
+	</script>
+</html>
